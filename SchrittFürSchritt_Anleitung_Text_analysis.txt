@@ -1,0 +1,24 @@
+eigentlich sollte man die Dateien in text_analysis in eclipse includieren können und alles sollte laufen
+für den Fall, dass nicht...
+
+Schritt für Schritt Ánleitung für MAVEN Projekt mit eingebautem languagetool
+
+New Project
+Project...
+Maven Project
+Create a simple project
+
+Group ID: Semester04
+Artifact ID: Text_Analysis
+Name und Beschreibung beliebig
+
+öffne pom.xml (with MAVEN POM Editor)
+öffne registerkarte: DEPENDENCIES
+ADD dependency (search for languagetool -> language-all)
+Manage (selectiere language-all -> ok)
+
+erstelle neues Package in SRC/MAIN/JAVA (namens Project)
+darin neue Klasse erstellen (Test.java mit public static void funktion)
+code einfügen
+
+Ausführen sollte jetzt möglich sein ;)

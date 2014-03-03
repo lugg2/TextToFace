@@ -1,0 +1,23 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>Semester04</groupId>
+  <artifactId>Text_Analysis</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <name>Text_Analysis</name>
+  <description>Analyses an entered text</description>
+  <dependencies>
+  	<dependency>
+  		<groupId>org.languagetool</groupId>
+  		<artifactId>language-all</artifactId>
+  	</dependency>
+  </dependencies>
+  <dependencyManagement>
+  	<dependencies>
+  		<dependency>
+  			<groupId>org.languagetool</groupId>
+  			<artifactId>language-all</artifactId>
+  			<version>2.4</version>
+  		</dependency>
+  	</dependencies>
+  </dependencyManagement>
+</project>
