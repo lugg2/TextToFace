@@ -5,7 +5,6 @@
 
 int main(int argc, char* argv[])
 {
-std::cout << "The name used to start the program: " << argv[ 1 ];
 
 std::string pathname = argv[1];
 pathname += ".png";
@@ -22,5 +21,7 @@ image.copy(image1, 10, 10);
 // Save the image to a file
 if (!image.saveToFile(pathname))
     return -1;
+
+std::cout << "<p><img src=\"http://localhost:8888/show?imgName=" << pathname <<"\" alt=\"Bild\"></p>";
 
 }
