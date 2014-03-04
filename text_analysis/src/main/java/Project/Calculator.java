@@ -11,22 +11,24 @@ public class Calculator {
 	
 	public void doCalculations(String enteredText){
 		
+		//access to all rules over langTool
 		JLanguageTool langTool = null;
 		try {
 			langTool = new JLanguageTool(new German());
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-	
+		
+		//activation of all default pattern rules
 		try {
 			langTool.activateDefaultPatternRules();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	
+		//check the entered text	
 		List<RuleMatch> matches = null;
-	
-	
+		int numb_errors = 0;
 		try {
 			matches = langTool.check(enteredText);
 		} catch (IOException e) {
@@ -34,16 +36,19 @@ public class Calculator {
 		}
 	
 		for (RuleMatch match : matches) {
-			System.out.println("Potential error at line " +
+			/*System.out.println("Potential error at line " +
 					match.getLine() + ", column " +
 					match.getColumn() + ": " + match.getMessage());
 			System.out.println("Suggested correction: " +
-					match.getSuggestedReplacements());
+					match.getSuggestedReplacements());*/
+			numb_errors++;
 		}
-				
+		
+		//count all sentences
 		int numb_sentences = langTool.getSentenceCount();
-		System.out.print("SÄTZE: " + numb_sentences);
-
+		
+		//stored information
+		System.out.println("sentences:" + numb_sentences);
+		System.out.println("errors:" + numb_errors);
 	}
-
 }

@@ -5,14 +5,11 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 public class Read {
-	
 	public String readData(String name) {
 		
-		Scanner scanner = null;
-		
-		File file = new File(name);
-		
 		String ausgabe="";
+		Scanner scanner = null;
+		File file = new File(name);
 		
 		try{
 			scanner = new Scanner(file);
@@ -23,7 +20,5 @@ public class Read {
 			ausgabe=ausgabe+scanner.nextLine();
 		}
 		return ausgabe;
-        
 	}
-
 }
