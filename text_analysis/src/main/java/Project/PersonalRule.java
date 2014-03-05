@@ -33,14 +33,14 @@ public class PersonalRule {
 	}
 	
 	private boolean matches(String token)
-	  {
-		  boolean matches = false; 
-		  Pattern p = Pattern.compile(pattern);
-		  Matcher m = p.matcher(token);
-		  if (m.find())
-		  {
-			  matches = true;
-		  }
-		  return matches;
-	  }
+	{
+		boolean matches = false; 
+		Pattern p = Pattern.compile(pattern);
+		Matcher m = p.matcher(token);
+		if (m.find())
+		{
+			matches = true;
+		}
+		return matches;
+	}
 }
