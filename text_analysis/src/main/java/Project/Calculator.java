@@ -65,57 +65,57 @@ public class Calculator {
 			e.printStackTrace();
 		}
 	
-		System.out.println("---- grammar errors: ----");
+		//System.out.println("---- grammar errors: ----");
 		for (RuleMatch match : matches) {
-			System.out.println("Potential error at line " +
+		/*	System.out.println("Potential error at line " +
 				      match.getLine() + ", column " +
 				      match.getColumn() + ": " + match.getMessage());
 				  System.out.println("Suggested correction: " +
-				      match.getSuggestedReplacements());
+				      match.getSuggestedReplacements());*/
 			numb_errors++;
 		}
 		
 		//count unknown words
 		int numb_unknown = 0;
 		List<String> liste = langTool.getUnknownWords();
-		System.out.println("---- unkown words: ----");
+		//System.out.println("---- unkown words: ----");
 		for(int i=0; i<liste.size(); i++)
 		{
 			numb_unknown++;
-			System.out.println(liste.get(i));
+			//System.out.println(liste.get(i));
 		}
 		
 		//average length of sentences
 		int average_length_sentence = 0;
-		System.out.println("---- all sentences: ----");
+		//System.out.println("---- all sentences: ----");
 			
 		//list of all sentences
 		List<String> sentences = langTool.sentenceTokenize(enteredText);
 				
 		for(int i=0; i<sentences.size(); i++)
 		{
-			System.out.print("Satz: " + i + " " + sentences.get(i));
-			System.out.println("  Länge " + sentences.get(i).length());
+			//System.out.print("Satz: " + i + " " + sentences.get(i));
+			//System.out.println("  Länge " + sentences.get(i).length());
 			average_length_sentence += sentences.get(i).length()-1;
 		}
 		
 		average_length_sentence /= sentences.size();
-		System.out.println("Average length: " + average_length_sentence);
+		//System.out.println("Average length: " + average_length_sentence);
 
 		//number of all sentences
 		//int numb_sentences = langTool.getSentenceCount();
 		int numb_sentences = 0;
 		numb_sentences = sentences.size();
-		System.out.println("number of sentences: " + numb_sentences);
+		//System.out.println("number of sentences: " + numb_sentences);
 		
 		//count all VOCALS
-		System.out.println("---- vocals: ----");
+		//System.out.println("---- vocals: ----");
 		int numb_vocals = 0;
 		Pattern p = Pattern.compile("(a|e|i|o|u|A|E|I|O|U)");
 		Matcher m = p.matcher(enteredText);
 		while (m.find())
 		{
-			System.out.println("found: " + m.toString());
+			//System.out.println("found: " + m.toString());
 			numb_vocals++;
 		}
 				
@@ -129,13 +129,13 @@ public class Calculator {
 		int numb_prp = 0;
 		int numb_art = 0;
 		
-		System.out.println("---- sub/ver: ----");
+	//	System.out.println("---- sub/ver: ----");
 		try {
 			AnalyzedSentence sentence = langTool.getRawAnalyzedSentence(enteredText);
 			AnalyzedTokenReadings[] tokens = sentence.getTokensWithoutWhitespace();
 			for(int i = 0; i<tokens.length; i++) 
 			{
-				System.out.println("token: " + tokens[i].toString());
+				//System.out.println("token: " + tokens[i].toString());
 				AnalyzedToken tok = tokens[i].getAnalyzedToken(0);
 				if(!tok.hasNoTag())
 				{
@@ -143,41 +143,41 @@ public class Calculator {
 					if(tok.getPOSTag().startsWith("SUB"))
 					{
 						numb_noun++;
-						System.out.println("substantiv: " + tok.getToken());
+						//System.out.println("substantiv: " + tok.getToken());
 					}
 					if (tok.getPOSTag().startsWith("VER"))
 					{
-						System.out.println("verb: " + tok.getToken());
+						//System.out.println("verb: " + tok.getToken());
 						numb_ver++;
 					}
 					if (tok.getPOSTag().startsWith("ADJ"))
 					{
-						System.out.println("adjektiv: " + tok.getToken());
+						//System.out.println("adjektiv: " + tok.getToken());
 						numb_adj++;
 					}
 					if (tok.getPOSTag().startsWith("ADV"))
 					{
-						System.out.println("adverb: " + tok.getToken());
+						//System.out.println("adverb: " + tok.getToken());
 						numb_adv++;
 					}
 					if (tok.getPOSTag().startsWith("KON"))
 					{
-						System.out.println("konjunktion: " + tok.getToken());
+						//System.out.println("konjunktion: " + tok.getToken());
 						numb_kon++;
 					}
 					if (tok.getPOSTag().startsWith("NEG"))
 					{
-						System.out.println("negation: " + tok.getToken());
+						//System.out.println("negation: " + tok.getToken());
 						numb_neg++;
 					}
 					if (tok.getPOSTag().startsWith("PRP"))
 					{
-						System.out.println("preposition: " + tok.getToken());
+						//System.out.println("preposition: " + tok.getToken());
 						numb_prp++;
 					}
 					if (tok.getPOSTag().startsWith("ART"))
 					{
-						System.out.println("artikel: " + tok.getToken());
+						//System.out.println("artikel: " + tok.getToken());
 						numb_art++;
 					}
 				}
@@ -189,13 +189,13 @@ public class Calculator {
 		//count all words
 		int numb_words = 0;
 
-		System.out.println("---- all words: ----");
+		//System.out.println("---- all words: ----");
 		
 		Pattern p2 = Pattern.compile("[a-zA-ZäüöÄÜÖ]+");
 		Matcher m2 = p2.matcher(enteredText);
 		while (m2.find())
 		{	
-			System.out.println("found: " + m2.toString());
+			//System.out.println("found: " + m2.toString());
 			numb_words++;
 		}
 		
@@ -203,7 +203,7 @@ public class Calculator {
 		PersonalRule myRule = new PersonalRule();
 
 		//check for word of the class NATURE
-		System.out.println("---- nature: ----");
+		//System.out.println("---- nature: ----");
 		myRule.addPattern(stringNature);
 		int numb_nature = 0;
 		try {
@@ -213,7 +213,7 @@ public class Calculator {
 		}
 		
 		//check for word of the class UNI
-		System.out.println("---- uni: ----");
+		//System.out.println("---- uni: ----");
 		myRule.addPattern(stringUni);
 		int numb_uni = 0;
 		try {
@@ -223,7 +223,7 @@ public class Calculator {
 		}
 		
 		//check for word of the class HUMAN
-		System.out.println("---- human: ----");
+		//System.out.println("---- human: ----");
 		myRule.addPattern(stringHuman);
 		int numb_human = 0;
 		try {
@@ -235,7 +235,7 @@ public class Calculator {
 		// ...TO DO...
 		
 		//give stored information
-		System.out.println("----JSON----");
+		//System.out.println("----JSON----");
 		System.out.println("{");
 		System.out.println('"' + st_sentences + '"' + ": " + numb_sentences + ",");
 		System.out.println('"' + st_sentenceAv + '"' + ": " + average_length_sentence + ",");

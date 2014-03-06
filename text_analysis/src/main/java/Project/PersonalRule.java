@@ -19,7 +19,7 @@ public class PersonalRule {
 		{
 			final String token = tokens[i].getToken();
 	        if (matches(token)) {
-				System.out.println("token: " + token);
+			//	System.out.println("token: " + token);
 	          counter++;
 	        }
 		}

@@ -16,6 +16,7 @@ public class Read {
 		}catch(FileNotFoundException e){
 			System.out.println("Fehler: Datei wurde nicht gefunden!");
 		}
+		
 		while (scanner.hasNextLine()){
 			ausgabe=ausgabe+scanner.nextLine();
 		}
