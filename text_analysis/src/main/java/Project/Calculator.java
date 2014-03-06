@@ -12,11 +12,12 @@ import org.languagetool.JLanguageTool;
 import org.languagetool.language.German;
 import org.languagetool.rules.RuleMatch;
 
+
 public class Calculator {
 	
-	private String stringNature = "(Welt|Natur|Himmel|Erde|Wasser|Feuer|Luft|Tiere|Blumen|Umwelt|Mensch)";
-	private String stringUni = "(Universität|Student|Dozent|Uni|Vorlesung|Kurs|Doktor|Studentin|Klausur|Immatrikulation|Exmatrikulation|Bachelor|Master|Doktor)";
-	private String stringHuman = "(Mensch|Körper|Hals|Rachen|Kehle|Gurgel|Kinn|Haare|Augenbrauen|Augenwimpern|Bart|Gesichtshaar|Schnurrbart|Hand|Arm|Ohr|Gehör|Nasenlöcher|Nüstern|Rücken|Nase|Brustwarzen|Fuß|Bein|Auge|Zehen|Finger|Zunge|Herz|Lungen|Achseln|Schultern|Stirn|Gesicht|duschen|Blut|Mund|Zähne|Körperteil)";
+	//private String stringNature = "(Welt|Natur|Himmel|Erde|Wasser|Feuer|Luft|Tiere|Blumen|Umwelt|Mensch)";
+//	private String stringUni = "(Universität|Student|Dozent|Uni|Vorlesung|Kurs|Doktor|Studentin|Klausur|Immatrikulation|Exmatrikulation|Bachelor|Master|Doktor)";
+	//private String stringHuman = "(Mensch|Körper|Hals|Rachen|Kehle|Gurgel|Kinn|Haare|Augenbrauen|Augenwimpern|Bart|Gesichtshaar|Schnurrbart|Hand|Arm|Ohr|Gehör|Nasenlöcher|Nüstern|Rücken|Nase|Brustwarzen|Fuß|Bein|Auge|Zehen|Finger|Zunge|Herz|Lungen|Achseln|Schultern|Stirn|Gesicht|duschen|Blut|Mund|Zähne|Körperteil)";
 	//...TO DO... look at http://rowa.giso.de/languages/toki-pona/german/latex/Thematische_Wortliste.html 
 	
 	public void doCalculations(String enteredText){
@@ -96,6 +97,8 @@ public class Calculator {
 					if(tok.getPOSTag().startsWith("SUB"))
 					{
 						numb_noun++;									//numb_noun
+						//Look: http://thesaurus.altervista.org/mykey
+						//new ThesaurusRequest(tok.getTokenInflected(), "de_DE", "RfsrOE9pqomqemzCsbCl", "json");
 					}
 					if (tok.getPOSTag().startsWith("VER"))
 					{
@@ -140,7 +143,7 @@ public class Calculator {
 		{	
 			numb_words++;												//numb_words
 		}
-		
+		/*
 		//create own rules
 		PersonalRule myRule = new PersonalRule();
 
@@ -170,7 +173,7 @@ public class Calculator {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
+		*/
 		
 		//give stored information
 		System.out.println("{");
@@ -188,9 +191,9 @@ public class Calculator {
 		System.out.println('"' + "neg" + '"' + ": " + numb_neg + ",");
 		System.out.println('"' + "prep" + '"' + ": " + numb_prp + ",");
 		System.out.println('"' + "article" + '"' + ": " + numb_art + ",");
-		System.out.println('"' + "uni" + '"' + ": " + numb_uni + ",");
-		System.out.println('"' + "nature" + '"' + ": " + numb_nature + ",");
-		System.out.println('"' + "human" + '"' + ": " + numb_human);
+		//System.out.println('"' + "uni" + '"' + ": " + numb_uni + ",");
+		//System.out.println('"' + "nature" + '"' + ": " + numb_nature + ",");
+		//System.out.println('"' + "human" + '"' + ": " + numb_human);
 		System.out.print("}");
 	}
 }
