@@ -9,10 +9,24 @@ import org.json.simple.*;
 
 class ThesaurusRequest {
 	  final String endpoint = "http://thesaurus.altervista.org/thesaurus/v1";
-
+	  
+	  private String searchWord = "";
+	  private String searchLanguage = "";
+	  private String searchKey = "";
+	  private String searchOutput = "";
+	  private String message = "";
+	  
 	  public ThesaurusRequest(String word, String language, String key, String output) {
+		  searchWord = word;
+		  searchLanguage = language;
+		  searchKey = key;
+		  searchOutput = output;
+	  }
+	  
+	  public String getList()
+	  {
 	    try {
-	      URL serverAddress = new URL(endpoint + "?word="+URLEncoder.encode(word, "UTF-8")+"&language="+language+"&key="+key+"&output="+output);
+	      URL serverAddress = new URL(endpoint + "?word="+URLEncoder.encode(searchWord, "UTF-8")+"&language="+searchLanguage+"&key="+searchKey+"&output="+searchOutput);
 	      HttpURLConnection connection = (HttpURLConnection)serverAddress.openConnection();
 	      connection.connect();
 	      int rc = connection.getResponseCode();
@@ -26,9 +40,12 @@ class ThesaurusRequest {
 	        JSONArray array = (JSONArray)obj.get("response");
 	        for (int i=0; i < array.size(); i++) {
 	          JSONObject list = (JSONObject) ((JSONObject)array.get(i)).get("list");
-	          System.out.println(list.get("category")+":"+list.get("synonyms"));
+	          System.out.println("Kategorie" + list.get("category")+":"+list.get("synonyms"));
+	          System.out.println(list.values());
+	          message = list.values().toString();
 	        }
-	      } else System.out.println("HTTP error:"+rc);
+	      } else //System.out.println("HTTP error:"+rc);
+	      message =  "HTTP error:"+rc;
 	      connection.disconnect();
 	    } catch (java.net.MalformedURLException e) {
 	      e.printStackTrace();
@@ -37,5 +54,6 @@ class ThesaurusRequest {
 	    } catch (java.io.IOException e) {
 	      e.printStackTrace();
 	    }
+		return message;
 	  }
-	} // end of SendRequest
+} // end of SendRequest
