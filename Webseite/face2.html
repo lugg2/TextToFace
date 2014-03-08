@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Text-To-Face</title>
+	<style type="text/css">
+	
+	div#container {		
+		color: black; 
+		background-color: white;
+		font-size: 100.01%;
+		font-family: Helvetica,Arial,sans-serif;
+		margin: 15px;
+		width: 800px;
+		position: absolute;
+		left: 50%;
+		margin-left: -400px;
+		min-width: 50em; 
+	}
+
+	h1 {
+		font-size: 1.5em;
+		margin: 0 0 0.7em; padding: 0.3em;
+		text-align: center;
+		background-color: #dddddd;
+		border: 2px solid #a1a1a1;
+		border-radius: 25px;
+	}
+
+	#footer {
+		position: fixed;
+		top: 97%;
+		width: 800px;
+		text-align: center;
+		background-color: #dddddd;
+		border: 2px solid #a1a1a1;
+		border-radius: 25px;
+	}
+  
+  }
+</style>
+	</head>
+	<body>
+	
+		<div id="container" align="center" >
+
+		<div id="header" >
+		<h1>Text-To-Face</h1>
+		</div>
+
+		<div id="form" >
+			<form name="input_text" action="" method="post">
+			<textarea rows="14" cols="50">"Bitte geben Sie hier den Text ein."</textarea>
+			</form>
+		</div>
+
+		<div id="button" >
+			<a href=""><img src="submit.png" alt="submit" onclick="submit_form()" /></a> 
+		</div>
+		
+		<div id="image" >
+			<img id="bild" src="bild.jpg" />
+		</div>
+
+		<div id="image_text" >
+		Helmut 
+		</div>	
+
+		<div id="footer" >
+		Copyright © Text-To-Face</div>
+
+	
+	<script type="text/javascript">
+	function submit_form(){
+		document.imput_text.submit();
+	}
+	</script>
+	</body>
+</html>
