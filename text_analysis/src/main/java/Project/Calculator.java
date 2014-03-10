@@ -85,6 +85,7 @@ public class Calculator {
 		int numb_neg = 0;
 		int numb_prp = 0;
 		int numb_art = 0;
+
 		
 		try {
 			AnalyzedSentence textComplete = langTool.getRawAnalyzedSentence(enteredText);
@@ -97,6 +98,7 @@ public class Calculator {
 					if(tok.getPOSTag().startsWith("SUB"))
 					{
 						numb_noun++;									//numb_noun
+					//	System.out.println("Token: " + tok.getTokenInflected());
 					}
 					if (tok.getPOSTag().startsWith("VER"))
 					{
@@ -134,49 +136,48 @@ public class Calculator {
 		
 		//count all words
 		int numb_words = 0;
-		/*int numb_fach = 0;
+		//look for word categories
+		int numb_fach = 0;
 		int numb_umg = 0;
 		int numb_derb = 0;
 		int numb_vulg = 0;
-		int numb_gehoben = 0;*/
-		//look for word categories
-		//String output = "";
+		int numb_gehoben = 0;
+		String output = "";
 
 		Pattern p2 = Pattern.compile("[a-zA-Z‰¸ˆƒ‹÷]+");
 		Matcher m2 = p2.matcher(enteredText);
 		while (m2.find())
 		{	
 			numb_words++;												//numb_words
-			//System.out.println(m2.group());
-			/*
+			System.out.println(m2.group());
 			ThesaurusRequest request = new ThesaurusRequest(m2.group(), "de_DE", "RfsrOE9pqomqemzCsbCl", "json");
 			output = request.getList();
 			if(output.contains("fachsprachlich"))
 			{
 				numb_fach++;
-				//System.out.println("fachsprache");
+				System.out.println("fachsprache");
 			}
 			if(output.contains("umgangssprachlich"))
 			{
 				numb_umg++;
-				//System.out.println("umgangsprache");
+				System.out.println("umgangsprache");
 			}
 			if(output.contains("derb"))
 			{
 				numb_derb++;
-				//System.out.println("derb");
+				System.out.println("derb");
 			}
 			if(output.contains("vulg‰r"))
 			{
 				numb_vulg++;
-				//System.out.println("vulg‰r");
+				System.out.println("vulg‰r");
 			}
 			if(output.contains("gehoben"))
 			{
 				numb_gehoben++;
-				//System.out.println("gehoben");
+				System.out.println("gehoben");
 			}
-			*/
+		
 		}
 		
 		/*
@@ -227,11 +228,11 @@ public class Calculator {
 		System.out.println('"' + "neg" + '"' + ": " + numb_neg + ",");
 		System.out.println('"' + "prep" + '"' + ": " + numb_prp + ",");
 		System.out.println('"' + "article" + '"' + ": " + numb_art);
-		//System.out.println('"' + "fach" + '"' + ": " + numb_fach + ",");
-		//System.out.println('"' + "umg" + '"' + ": " + numb_umg + ",");
-		//System.out.println('"' + "vulg" + '"' + ": " + numb_vulg + ",");
-		//System.out.println('"' + "derb" + '"' + ": " + numb_derb + ",");
-		//System.out.println('"' + "gehoben" + '"' + ": " + numb_gehoben);
+		System.out.println('"' + "fach" + '"' + ": " + numb_fach + ",");
+		System.out.println('"' + "umg" + '"' + ": " + numb_umg + ",");
+		System.out.println('"' + "vulg" + '"' + ": " + numb_vulg + ",");
+		System.out.println('"' + "derb" + '"' + ": " + numb_derb + ",");
+		System.out.println('"' + "gehoben" + '"' + ": " + numb_gehoben);
 		//System.out.println('"' + "uni" + '"' + ": " + numb_uni + ",");
 		//System.out.println('"' + "nature" + '"' + ": " + numb_nature + ",");
 		//System.out.println('"' + "human" + '"' + ": " + numb_human);

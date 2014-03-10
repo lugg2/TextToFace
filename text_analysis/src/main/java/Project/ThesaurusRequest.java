@@ -34,17 +34,15 @@ class ThesaurusRequest {
 	        String line = null;
 	        BufferedReader br = new BufferedReader(new java.io.InputStreamReader(connection.getInputStream()));
 	        StringBuilder sb = new StringBuilder();
-	        while ((line = br.readLine()) != null)
-	          sb.append(line + '\n');
+	        while ((line = br.readLine()) != null) sb.append(line + '\n');
 	        JSONObject obj = (JSONObject) JSONValue.parse(sb.toString());
 	        JSONArray array = (JSONArray)obj.get("response");
 	        for (int i=0; i < array.size(); i++) {
 	          JSONObject list = (JSONObject) ((JSONObject)array.get(i)).get("list");
-	          System.out.println("Kategorie" + list.get("category")+":"+list.get("synonyms"));
-	          System.out.println(list.values());
+	          System.out.println("Kategorie " + list.get("category")+": "+list.get("synonyms"));
 	          message = list.values().toString();
 	        }
-	      } else //System.out.println("HTTP error:"+rc);
+	      } else
 	      message =  "HTTP error:"+rc;
 	      connection.disconnect();
 	    } catch (java.net.MalformedURLException e) {
