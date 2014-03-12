@@ -43,6 +43,7 @@ public class Calculator {
 		langTool.setListUnknownWords(true);
 		try {
 			matches = langTool.check(enteredText);
+			//System.out.println("Chech output: " + matches.toString());
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -99,6 +100,7 @@ public class Calculator {
 					{
 						numb_noun++;									//numb_noun
 					//	System.out.println("Token: " + tok.getTokenInflected());
+						
 					}
 					if (tok.getPOSTag().startsWith("VER"))
 					{
@@ -149,9 +151,9 @@ public class Calculator {
 		while (m2.find())
 		{	
 			numb_words++;												//numb_words
-			System.out.println(m2.group());
-			ThesaurusRequest request = new ThesaurusRequest(m2.group(), "de_DE", "RfsrOE9pqomqemzCsbCl", "json");
-			output = request.getList();
+		//	System.out.println(m2.group());
+		//	ThesaurusRequest request = new ThesaurusRequest(m2.group(), "de_DE", "RfsrOE9pqomqemzCsbCl", "json");
+			/*output = request.getList();
 			if(output.contains("fachsprachlich"))
 			{
 				numb_fach++;
@@ -176,7 +178,47 @@ public class Calculator {
 			{
 				numb_gehoben++;
 				System.out.println("gehoben");
-			}
+			}*/
+			
+			//sql: suche nach synset_id in table "term"
+			/*
+			 * 						SELECT  `synset_id` 
+									FROM  `thesaurus`.`term` 
+									WHERE CONVERT( `word` USING utf8 ) LIKE  'xx'
+			 */
+			
+			//     suche nach gleicher synset_id in category_link (category_id)
+			/*
+			 * 						SELECT  `category_id` 
+									FROM  `thesaurus`.`category_link` 
+									WHERE CONVERT( `synset_id` USING utf8 ) LIKE xx 
+			 */
+			//     suche nach category_id in category
+			/*
+			 * 						SELECT  `category_name` 
+									FROM  `thesaurus`.`category` 
+									WHERE CONVERT( `id` USING utf8 ) LIKE xx
+			 */
+			
+			/*
+			 * example:
+			 * 	SELECT  `category_name` 
+				FROM  `thesaurus`.`category` 
+				WHERE CONVERT( `id` USING utf8 ) IN (
+    				SELECT  `category_id` 
+					FROM  `thesaurus`.`category_link` 
+					WHERE CONVERT( `synset_id` USING utf8 ) IN (
+        				SELECT  `synset_id` 
+						FROM  `thesaurus`.`term` 
+						WHERE CONVERT( `word` USING utf8 ) LIKE 'intramuskulär'
+    				)
+				)
+				
+				Select `word`
+from `ttf`.`term`
+where `synset_id` IN (SELECT `synset_id`  FROM `category_link` WHERE `category_id` LIKE(
+select `id` from `category` where `category_name` = "Medizin"))
+			 */
 		
 		}
 		
