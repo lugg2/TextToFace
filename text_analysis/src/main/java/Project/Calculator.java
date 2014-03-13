@@ -12,13 +12,13 @@ import org.languagetool.JLanguageTool;
 import org.languagetool.language.German;
 import org.languagetool.rules.RuleMatch;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 public class Calculator {
-	
-	//private String stringNature = "(Welt|Natur|Himmel|Erde|Wasser|Feuer|Luft|Tiere|Blumen|Umwelt|Mensch)";
-//	private String stringUni = "(Universität|Student|Dozent|Uni|Vorlesung|Kurs|Doktor|Studentin|Klausur|Immatrikulation|Exmatrikulation|Bachelor|Master|Doktor)";
-	//private String stringHuman = "(Mensch|Körper|Hals|Rachen|Kehle|Gurgel|Kinn|Haare|Augenbrauen|Augenwimpern|Bart|Gesichtshaar|Schnurrbart|Hand|Arm|Ohr|Gehör|Nasenlöcher|Nüstern|Rücken|Nase|Brustwarzen|Fuß|Bein|Auge|Zehen|Finger|Zunge|Herz|Lungen|Achseln|Schultern|Stirn|Gesicht|duschen|Blut|Mund|Zähne|Körperteil)";
-	//...TO DO... look at http://rowa.giso.de/languages/toki-pona/german/latex/Thematische_Wortliste.html 
 	
 	public void doCalculations(String enteredText){
 		
@@ -138,122 +138,49 @@ public class Calculator {
 		
 		//count all words
 		int numb_words = 0;
-		//look for word categories
-		int numb_fach = 0;
-		int numb_umg = 0;
-		int numb_derb = 0;
-		int numb_vulg = 0;
-		int numb_gehoben = 0;
-		String output = "";
+		Connection c = null;
+		try {
+			Class.forName("org.sqlite.JDBC");
+			c = DriverManager.getConnection("jdbc:sqlite:ttf.db");
+		} catch ( Exception e ) {
+			System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+			System.exit(0);
+		}
+		//System.out.println("Opened database successfully");
+	
 
 		Pattern p2 = Pattern.compile("[a-zA-ZäüöÄÜÖ]+");
 		Matcher m2 = p2.matcher(enteredText);
 		while (m2.find())
 		{	
 			numb_words++;												//numb_words
-		//	System.out.println(m2.group());
-		//	ThesaurusRequest request = new ThesaurusRequest(m2.group(), "de_DE", "RfsrOE9pqomqemzCsbCl", "json");
-			/*output = request.getList();
-			if(output.contains("fachsprachlich"))
-			{
-				numb_fach++;
-				System.out.println("fachsprache");
-			}
-			if(output.contains("umgangssprachlich"))
-			{
-				numb_umg++;
-				System.out.println("umgangsprache");
-			}
-			if(output.contains("derb"))
-			{
-				numb_derb++;
-				System.out.println("derb");
-			}
-			if(output.contains("vulgär"))
-			{
-				numb_vulg++;
-				System.out.println("vulgär");
-			}
-			if(output.contains("gehoben"))
-			{
-				numb_gehoben++;
-				System.out.println("gehoben");
-			}*/
-			
-			//sql: suche nach synset_id in table "term"
-			/*
-			 * 						SELECT  `synset_id` 
-									FROM  `thesaurus`.`term` 
-									WHERE CONVERT( `word` USING utf8 ) LIKE  'xx'
-			 */
-			
-			//     suche nach gleicher synset_id in category_link (category_id)
-			/*
-			 * 						SELECT  `category_id` 
-									FROM  `thesaurus`.`category_link` 
-									WHERE CONVERT( `synset_id` USING utf8 ) LIKE xx 
-			 */
-			//     suche nach category_id in category
-			/*
-			 * 						SELECT  `category_name` 
-									FROM  `thesaurus`.`category` 
-									WHERE CONVERT( `id` USING utf8 ) LIKE xx
-			 */
-			
-			/*
-			 * example:
-			 * 	SELECT  `category_name` 
-				FROM  `thesaurus`.`category` 
-				WHERE CONVERT( `id` USING utf8 ) IN (
-    				SELECT  `category_id` 
-					FROM  `thesaurus`.`category_link` 
-					WHERE CONVERT( `synset_id` USING utf8 ) IN (
-        				SELECT  `synset_id` 
-						FROM  `thesaurus`.`term` 
-						WHERE CONVERT( `word` USING utf8 ) LIKE 'intramuskulär'
-    				)
-				)
-				
-				Select `word`
-from `ttf`.`term`
-where `synset_id` IN (SELECT `synset_id`  FROM `category_link` WHERE `category_id` LIKE(
-select `id` from `category` where `category_name` = "Medizin"))
-			 */
+			//System.out.println(m2.group());	
 		
+		//SQLite
+			try {
+				Statement stat = c.createStatement();
+ 
+				ResultSet rs = stat.executeQuery("SELECT category_name FROM cat WHERE id IN (SELECT  category_id FROM  cat_link WHERE synset_id IN (SELECT  synset_id FROM  term WHERE word LIKE '" + m2.group() + "'));");
+				while (rs.next())
+				{
+					// count here according to the category
+					//System.out.println("category_name von " + m2.group() + " = " + rs.getString("category_name"));
+				}
+			
+				//System.out.println("Ausgabe Ende");
+				rs.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
-		
-		/*
-		//create own rules
-		PersonalRule myRule = new PersonalRule();
-
-		//check for word of the class NATURE
-		myRule.addPattern(stringNature);
-		int numb_nature = 0;											//numb_nature
 		try {
-			numb_nature = myRule.analyse(langTool, langTool.getAnalyzedSentence(enteredText));
-		} catch (IOException e) {
+			c.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		//check for word of the class UNI
-		myRule.addPattern(stringUni);
-		int numb_uni = 0;												//numb_uni
-		try {
-			numb_uni = myRule.analyse(langTool, langTool.getAnalyzedSentence(enteredText));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		
-		//check for word of the class HUMAN
-		myRule.addPattern(stringHuman);
-		int numb_human = 0;												//numb_human
-		try {
-			numb_human = myRule.analyse(langTool, langTool.getAnalyzedSentence(enteredText));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		*/
-		
+			
 		//give stored information
 		System.out.println("{");
 		System.out.println('"' + "sentences" + '"' + ": " + numb_sentences + ",");
@@ -270,14 +197,6 @@ select `id` from `category` where `category_name` = "Medizin"))
 		System.out.println('"' + "neg" + '"' + ": " + numb_neg + ",");
 		System.out.println('"' + "prep" + '"' + ": " + numb_prp + ",");
 		System.out.println('"' + "article" + '"' + ": " + numb_art);
-		System.out.println('"' + "fach" + '"' + ": " + numb_fach + ",");
-		System.out.println('"' + "umg" + '"' + ": " + numb_umg + ",");
-		System.out.println('"' + "vulg" + '"' + ": " + numb_vulg + ",");
-		System.out.println('"' + "derb" + '"' + ": " + numb_derb + ",");
-		System.out.println('"' + "gehoben" + '"' + ": " + numb_gehoben);
-		//System.out.println('"' + "uni" + '"' + ": " + numb_uni + ",");
-		//System.out.println('"' + "nature" + '"' + ": " + numb_nature + ",");
-		//System.out.println('"' + "human" + '"' + ": " + numb_human);
 		System.out.print("}");
 	}
 }

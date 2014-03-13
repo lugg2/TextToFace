@@ -16,6 +16,16 @@
   		<version>0.3-incubating</version>
   		<type>bundle</type>
   	</dependency>
+  	<dependency>
+  		<groupId>org.hsqldb</groupId>
+  		<artifactId>hsqldb</artifactId>
+  		<version>2.3.2</version>
+  	</dependency>
+  	<dependency>
+  		<groupId>org.xerial</groupId>
+  		<artifactId>sqlite-jdbc</artifactId>
+  		<version>3.7.15-M1</version>
+  	</dependency>
   </dependencies>
   <dependencyManagement>
   	<dependencies>
