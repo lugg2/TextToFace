@@ -1,39 +1,29 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>Semester04</groupId>
-  <artifactId>Text_Analysis</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
-  <name>Text_Analysis</name>
-  <description>Analyses an entered text</description>
-  <dependencies>
-  	<dependency>
-  		<groupId>org.languagetool</groupId>
-  		<artifactId>language-all</artifactId>
-  	</dependency>
-  	<dependency>
-  		<groupId>org.apache.clerezza.ext</groupId>
-  		<artifactId>org.json.simple</artifactId>
-  		<version>0.3-incubating</version>
-  		<type>bundle</type>
-  	</dependency>
-  	<dependency>
-  		<groupId>org.hsqldb</groupId>
-  		<artifactId>hsqldb</artifactId>
-  		<version>2.3.2</version>
-  	</dependency>
-  	<dependency>
-  		<groupId>org.xerial</groupId>
-  		<artifactId>sqlite-jdbc</artifactId>
-  		<version>3.7.15-M1</version>
-  	</dependency>
-  </dependencies>
-  <dependencyManagement>
-  	<dependencies>
-  		<dependency>
-  			<groupId>org.languagetool</groupId>
-  			<artifactId>language-all</artifactId>
-  			<version>2.4</version>
-  		</dependency>
-  	</dependencies>
-  </dependencyManagement>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>Semester04</groupId>
+	<artifactId>Text_Analysis</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>Text_Analysis</name>
+	<description>Analyses an entered text</description>
+	<dependencies>
+		<dependency>
+			<groupId>org.languagetool</groupId>
+			<artifactId>language-all</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.xerial</groupId>
+			<artifactId>sqlite-jdbc</artifactId>
+			<version>3.7.15-M1</version>
+		</dependency>
+	</dependencies>
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.languagetool</groupId>
+				<artifactId>language-all</artifactId>
+				<version>2.4</version>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
 </project>
