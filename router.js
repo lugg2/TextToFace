@@ -1,4 +1,6 @@
-function route(handle, pathname, response, query) {
+
+
+/*function route(handle, pathname, response, query) {
 console.log("About to route a request for " + pathname);
 console.log("query eq" +query);
 if(pathname=="/show")
@@ -16,5 +18,22 @@ response.end();
 }
 }
 }
+*/
 
+var serveStaticFile = require('./ServeHtmlFiles');
+
+// function serveStatic(response, absPath) {
+function route(handle, pathname, response, query)
+{
+	console.log(pathname);
+	if(pathname && pathname != '/' && pathname!='/Index.html' )
+	{
+		pathname = 'website' + pathname;
+	}
+	else 
+	{
+		pathname = 'website/index.html';
+	}
+	serveStaticFile.serveStatic(response, pathname);
+}
 exports.route = route;
