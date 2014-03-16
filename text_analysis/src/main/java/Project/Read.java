@@ -14,7 +14,7 @@ public class Read {
 		try{
 			scanner = new Scanner(file);
 		}catch(FileNotFoundException e){
-			System.out.println("Fehler: Datei wurde nicht gefunden!");
+			System.out.println("no access to text file");
 		}
 		
 		while (scanner.hasNextLine()){

@@ -27,14 +27,14 @@ public class Calculator {
 		try {
 			langTool = new JLanguageTool(new German());
 		} catch (IOException e) {
-			e.printStackTrace();
+			System.out.println("no access to languageTool");
 		}
 		
 		//activation of all default pattern rules
 		try {
 			langTool.activateDefaultPatternRules();
 		} catch (IOException e) {
-			e.printStackTrace();
+			System.out.println("languageTool default rules cannot be activated");
 		}
 	
 		//check the entered text for errors	
@@ -46,7 +46,7 @@ public class Calculator {
 			matches = langTool.check(enteredText);
 			numb_errors = matches.size(); 								//numb_errors
 		} catch (IOException e) {
-			e.printStackTrace();
+			System.out.println("languageTool check failure");
 		}
 		
 		//count unknown words
@@ -155,7 +155,7 @@ public class Calculator {
 				}
 			}
 		} catch (IOException e) {
-			e.printStackTrace();
+			System.out.println("languageTool failure by word group check");
 		}
 		
 		//count all words
@@ -199,8 +199,7 @@ public class Calculator {
 			Class.forName("org.sqlite.JDBC");
 			c = DriverManager.getConnection("jdbc:sqlite:ttf.db");
 		} catch ( Exception e ) {
-			System.err.println( e.getClass().getName() + ": " + e.getMessage() );
-			System.exit(0);
+			System.out.println("no connection to sqlite data base possible: " + e.getClass().getName() + ": " + e.getMessage());
 		}
 		
 		Pattern p2 = Pattern.compile("[a-zA-Z‰¸ˆƒ‹÷]+");
@@ -261,14 +260,14 @@ public class Calculator {
 				}
 				rs.close();
 			} catch (SQLException e) {
-				e.printStackTrace();
+				System.out.println("failure in sqlite statement");
 			}
 		}
 		
 		try {
 			c.close();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			System.out.println("failure by closing sqlite data base");
 		}
 			
 		//give stored information
