@@ -89,6 +89,51 @@ public class Calculator {
 		int numb_art_male = 0;
 		int numb_art_sachl = 0;
 		
+		//count category words
+		int numb_physics = 0;
+		int numb_medicin = 0;
+		int numb_botanic = 0;
+		int numb_zoology = 0;
+		int numb_anatomy = 0;
+		int numb_computer = 0;
+		int numb_biology = 0;
+		int numb_music = 0;
+		int numb_sport = 0;
+		int numb_technic = 0;
+		int numb_chemistry = 0;
+		int numb_jura = 0;
+		int numb_astronomy = 0;
+		int numb_electricity = 0;
+		int numb_religion = 0;
+		int numb_figurative = 0;
+		int numb_ugs = 0;
+		int numb_math = 0;
+		int numb_military = 0;
+		int numb_economy = 0;
+		int numb_auto = 0;
+		int numb_gastronomy = 0;
+		int numb_shipping = 0;
+		int numb_biochemistry = 0;
+		int numb_history = 0;
+		int numb_politic = 0;
+		int numb_geology = 0;
+		int numb_railway = 0;
+		int numb_language = 0;
+		int numb_geography = 0;
+		int numb_air = 0;
+		int numb_psychology = 0;
+		int numb_terrorism = 0;
+
+		
+		Connection c = null;
+		try {
+			Class.forName("org.sqlite.JDBC");
+			c = DriverManager.getConnection("jdbc:sqlite:ttf_complete.db");
+		} catch ( Exception e ) {
+			System.out.println("no connection to sqlite data base possible: " + e.getClass().getName() + ": " + e.getMessage());
+		}
+
+		
 		try {
 			AnalyzedSentence textComplete = langTool.getRawAnalyzedSentence(enteredText);
 			AnalyzedTokenReadings[] tokens = textComplete.getTokensWithoutWhitespace();
@@ -101,6 +146,62 @@ public class Calculator {
 				{
 					if(tok.getPOSTag().contains("SUB"))
 					{
+						//SQLite
+						try {
+							Statement stat = c.createStatement();
+			 
+							ResultSet rs = stat.executeQuery(	"SELECT category_name " +
+																"FROM category " +
+																"WHERE id IN (" +
+																	"SELECT  category_id " +
+																	"FROM  category_link " +
+																	"WHERE synset_id IN (" +
+																		"SELECT  synset_id " +
+																		"FROM  term " +
+																		"WHERE word LIKE '" + tok.getTokenInflected() + "')" +
+																	");" +
+															"");
+							while (rs.next())
+							{
+								if (rs.getString("category_name").contains("Physik")) numb_physics++;
+								if (rs.getString("category_name").contains("Medizin")) numb_medicin++;
+								if (rs.getString("category_name").contains("Botanik")) numb_botanic++;
+								if (rs.getString("category_name").contains("Zoologie")) numb_zoology++;
+								if (rs.getString("category_name").contains("Anatomie")) numb_anatomy++;
+								if (rs.getString("category_name").contains("Computer")) numb_computer++;
+								if (rs.getString("category_name").contains("Biology")) numb_biology++;
+								if (rs.getString("category_name").contains("Musik")) numb_music++;
+								if (rs.getString("category_name").contains("Sport")) numb_sport++;
+								if (rs.getString("category_name").contains("Technik")) numb_technic++;
+								if (rs.getString("category_name").contains("Chemie")) numb_chemistry++;
+								if (rs.getString("category_name").contains("Jura")) numb_jura++;
+								if (rs.getString("category_name").contains("Astronomie")) numb_astronomy++;
+								if (rs.getString("category_name").contains("Elektrizit‰t")) numb_electricity++;
+								if (rs.getString("category_name").contains("Religion")) numb_religion++;
+								if (rs.getString("category_name").contains("figurativ")) numb_figurative++;
+								if (rs.getString("category_name").contains("umgangssprachlich")) numb_ugs++;
+								if (rs.getString("category_name").contains("Mathematik")) numb_math++;
+								if (rs.getString("category_name").contains("Milit‰r")) numb_military++;
+								if (rs.getString("category_name").contains("÷konomie")) numb_economy++;
+								if (rs.getString("category_name").contains("Automobil")) numb_auto++;
+								if (rs.getString("category_name").contains("Gastronomie")) numb_gastronomy++;
+								if (rs.getString("category_name").contains("Schifffahrt")) numb_shipping++;
+								if (rs.getString("category_name").contains("Biochemie")) numb_biochemistry++;
+								if (rs.getString("category_name").contains("Geschichte")) numb_history++;
+								if (rs.getString("category_name").contains("Politik")) numb_politic++;
+								if (rs.getString("category_name").contains("Geologie")) numb_geology++;
+								if (rs.getString("category_name").contains("Eisenbahn")) numb_railway++;
+								if (rs.getString("category_name").contains("Linguistik/Sprache")) numb_language++;
+								if (rs.getString("category_name").contains("Geographie")) numb_geography++;
+								if (rs.getString("category_name").contains("Luftfahrt")) numb_air++;
+								if (rs.getString("category_name").contains("Psychologie")) numb_psychology++;					
+								if (rs.getString("category_name").contains("Terrorismus")) numb_terrorism++;					
+							}
+							rs.close();
+						} catch (SQLException e) {
+							System.out.println("failure in sqlite statement");
+						}
+
 						numb_noun++;									//numb_noun
 						if(tok.getPOSTag().contains("FEM"))
 						{
@@ -114,6 +215,62 @@ public class Calculator {
 					}
 					if (tok.getPOSTag().contains("VER"))
 					{
+						//SQLite
+						try {
+							Statement stat = c.createStatement();
+			 
+							ResultSet rs = stat.executeQuery(	"SELECT category_name " +
+																"FROM category " +
+																"WHERE id IN (" +
+																	"SELECT  category_id " +
+																	"FROM  category_link " +
+																	"WHERE synset_id IN (" +
+																		"SELECT  synset_id " +
+																		"FROM  term " +
+																		"WHERE word LIKE '" + tok.getTokenInflected() + "')" +
+																	");" +
+															"");
+							while (rs.next())
+							{
+								if (rs.getString("category_name").contains("Physik")) numb_physics++;
+								if (rs.getString("category_name").contains("Medizin")) numb_medicin++;
+								if (rs.getString("category_name").contains("Botanik")) numb_botanic++;
+								if (rs.getString("category_name").contains("Zoologie")) numb_zoology++;
+								if (rs.getString("category_name").contains("Anatomie")) numb_anatomy++;
+								if (rs.getString("category_name").contains("Computer")) numb_computer++;
+								if (rs.getString("category_name").contains("Biology")) numb_biology++;
+								if (rs.getString("category_name").contains("Musik")) numb_music++;
+								if (rs.getString("category_name").contains("Sport")) numb_sport++;
+								if (rs.getString("category_name").contains("Technik")) numb_technic++;
+								if (rs.getString("category_name").contains("Chemie")) numb_chemistry++;
+								if (rs.getString("category_name").contains("Jura")) numb_jura++;
+								if (rs.getString("category_name").contains("Astronomie")) numb_astronomy++;
+								if (rs.getString("category_name").contains("Elektrizit‰t")) numb_electricity++;
+								if (rs.getString("category_name").contains("Religion")) numb_religion++;
+								if (rs.getString("category_name").contains("figurativ")) numb_figurative++;
+								if (rs.getString("category_name").contains("umgangssprachlich")) numb_ugs++;
+								if (rs.getString("category_name").contains("Mathematik")) numb_math++;
+								if (rs.getString("category_name").contains("Milit‰r")) numb_military++;
+								if (rs.getString("category_name").contains("÷konomie")) numb_economy++;
+								if (rs.getString("category_name").contains("Automobil")) numb_auto++;
+								if (rs.getString("category_name").contains("Gastronomie")) numb_gastronomy++;
+								if (rs.getString("category_name").contains("Schifffahrt")) numb_shipping++;
+								if (rs.getString("category_name").contains("Biochemie")) numb_biochemistry++;
+								if (rs.getString("category_name").contains("Geschichte")) numb_history++;
+								if (rs.getString("category_name").contains("Politik")) numb_politic++;
+								if (rs.getString("category_name").contains("Geologie")) numb_geology++;
+								if (rs.getString("category_name").contains("Eisenbahn")) numb_railway++;
+								if (rs.getString("category_name").contains("Linguistik/Sprache")) numb_language++;
+								if (rs.getString("category_name").contains("Geographie")) numb_geography++;
+								if (rs.getString("category_name").contains("Luftfahrt")) numb_air++;
+								if (rs.getString("category_name").contains("Psychologie")) numb_psychology++;		
+								if (rs.getString("category_name").contains("Terrorismus")) numb_terrorism++;	
+							}
+							rs.close();
+						} catch (SQLException e) {
+							System.out.println("failure in sqlite statement");
+						}
+
 						numb_ver++;										//numb_ver	
 					}
 					if (tok.getPOSTag().contains("ADJ"))
@@ -158,118 +315,24 @@ public class Calculator {
 			System.out.println("languageTool failure by word group check");
 		}
 		
+		try {
+			c.close();
+		} catch (SQLException e) {
+			System.out.println("failure by closing sqlite data base");
+		}
+
+		
 		//count all words
 		int numb_words = 0;
-		//count category words
-		int numb_physics = 0;
-		int numb_medicin = 0;
-		int numb_botanic = 0;
-		int numb_zoology = 0;
-		int numb_anatomy = 0;
-		int numb_computer = 0;
-		int numb_biology = 0;
-		int numb_music = 0;
-		int numb_sport = 0;
-		int numb_technic = 0;
-		int numb_chemistry = 0;
-		int numb_jura = 0;
-		int numb_astronomy = 0;
-		int numb_electricity = 0;
-		int numb_religion = 0;
-		int numb_figurative = 0;
-		int numb_ugs = 0;
-		int numb_math = 0;
-		int numb_military = 0;
-		int numb_economy = 0;
-		int numb_auto = 0;
-		int numb_gastronomy = 0;
-		int numb_shipping = 0;
-		int numb_biochemistry = 0;
-		int numb_history = 0;
-		int numb_politic = 0;
-		int numb_geology = 0;
-		int numb_railway = 0;
-		int numb_language = 0;
-		int numb_geography = 0;
-		int numb_air = 0;
-		int numb_psychology = 0;
-		
-		Connection c = null;
-		try {
-			Class.forName("org.sqlite.JDBC");
-			c = DriverManager.getConnection("jdbc:sqlite:ttf.db");
-		} catch ( Exception e ) {
-			System.out.println("no connection to sqlite data base possible: " + e.getClass().getName() + ": " + e.getMessage());
-		}
-		
+				
 		Pattern p2 = Pattern.compile("[a-zA-Z‰¸ˆƒ‹÷]+");
 		Matcher m2 = p2.matcher(enteredText);
 		while (m2.find())
 		{	
 			numb_words++;												//numb_words
 		
-			//SQLite
-			try {
-				Statement stat = c.createStatement();
- 
-				ResultSet rs = stat.executeQuery(	"SELECT category_name " +
-													"FROM cat " +
-													"WHERE id IN (" +
-														"SELECT  category_id " +
-														"FROM  cat_link " +
-														"WHERE synset_id IN (" +
-															"SELECT  synset_id " +
-															"FROM  term " +
-															"WHERE word LIKE '" + m2.group() + "')" +
-														");" +
-												"");
-				while (rs.next())
-				{
-					if (rs.getString("category_name").contains("Physik")) numb_physics++;
-					if (rs.getString("category_name").contains("Medizin")) numb_medicin++;
-					if (rs.getString("category_name").contains("Botanik")) numb_botanic++;
-					if (rs.getString("category_name").contains("Zoologie")) numb_zoology++;
-					if (rs.getString("category_name").contains("Anatomie")) numb_anatomy++;
-					if (rs.getString("category_name").contains("Computer")) numb_computer++;
-					if (rs.getString("category_name").contains("Biology")) numb_biology++;
-					if (rs.getString("category_name").contains("Musik")) numb_music++;
-					if (rs.getString("category_name").contains("Sport")) numb_sport++;
-					if (rs.getString("category_name").contains("Technik")) numb_technic++;
-					if (rs.getString("category_name").contains("Chemie")) numb_chemistry++;
-					if (rs.getString("category_name").contains("Jura")) numb_jura++;
-					if (rs.getString("category_name").contains("Astronomie")) numb_astronomy++;
-					if (rs.getString("category_name").contains("Elektrizit‰t")) numb_electricity++;
-					if (rs.getString("category_name").contains("Religion")) numb_religion++;
-					if (rs.getString("category_name").contains("figurativ")) numb_figurative++;
-					if (rs.getString("category_name").contains("umgangssprachlich")) numb_ugs++;
-					if (rs.getString("category_name").contains("Mathematik")) numb_math++;
-					if (rs.getString("category_name").contains("Milit‰r")) numb_military++;
-					if (rs.getString("category_name").contains("÷konomie")) numb_economy++;
-					if (rs.getString("category_name").contains("Automobil")) numb_auto++;
-					if (rs.getString("category_name").contains("Gastronomie")) numb_gastronomy++;
-					if (rs.getString("category_name").contains("Schifffahrt")) numb_shipping++;
-					if (rs.getString("category_name").contains("Biochemie")) numb_biochemistry++;
-					if (rs.getString("category_name").contains("Geschichte")) numb_history++;
-					if (rs.getString("category_name").contains("Politik")) numb_politic++;
-					if (rs.getString("category_name").contains("Geologie")) numb_geology++;
-					if (rs.getString("category_name").contains("Eisenbahn")) numb_railway++;
-					if (rs.getString("category_name").contains("Linguistik/Sprache")) numb_language++;
-					if (rs.getString("category_name").contains("Geographie")) numb_geography++;
-					if (rs.getString("category_name").contains("Luftfahrt")) numb_air++;
-					if (rs.getString("category_name").contains("Psychologie")) numb_psychology++;					
-				}
-				rs.close();
-			} catch (SQLException e) {
-				System.out.println("failure in sqlite statement");
-			}
 		}
-		
-		try {
-			c.close();
-		} catch (SQLException e) {
-			System.out.println("failure by closing sqlite data base");
-		}
-			
+					
 		//give stored information
 		System.out.println("{");
 		System.out.println('"' + "sentences" + '"' + ": " + numb_sentences + ",");
@@ -323,7 +386,8 @@ public class Calculator {
 		System.out.println('"' + "language" + '"' + ": " + numb_language + ",");
 		System.out.println('"' + "geography" + '"' + ": " + numb_geography + ",");
 		System.out.println('"' + "aerospace" + '"' + ": " + numb_air + ",");
-		System.out.println('"' + "psychology" + '"' + ": " + numb_psychology);
+		System.out.println('"' + "psychology" + '"' + ": " + numb_psychology + ",");
+		System.out.println('"' + "terrorism" + '"' + ": " + numb_terrorism);
 		System.out.print("}");
 	}
 }
