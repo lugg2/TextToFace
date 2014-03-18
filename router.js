@@ -23,8 +23,14 @@ response.end();
 var serveStaticFile = require('./ServeHtmlFiles');
 
 // function serveStatic(response, absPath) {
-function route(handle, pathname, response, query)
+function route(handle, pathname, response, query, request)
 {
+	if(typeof handle[pathname]==='function')
+	{
+		handle[pathname](response, request);
+	}
+	else
+	{
 	console.log(pathname);
 	if(pathname && pathname != '/' && pathname!='/Index.html' )
 	{
@@ -35,5 +41,6 @@ function route(handle, pathname, response, query)
 		pathname = 'website/index.html';
 	}
 	serveStaticFile.serveStatic(response, pathname);
+	}
 }
 exports.route = route;

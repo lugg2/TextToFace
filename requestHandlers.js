@@ -1,6 +1,8 @@
 var exec = require("child_process").exec;
-var querystring = require("querystring");
+var formidable = require("formidable");
+var querystring = require("query  string");
 var fs = require("fs");
+var util = require("util");
 
 function start(response) {
 console.log("Request handler 'start' was called.");
@@ -17,11 +19,18 @@ response.end();
 });
 }
 
-function upload(response) {
-console.log("Request handler 'upload' was called.");
-response.writeHead(200, {"Content-Type": "text/plain"});
-response.write("Hello Upload");
-response.end();
+function upload(response, request) {
+  if ( request.method.toLowerCase() == 'post') {
+    // parse a file upload
+    var form = new formidable.IncomingForm();
+
+    form.parse(request, function(err, fields, files) {
+      response.writeHead(200, {'content-type': 'text/plain'});
+      response.write('received upload:\n\n');
+      response.end(util.inspect({fields: fields, files: files}));
+    });
+  }
+    return;
 }
 
 function show(response, query) {
@@ -38,7 +47,7 @@ function show(response, query) {
 		
 		response.writeHead(200, {"Content-Type": "image/png"});
             
-            // This line opens the file as a readable stream
+            	// This line opens the file as a readable stream
   		var readStream = fs.createReadStream("./"+Path);
 
   		// This will wait until we know the readable stream is actually valid before piping
