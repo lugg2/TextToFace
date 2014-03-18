@@ -49,6 +49,7 @@ public class Calculator {
 			System.out.println("languageTool check failure");
 		}
 		
+		
 		//count unknown words
 		int numb_unknown = 0;
 		List<String> liste = langTool.getUnknownWords();
@@ -72,7 +73,7 @@ public class Calculator {
 		Pattern p = Pattern.compile("(a|e|i|o|u|A|E|I|O|U)");
 		Matcher m = p.matcher(enteredText);
 		while (m.find()) numb_vocals++;								 	//numb_vocals
-				
+		
 		//count nouns, verbs, adj, ...
 		int numb_noun = 0;
 		int numb_noun_fem = 0;
@@ -324,15 +325,16 @@ public class Calculator {
 		
 		//count all words
 		int numb_words = 0;
-				
 		Pattern p2 = Pattern.compile("[a-zA-Z‰¸ˆƒ‹÷]+");
 		Matcher m2 = p2.matcher(enteredText);
-		while (m2.find())
-		{	
-			numb_words++;												//numb_words
-		
-		}
+		while (m2.find()) numb_words++;												//numb_words
 					
+		//count all R¥s
+		int numb_r = 0;
+		Pattern p3 = Pattern.compile("(r|R)");
+		Matcher m3 = p3.matcher(enteredText);
+		while (m3.find()) numb_r++;												 	//numb_r
+						
 		//give stored information
 		System.out.println("{");
 		System.out.println('"' + "sentences" + '"' + ": " + numb_sentences + ",");
@@ -340,6 +342,7 @@ public class Calculator {
 		System.out.println('"' + "grammar errors" + '"' + ": " + numb_errors + ",");
 		System.out.println('"' + "unknown words" + '"' + ": " + numb_unknown + ",");
 		System.out.println('"' + "vocals" + ": " + numb_vocals + ",");
+		System.out.println('"' + "r¥s" + ": " + numb_r + ",");
 		System.out.println('"' + "words" + '"' + ": " + numb_words + ",");
 		System.out.println('"' + "nouns" + '"' + ": " + numb_noun + ",");
 		System.out.println('"' + "fem nouns" + '"' + ": " + numb_noun_fem + ",");
