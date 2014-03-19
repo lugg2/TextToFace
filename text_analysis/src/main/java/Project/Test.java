@@ -1,11 +1,11 @@
 package Project;
 
-import java.util.Date;
+//import java.util.Date;
 
 public class Test {
 		public static void main(String[] args) {
 			
-			long start = new Date().getTime();
+	//		long start = new Date().getTime();
 			
 			String text = args[0];
 			//1st step: read entered text
@@ -19,7 +19,7 @@ public class Test {
 				calc.doCalculations(enteredText);
 			}else System.out.println("no text entered");
 			
-			long runningTime = new Date().getTime() - start;
-//			System.out.print("Zeit: " + runningTime);	
+	//		long runningTime = new Date().getTime() - start;
+	//		System.out.print("Zeit: " + runningTime);	
 		}
 }
