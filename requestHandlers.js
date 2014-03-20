@@ -1,6 +1,6 @@
 var exec = require("child_process").exec;
 var formidable = require("formidable");
-var querystring = require("query  string");
+var querystring = require("querystring");
 var fs = require("fs");
 var util = require("util");
 
@@ -27,7 +27,13 @@ function upload(response, request) {
     form.parse(request, function(err, fields, files) {
       response.writeHead(200, {'content-type': 'text/plain'});
       response.write('received upload:\n\n');
-      response.end(util.inspect({fields: fields, files: files}));
+      response.end(fields.Text1);
+
+	fs.writeFile('message.txt', fields.Text1, function (err) {
+  		if (err) throw err;
+  	console.log('It\'s saved!');
+	});
+
     });
   }
     return;
