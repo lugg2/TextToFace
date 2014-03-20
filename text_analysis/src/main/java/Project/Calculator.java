@@ -78,7 +78,7 @@ public class Calculator {
 		int numb_noun = 0;
 		int numb_noun_fem = 0;
 		int numb_noun_male = 0;
-		int numb_noun_sachl = 0;
+		int numb_noun_neutr = 0;
 		int numb_ver = 0;
 		int numb_adj = 0;
 		int numb_adv = 0;
@@ -88,7 +88,7 @@ public class Calculator {
 		int numb_art = 0;
 		int numb_art_fem = 0;
 		int numb_art_male = 0;
-		int numb_art_sachl = 0;
+		int numb_art_neutr = 0;
 		
 		//count category words
 		int numb_physics = 0;
@@ -129,7 +129,7 @@ public class Calculator {
 		Connection c = null;
 		try {
 			Class.forName("org.sqlite.JDBC");
-			c = DriverManager.getConnection("jdbc:sqlite:ttf_complete.db");
+			c = DriverManager.getConnection("jdbc:sqlite:ttf_komp.db");
 		} catch ( Exception e ) {
 			System.out.println("no connection to sqlite data base possible: " + e.getClass().getName() + ": " + e.getMessage());
 		}
@@ -212,7 +212,7 @@ public class Calculator {
 							{
 								numb_noun_male++;
 							}
-							else numb_noun_sachl++;
+							else numb_noun_neutr++;
 					}
 					if (tok.getPOSTag().contains("VER"))
 					{
@@ -308,7 +308,7 @@ public class Calculator {
 							{
 								numb_art_male++;
 							}
-							else numb_art_sachl++;
+							else numb_art_neutr++;
 					}
 				}
 			}
@@ -342,12 +342,12 @@ public class Calculator {
 		System.out.println('"' + "grammar errors" + '"' + ": " + numb_errors + ",");
 		System.out.println('"' + "unknown words" + '"' + ": " + numb_unknown + ",");
 		System.out.println('"' + "vocals" + ": " + numb_vocals + ",");
-		System.out.println('"' + "r´s" + ": " + numb_r + ",");
+		System.out.println('"' + "rs" + ": " + numb_r + ",");
 		System.out.println('"' + "words" + '"' + ": " + numb_words + ",");
 		System.out.println('"' + "nouns" + '"' + ": " + numb_noun + ",");
 		System.out.println('"' + "fem nouns" + '"' + ": " + numb_noun_fem + ",");
 		System.out.println('"' + "male nouns" + '"' + ": " + numb_noun_male + ",");
-		System.out.println('"' + "sachl nouns" + '"' + ": " + numb_noun_sachl + ",");
+		System.out.println('"' + "neutr nouns" + '"' + ": " + numb_noun_neutr + ",");
 		System.out.println('"' + "verbs" + '"' + ": " + numb_ver + ",");
 		System.out.println('"' + "adj" + '"' + ": " + numb_adj + ",");
 		System.out.println('"' + "adv" + '"' + ": " + numb_adv + ",");
@@ -357,7 +357,7 @@ public class Calculator {
 		System.out.println('"' + "article" + '"' + ": " + numb_art + ",");
 		System.out.println('"' + "fem article" + '"' + ": " + numb_art_fem + ",");
 		System.out.println('"' + "male article" + '"' + ": " + numb_art_male + ",");
-		System.out.println('"' + "sachl article" + '"' + ": " + numb_art_sachl + ",");
+		System.out.println('"' + "neutr article" + '"' + ": " + numb_art_neutr + ",");
 		System.out.println('"' + "physics" + '"' + ": " + numb_physics + ",");
 		System.out.println('"' + "medicin" + '"' + ": " + numb_medicin + ",");
 		System.out.println('"' + "botanic" + '"' + ": " + numb_botanic + ",");
