@@ -4,8 +4,6 @@ var querystring = require("querystring");
 var fs = require("fs");
 var util = require("util");
 
-var invoke = require('invoke')
-
 function start(response) {
 console.log("Request handler 'start' was called.");
 
@@ -20,49 +18,25 @@ response.write("</body></html>")
 response.end();
 });
 }
-  
+
 function upload(response, request) {
+  if ( request.method.toLowerCase() == 'post') {
+    // parse a file upload
+    var form = new formidable.IncomingForm();
 
-    invoke(function (data, callback) {
-      if ( request.method.toLowerCase() == 'post') {
-        var form = new formidable.IncomingForm();
+    form.parse(request, function(err, fields, files) {
+      response.writeHead(200, {'content-type': 'text/plain'});
+      response.write('received upload:\n\n');
+      response.end(fields.Text1);
 
-        form.parse(request, function(err, fields, files) {
-    //    response.writeHead(200, {'content-type': 'text/plain'});
-    //    response.write('received upload:\n\n');
-    //    response.end(fields.Text1);
+	fs.writeFile('message.txt', fields.Text1, function (err) {
+  		if (err) throw err;
+  	console.log('It\'s saved!');
+	});
 
-        fs.writeFile('message', fields.Text1, function (err) {
-          if (err) throw err;
-        console.log('It\'s saved!');
-        callback( );
-        });
-
-      });
-      }
-      else
-      {
-        // bad request
-      }
-  
-    }).then(function (data, callback) {
-      exec("Java -jar text_analysis/Code/Source.jar message",
-      { timeout: 10000, maxBuffer: 20000*1024 },
-      function (error, stdout, stderr) 
-      {
-        callback(null, stdout);
-      })  
-    
-    }).then(function (data, callback) {
-        response.writeHead(200, {'content-type': 'text/plain'});
-        response.write( data );
-        response.end();
-        callback
-    }).end(null, function (data, callback) {
-      
-    })
-
- 
+    });
+  }
+    return;
 }
 
 function show(response, query) {
