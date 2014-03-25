@@ -21,6 +21,9 @@ function upload(response, request) {
         fs.writeFile('message' + requestID, fields.Text1, function (err) {
           if (err) throw err;
         worklist.push('message' + requestID);
+	response.writeHead(200, {'content-type': 'text/plain'});
+          response.write('upload successfull');
+          response.end();
         });
       });
       }
@@ -44,7 +47,6 @@ function getWorklist(response, request)
   }
 
   response.end();
-    
   worklist.length = 0;       
     
 }
