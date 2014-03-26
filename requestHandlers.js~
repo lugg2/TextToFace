@@ -51,5 +51,29 @@ function getWorklist(response, request)
     
 }
 
+function finished(request, response) {
+    if (request.method == 'POST') {
+        var body = '';
+        request.on('data', function (data) {
+            body += data;
+            // 1e6 === 1 * Math.pow(10, 6) === 1 * 1000000 ~~~ 1MB
+            if (body.length > 1e6) { 
+                // FLOOD ATTACK OR FAULTY CLIENT, NUKE REQUEST
+                request.connection.destroy();
+            }
+        });
+        request.on('end', function () {
+
+            var POST = qs.parse(body);
+            response.writeHead(200, {'content-type': 'text/plain'});
+            response.write('upload successfull :');
+            response.end(POST);
+
+        });
+    }
+} 
+}
+
+exports.finished = finished;
 exports.getWorklist = getWorklist;
 exports.upload = upload;

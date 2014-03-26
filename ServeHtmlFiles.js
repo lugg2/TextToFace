@@ -3,12 +3,13 @@ var fs 		= require('fs');
 var path 	= require('path');
 
 var cache 	= new Array	();	// used to cache html, css and js files 
-
+var websitePath =''; //fs.readFileSync('/usr/local/etc/nodewebsitepath.conf');
+  
 
 function send404(response)
 {
 	response.writeHead(404,{'Content-Type':'text/plain'});
-	response.write('Error 404: response not found');
+	response.write('Error 404: ressource not found');
 	response.end();
 }
 
@@ -35,6 +36,7 @@ function serveStatic(response, absPath) {
 function loadAndServeFile(exists, absPath, response)
 {
 	console.log('came here with' + absPath);
+	absPath = websitePath + absPath;
 	if(exists)
 	{
 		fs.readFile(absPath, function(err,data){
