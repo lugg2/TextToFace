@@ -1,0 +1,21 @@
+GET der Daten erfolgt von der Seite:
+"http://www.texttoface.de/getworklist?workerid=" plus Übergabeparameter bei Aufruf [args]
+
+POST der Resultate erfolgt auf die Seite:
+"http://www.texttoface.de/finished?workerid=" siehe Übergabeparameter "&&error=" zweistellige Errorkennung "&&messageID="  ID der eingelesenen und verarbeiteten Message (z.B. 0 bei 0: message6) 
+
+Die Errorkennung hat entsprechend der Ausprägung folgende Bedeutung:
+  00: OK
+  01: URL not well formed
+  02: GET connection problem
+  03: no access to text file 
+  04: no text entered in file
+  05: no access to languagetool DB (initialisation) 
+  06: check failure (languagetool)
+  07: word grouping failure (languagetool)
+  08: no access to Thesaurus DB
+  09: Thesaurus DB close problem
+  10: SQL statement failure
+  11: ResultSet of SQL-Statement cannot be analyzed
+
+Die Abfrage erfolgt in dieses JAR 3 mal in einem Abstand von 10 Sekunden.
