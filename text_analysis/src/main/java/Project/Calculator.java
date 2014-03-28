@@ -1,6 +1,7 @@
 package Project;
 
 import java.io.IOException;
+
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -12,82 +13,80 @@ import org.languagetool.JLanguageTool;
 import org.languagetool.language.German;
 import org.languagetool.rules.RuleMatch;
 
-public class Calculator {
+public class Calculator 
+{
+	private JLanguageTool langTool;
+	private List<RuleMatch> matches;
+	private int numb_errors;
+	private int numb_unknown;
+	private int average_length_sentence;
+	private int numb_sentences;
+	private int numb_vocals;
+	private Pattern p;
+	private Matcher m;
+	private int numb_noun;
+	private int numb_noun_fem;
+	private int numb_noun_male;
+	private int numb_noun_neutr;
+	private int numb_ver;
+	private int numb_adj;
+	private int numb_adv;
+	private int numb_kon;
+	private int numb_neg;
+	private int numb_prp;
+	private int numb_art;
+	private int numb_art_fem;
+	private int numb_art_male;
+	private int numb_art_neutr;
+	private int[] category_counter;
+	private String[] category_title;
+	private DBAccess db;
+	private int numb_words;
+	private int numb_r;
+	private int numb_i_l;
+	private String errorID;
 	
-	public void doCalculations(String enteredText){
-		
-		//access to all rules over langTool
-		JLanguageTool langTool = null;
+	public void doInitialisations()
+	{
+		errorID = "00";
+		langTool = null;
+	
+		//access to all rules over langTool plus activation of all default pattern rules
 		try {
 			langTool = new JLanguageTool(new German());
-		} catch (IOException e) {
-			System.out.println("no access to languageTool");
-		}
-		
-		//activation of all default pattern rules
-		try {
 			langTool.activateDefaultPatternRules();
+			langTool.setListUnknownWords(true);
 		} catch (IOException e) {
-			System.out.println("languageTool default rules cannot be activated");
+			errorID = "05";
 		}
-	
-		//check the entered text for errors	
-		List<RuleMatch> matches = null;
-		int numb_errors = 0;
-		
-		langTool.setListUnknownWords(true);
-		try {
-			matches = langTool.check(enteredText);
-			numb_errors = matches.size(); 								//numb_errors
-		} catch (IOException e) {
-			System.out.println("languageTool check failure");
-		}
-		
-		//count unknown words
-		int numb_unknown = 0;
-		List<String> liste = langTool.getUnknownWords();
-		numb_unknown = liste.size();									//numb_unknown
-		
-		//average length of sentences
-		int average_length_sentence = 0;
-		//number of all sentences
-		int numb_sentences = 0;
-			
-		//list of all sentences
-		List<String> sentences = langTool.sentenceTokenize(enteredText);		
-		for(int i=0; i<sentences.size(); i++)
-		{
-			numb_sentences++;											//numb_sentences
-			average_length_sentence += sentences.get(i).length();
-		}		
-		average_length_sentence /= sentences.size();					//average_length_sentence
 
-		//count all VOCALS
-		int numb_vocals = 0;
-		Pattern p = Pattern.compile("(a|e|i|o|u|A|E|I|O|U)");
-		Matcher m = p.matcher(enteredText);
-		while (m.find()) numb_vocals++;								 	//numb_vocals
-		
-		//count nouns, verbs, adj, ...
-		int numb_noun = 0;
-		int numb_noun_fem = 0;
-		int numb_noun_male = 0;
-		int numb_noun_neutr = 0;
-		int numb_ver = 0;
-		int numb_adj = 0;
-		int numb_adv = 0;
-		int numb_kon = 0;
-		int numb_neg = 0;
-		int numb_prp = 0;
-		int numb_art = 0;
-		int numb_art_fem = 0;
-		int numb_art_male = 0;
-		int numb_art_neutr = 0;
-		
-		//count category words
-		int[] category_counter  = new int[33];
-		String[] category_title = new String[33];
-		//category title
+		matches = null;
+		numb_errors = 0;
+		numb_unknown = 0;
+		average_length_sentence = 0;
+		numb_sentences = 0;
+		numb_vocals = 0;
+		numb_noun = 0;
+		numb_noun_fem = 0;
+		numb_noun_male = 0;
+		numb_noun_neutr = 0;
+		numb_ver = 0;
+		numb_adj = 0;
+		numb_adv = 0;
+		numb_kon = 0;
+		numb_neg = 0;
+		numb_prp = 0;
+		numb_art = 0;
+		numb_art_fem = 0;
+		numb_art_male = 0;
+		numb_art_neutr = 0;
+		numb_words = 0;
+		numb_r = 0;
+		numb_i_l = 0;		
+		db = new DBAccess();
+		category_counter  = new int[36];
+		for(int i=0; i<category_counter.length; i++) category_counter[i] = 0;
+		category_title = new String[36];
 		category_title[0] = "physics";
 		category_title[1] = "medicin";
 		category_title[2] = "botanic";
@@ -117,134 +116,181 @@ public class Calculator {
 		category_title[26] = "geology";
 		category_title[27] = "railway";
 		category_title[28] = "language";
-		category_title[29] = "geography";
-		category_title[30] = "air";
-		category_title[31] = "psychology";
-		category_title[32] = "terrorism";
+		category_title[29] = "art";
+		category_title[30] = "geography";
+		category_title[31] = "air";
+		category_title[32] = "psychology";
+		category_title[33] = "terrorism";
+		category_title[34] = "emotions";
+		category_title[35] = "color";
+	}
+	
+	public String doCalculations(String enteredText)
+	{		
+		//check the entered text for errors	
+		try {
+			matches = langTool.check(enteredText);
+			numb_errors = matches.size(); 									//numb_errors
+		} catch (IOException e) {
+			errorID = "06";
+			return ""; 
+		}
 		
-		DBAccess db = new DBAccess();
+		//count unknown words
+		List<String> listUnknown = langTool.getUnknownWords();
+		numb_unknown = listUnknown.size();									//numb_unknown
+		
+		//list of all sentences
+		List<String> listSentences = langTool.sentenceTokenize(enteredText);		
+		for(int i=0; i<listSentences.size(); i++)
+		{
+			numb_sentences++;												//numb_sentences
+			average_length_sentence += listSentences.get(i).length();
+		}		
+		average_length_sentence /= listSentences.size();					//average_length_sentence
+
+		//count all VOCALS
+		p = Pattern.compile("(a|e|i|o|u|A|E|I|O|U)");
+		m = p.matcher(enteredText);
+		while (m.find()) numb_vocals++;									 	//numb_vocals
+		
+		//Thesaurus-DB access
 		db.establishConnection();
 
-		try {
-			AnalyzedSentence textComplete = langTool.getRawAnalyzedSentence(enteredText);
-			AnalyzedTokenReadings[] tokens = textComplete.getTokensWithoutWhitespace();
+		if(!db.isError())
+		{
+			try {
+				AnalyzedSentence textComplete = langTool.getRawAnalyzedSentence(enteredText);
+				AnalyzedTokenReadings[] tokens = textComplete.getTokensWithoutWhitespace();
 
-			for(int i = 0; i<tokens.length; i++) 
-			{
-				AnalyzedToken tok = tokens[i].getAnalyzedToken(0);
-				
-				if(!tok.hasNoTag())
+				for(int i = 0; i<tokens.length; i++) 
 				{
-					if(tok.getPOSTag().contains("SUB"))
+					AnalyzedToken tok = tokens[i].getAnalyzedToken(0);
+					if(!tok.hasNoTag())
 					{
 						category_counter = db.checkToken(category_counter, tok.getTokenInflected());							
-						numb_noun++;									//numb_noun
-						
-						if(tok.getPOSTag().contains("FEM"))
+						if(tok.getPOSTag().contains("SUB"))
 						{
-							numb_noun_fem++;
-						}
-						else if(tok.getPOSTag().contains("MAS")) 
-							{
-								numb_noun_male++;
-							}
-							else numb_noun_neutr++;
-					}
-					if (tok.getPOSTag().contains("VER"))
-					{
-						category_counter = db.checkToken(category_counter, tok.getTokenInflected());							
-						numb_ver++;										//numb_ver	
-					}
-					if (tok.getPOSTag().contains("ADJ"))
-					{
-						numb_adj++;										//numb_adj
-					}
-					if (tok.getPOSTag().contains("ADV"))
-					{
-						numb_adv++;										//numb_adv
-					
-					}
-					if (tok.getPOSTag().contains("KON"))
-					{
-						numb_kon++;										//numb_kon
+							numb_noun++;									//numb_noun
 						
-					}
-					if (tok.getPOSTag().contains("NEG"))
-					{
-						numb_neg++;										//numb_neg
-					}
-					if (tok.getPOSTag().contains("PRP"))
-					{
-						numb_prp++;										//numb_prp
-					}
-					if (tok.getPOSTag().contains("ART") && !tok.getPOSTag().contains("START"))
-					{
-						numb_art++;										//numb_art
-						if(tok.getPOSTag().contains("FEM"))
-						{
-							numb_art_fem++;
-						}
-						else 
-							if (tok.getPOSTag().contains("MAS")) 
+							if(tok.getPOSTag().contains("FEM"))
 							{
-								numb_art_male++;
+								numb_noun_fem++;
 							}
-							else numb_art_neutr++;
+							else if(tok.getPOSTag().contains("MAS")) 
+								{
+									numb_noun_male++;
+								}
+								else numb_noun_neutr++;
+						}
+						if (tok.getPOSTag().contains("VER")) numb_ver++;	//numb_ver	
+						if (tok.getPOSTag().contains("ADJ")) numb_adj++;	//numb_adj
+						if (tok.getPOSTag().contains("ADV")) numb_adv++;	//numb_adv
+						if (tok.getPOSTag().contains("KON")) numb_kon++;	//numb_kon
+						if (tok.getPOSTag().contains("NEG")) numb_neg++;	//numb_neg
+						if (tok.getPOSTag().contains("PRP")) numb_prp++;	//numb_prp
+						
+						if (tok.getPOSTag().contains("ART") && !tok.getPOSTag().contains("START"))
+						{
+							numb_art++;										//numb_art
+							if(tok.getPOSTag().contains("FEM"))
+							{
+								numb_art_fem++;
+							}	
+							else 
+								if (tok.getPOSTag().contains("MAS")) 
+								{
+									numb_art_male++;
+								}
+								else numb_art_neutr++;
+						}	
 					}
 				}
+			} catch (IOException e) {
+				errorID = "07";
+				return "";
 			}
-		} catch (IOException e) {
-			System.out.println("languageTool failure by word group check");
-		}
+		}else errorID = db.getErrorID();
 		
 		db.closeConnection();
+		if(db.isError()) errorID = db.getErrorID();
 		
 		//count all words
-		int numb_words = 0;
-		Pattern p2 = Pattern.compile("[a-zA-ZäüöÄÜÖ]+");
-		Matcher m2 = p2.matcher(enteredText);
-		while (m2.find()) numb_words++;												//numb_words
-					
+		p = Pattern.compile("[a-zA-ZäüöÄÜÖß]+");
+		m = p.matcher(enteredText);
+		while (m.find()) numb_words++;												//numb_words
+		
 		//count all R´s
-		int numb_r = 0;
-		Pattern p3 = Pattern.compile("(r|R)");
-		Matcher m3 = p3.matcher(enteredText);
-		while (m3.find()) numb_r++;												 	//numb_r
+		p = Pattern.compile("(r|R)");
+		m = p.matcher(enteredText);
+		while (m.find()) numb_r++;												 	//numb_r
 						
 		//count all i´s and l´s 
-		int numb_i_l = 0;
-		Pattern p4 = Pattern.compile("(i|I|l|L)");
-		Matcher m4 = p4.matcher(enteredText);
-		while (m4.find()) numb_i_l++;												 //numb_i_l
+		p = Pattern.compile("(i|I|l|L)");
+		m = p.matcher(enteredText);
+		while (m.find()) numb_i_l++;												 //numb_i_l
 
+		
 		//give stored information
-		System.out.println("{");
-		System.out.println('"' + "sentences" + '"' + ": " + numb_sentences + ",");
-		System.out.println('"' + "average length" + '"' + ": " + average_length_sentence + ",");
-		System.out.println('"' + "grammar errors" + '"' + ": " + numb_errors + ",");
-		System.out.println('"' + "vocals" + ": " + numb_vocals + ",");
-		System.out.println('"' + "r-s" + ": " + numb_r + ",");
-		System.out.println('"' + "i- and l-s" + ": " + numb_i_l + ",");
-		System.out.println('"' + "words" + '"' + ": " + numb_words + ",");
-		System.out.println('"' + "nouns" + '"' + ": " + numb_noun + ",");
-		System.out.println('"' + "fem nouns" + '"' + ": " + numb_noun_fem + ",");
-		System.out.println('"' + "male nouns" + '"' + ": " + numb_noun_male + ",");
-		System.out.println('"' + "neutr nouns" + '"' + ": " + numb_noun_neutr + ",");
-		System.out.println('"' + "verbs" + '"' + ": " + numb_ver + ",");
-		System.out.println('"' + "adj" + '"' + ": " + numb_adj + ",");
-		System.out.println('"' + "adv" + '"' + ": " + numb_adv + ",");
-		System.out.println('"' + "kon" + '"' + ": " + numb_kon + ",");
-		System.out.println('"' + "neg" + '"' + ": " + numb_neg + ",");
-		System.out.println('"' + "prep" + '"' + ": " + numb_prp + ",");
-		System.out.println('"' + "article" + '"' + ": " + numb_art + ",");
-		System.out.println('"' + "fem article" + '"' + ": " + numb_art_fem + ",");
-		System.out.println('"' + "male article" + '"' + ": " + numb_art_male + ",");
-		System.out.println('"' + "neutr article" + '"' + ": " + numb_art_neutr + ",");
-		for (int i=0; i<category_counter.length; i++)
+		String str_start = "{";
+		String[] str = new String[22];
+		str[0] = ('"' + "sentences" + '"' + ": " + numb_sentences + ", ");
+		str[1] = ('"' + "average length" + '"' + ": " + average_length_sentence + ", ");
+		str[2] = ('"' + "grammar errors" + '"' + ": " + numb_errors + ", ");
+		str[3] = ('"' + "vocals" + ": " + numb_vocals + ", ");
+		str[4] = ('"' + "r-s" + ": " + numb_r + ", ");
+		str[5] = ('"' + "i- and l-s" + ": " + numb_i_l + ", ");
+		str[6] = ('"' + "words" + '"' + ": " + numb_words + ", ");
+		str[7] = ('"' + "nouns" + '"' + ": " + numb_noun + ", ");
+		str[8] = ('"' + "fem nouns" + '"' + ": " + numb_noun_fem + ", ");
+		str[9] = ('"' + "male nouns" + '"' + ": " + numb_noun_male + ", ");
+		str[10] = ('"' + "neutr nouns" + '"' + ": " + numb_noun_neutr + ", ");
+		str[11] = ('"' + "verbs" + '"' + ": " + numb_ver + ", ");
+		str[12] = ('"' + "adj" + '"' + ": " + numb_adj + ", ");
+		str[13] = ('"' + "adv" + '"' + ": " + numb_adv + ", ");
+		str[14] = ('"' + "kon" + '"' + ": " + numb_kon + ", ");
+		str[15] = ('"' + "neg" + '"' + ": " + numb_neg + ", ");
+		str[16] = ('"' + "prep" + '"' + ": " + numb_prp + ", ");
+		str[17] = ('"' + "article" + '"' + ": " + numb_art + ", ");
+		str[18] = ('"' + "fem article" + '"' + ": " + numb_art_fem + ", ");
+		str[19] = ('"' + "male article" + '"' + ": " + numb_art_male + ", ");
+		str[20] = ('"' + "neutr article" + '"' + ": " + numb_art_neutr + ", ");
+		str[21] = ('"' + "unknown words" + '"' + ": " + numb_unknown + ", ");
+		String[] str_cat = new String[category_counter.length];
+		for (int i=0; i<category_counter.length-1; i++)
 		{
-			System.out.println('"' + category_title[i] + '"' + ": " + category_counter[i] + ",");			
+			str_cat[i] = ('"' + category_title[i] + '"' + ": " + category_counter[i] + ", ");			
 		}
-		System.out.println('"' + "unknown words" + '"' + ": " + numb_unknown);
-		System.out.print("}");
+		str_cat[category_counter.length-1] = ('"' + category_title[category_counter.length-1] + '"' + ": " + category_counter[category_counter.length-1]);			
+
+		String str_end = "}";
+		
+		//concatenation of the complete JSON-String
+		String completeJSON = "";
+		completeJSON += str_start;
+		for(int i=0; i<22; i++)
+		{
+			completeJSON += str[i];
+		}
+		for(int i=0; i<category_counter.length; i++)
+		{
+			completeJSON += str_cat[i];
+		}
+		completeJSON += str_end;
+		
+		return completeJSON;
+	}
+	
+	public boolean isError()
+	{
+		if(errorID.contains("00"))
+		{
+			return false;
+		}else return true;
+	}
+	
+	public String getErrorID()
+	{
+		return errorID;
 	}
 }
