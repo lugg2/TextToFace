@@ -9,6 +9,11 @@ var invoke = require('invoke')
 var worklist = new Array();
 var requestID = -1;
 
+var websitePath = String(fs.readFileSync('/etc/usr/nodewebsitepath.conf'));
+console.log ('path  :' + websitePath);
+console.log(typeof(websitePath));
+var felder = websitePath.split('\"',2);
+var websitePath = felder[1];
 
 
 // helper functions
@@ -33,7 +38,7 @@ function upload(response, request) {
         form.parse(request, function(err, fields, files) {
 
         requestID++;
-        fs.writeFile('message' + requestID, fields.Text1, function (err) {
+        fs.writeFile(websitePath + '/text_analysis/message' + requestID , fields.Text1, function (err) {
           if (err) throw err;
         worklist.push('message' + requestID);
     	  response.writeHead(200, {'content-type': 'text/plain'});
@@ -83,7 +88,7 @@ function finished(response, request) {
   request.on('end', function () {
     console.log('recieved data :'+ body);
     var POST = body.split('$**$',2); 
-    // POST[0] are params example  workerId='abc12'&&error='false'
+    // POST[0] are params example  workerId='abc12'&&error='false'&&messageId='12'
     // POST[1] is the json with the results of the analyser
     var query = querystring.parse(POST[0]);
 

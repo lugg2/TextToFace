@@ -8,9 +8,24 @@ var invoke = require('invoke')
 
 var worklist = new Array();
 var requestID = -1;
-  
-function upload(response, request) {
 
+
+
+// helper functions
+function write502(response)
+{
+    response.writeHead(502, {'content-type': 'text/plain'});
+    response.write('Bad Request');
+    response.end();
+}
+
+function continueProcessng(postData)
+{
+
+}
+
+// exports functions  
+function upload(response, request) {
     
       if ( request.method.toLowerCase() == 'post') {
         var form = new formidable.IncomingForm();
@@ -21,7 +36,7 @@ function upload(response, request) {
         fs.writeFile('message' + requestID, fields.Text1, function (err) {
           if (err) throw err;
         worklist.push('message' + requestID);
-	response.writeHead(200, {'content-type': 'text/plain'});
+    	  response.writeHead(200, {'content-type': 'text/plain'});
           response.write('upload successfull');
           response.end();
         });
@@ -29,9 +44,7 @@ function upload(response, request) {
       }
       else
       {
-          response.writeHead(502, {'content-type': 'text/plain'});
-          response.write('Bad Request');
-          response.end();
+          write502(response);
       }
   
 }
@@ -51,28 +64,43 @@ function getWorklist(response, request)
     
 }
 
-function finished(request, response) {
-    if (request.method == 'POST') {
-        var body = '';
-        request.on('data', function (data) {
-            body += data;
-            // 1e6 === 1 * Math.pow(10, 6) === 1 * 1000000 ~~~ 1MB
-            if (body.length > 1e6) { 
-                // FLOOD ATTACK OR FAULTY CLIENT, NUKE REQUEST
-                request.connection.destroy();
-            }
-        });
-        request.on('end', function () {
+function finished(response, request) {
+  if ( request.method.toLowerCase() == 'post') {
+  console.log('POST');
+  var body = '';
+  request.on('data', function (data) {
+  body += data;
 
-            var POST = qs.parse(body);
-            response.writeHead(200, {'content-type': 'text/plain'});
-            response.write('upload successfull :');
-            response.end(POST);
+  // 1e6 === 1 * Math.pow(10, 6) === 1 * 1000000 ~~~ 1MB
+  if (body.length > 1e6) { 
+      // FLOOD ATTACK OR FAULTY CLIENT, NUKE REQUEST
+      request.connection.destroy();
+      console.log('more than 1MB post data');
+      console.log(body);
+  } 
+  });
 
-        });
-    }
-} 
+  request.on('end', function () {
+    console.log('recieved data :'+ body);
+    var POST = body.split('$**$',2); 
+    // POST[0] are params example  workerId='abc12'&&error='false'
+    // POST[1] is the json with the results of the analyser
+    var query = querystring.parse(POST[0]);
+
+    response.writeHead(200, {'content-type': 'text/plain'});
+    response.write('upload successfull :');
+    response.end();
+
+    console.log(util.inspect(query,{showHidden: true, depth: null}));
+  });
+
+  }
+  else
+  {
+      write502(response);
+  }
 }
+
 
 exports.finished = finished;
 exports.getWorklist = getWorklist;

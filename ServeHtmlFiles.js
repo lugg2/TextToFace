@@ -3,7 +3,6 @@ var fs 		= require('fs');
 var path 	= require('path');
 
 var cache 	= new Array	();	// used to cache html, css and js files 
-var websitePath =''; //fs.readFileSync('/usr/local/etc/nodewebsitepath.conf');
   
 
 function send404(response)
@@ -36,7 +35,7 @@ function serveStatic(response, absPath) {
 function loadAndServeFile(exists, absPath, response)
 {
 	console.log('came here with' + absPath);
-	absPath = websitePath + absPath;
+	
 	if(exists)
 	{
 		fs.readFile(absPath, function(err,data){
