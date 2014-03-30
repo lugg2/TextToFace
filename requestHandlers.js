@@ -9,12 +9,6 @@ var invoke = require('invoke')
 var worklist = new Array();
 var requestID = -1;
 
-var websitePath = String(fs.readFileSync('/etc/usr/nodewebsitepath.conf'));
-console.log ('path  :' + websitePath);
-console.log(typeof(websitePath));
-var felder = websitePath.split('\"',2);
-var websitePath = felder[1];
-
 
 // helper functions
 function write502(response)
@@ -38,7 +32,7 @@ function upload(response, request) {
         form.parse(request, function(err, fields, files) {
 
         requestID++;
-        fs.writeFile(websitePath + '/text_analysis/message' + requestID , fields.Text1, function (err) {
+        fs.writeFile(__dirname + '/text_analysis/message' + requestID , fields.Text1, function (err) {
           if (err) throw err;
         worklist.push('message' + requestID);
     	  response.writeHead(200, {'content-type': 'text/plain'});

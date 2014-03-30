@@ -3,7 +3,7 @@ var serveStaticFile = require('./ServeHtmlFiles');
 
 
 // function serveStatic(response, absPath) {
-function route(handle, pathname, response, request, websitePath)
+function route(handle, pathname, response, request)
 {
 	console.log(pathname + '<--');
 	if(typeof handle[pathname]==='function')
@@ -14,11 +14,11 @@ function route(handle, pathname, response, request, websitePath)
 	{
 		if(pathname && pathname != '/' && pathname!='/Index.html' )
 		{
-			pathname = websitePath + '/' + 'website' + pathname;
+			pathname = __dirname + '/' + 'website' + pathname;
 		}
 		else 
 		{
-			pathname = websitePath + '/' + 'website/index.html';
+			pathname = __dirname + '/' + 'website/index.html';
 		}	
 		serveStaticFile.serveStatic(response, pathname);
 	}

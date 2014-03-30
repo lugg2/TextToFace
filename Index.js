@@ -2,12 +2,11 @@ var server = require("./server");
 var router = require("./router");
 var requestHandlers = require("./requestHandlers");
 
+// api functions
 var handle = {}
-//handle["/"] = requestHandlers.start;
-//handle["/start"] = requestHandlers.start;
-handle["/upload"] = requestHandlers.upload;
-handle["/getworklist"] = requestHandlers.getWorklist;
-handle["/finished"] = requestHandlers.finished;
-//handle["/show"] = requestHandlers.show;
+
+handle["/upload"] 		= requestHandlers.upload;
+handle["/getworklist"] 	= requestHandlers.getWorklist;
+handle["/finished"] 	= requestHandlers.finished;
 
 server.start(router.route, handle);
