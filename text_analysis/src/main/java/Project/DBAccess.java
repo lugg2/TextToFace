@@ -14,7 +14,7 @@ public class DBAccess {
 	{
 		try {
 			Class.forName("org.sqlite.JDBC");
-			c = DriverManager.getConnection("jdbc:sqlite:thesaurus.db");
+			c = DriverManager.getConnection("jdbc:sqlite:thesaurusDB.db");
 		} catch ( Exception e ) {
 			errorID = "08";
 		}
@@ -27,10 +27,8 @@ public class DBAccess {
 		try {
 			stat = c.createStatement();
 			rs = stat.executeQuery(	"SELECT category_name " +
-									"FROM category_link " +
-									"WHERE word LIKE '" +
-									"" + token + "'" +
-									"");
+									"FROM cat_groups " +
+									"WHERE word LIKE '" + token + "'");
 		} catch (SQLException e) {
 			errorID = "10";
 		}
@@ -55,27 +53,25 @@ public class DBAccess {
 					if (rs.getString("category_name").contains("Astronomie")) category_counter[12]++;
 					if (rs.getString("category_name").contains("Elektrizität")) category_counter[13]++;
 					if (rs.getString("category_name").contains("Religion")) category_counter[14]++;
-					if (rs.getString("category_name").contains("figurativ")) category_counter[15]++;
-					if (rs.getString("category_name").contains("umgangssprachlich")) category_counter[16]++;
-					if (rs.getString("category_name").contains("Mathematik")) category_counter[17]++;
-					if (rs.getString("category_name").contains("Militär")) category_counter[18]++;
-					if (rs.getString("category_name").contains("Ökonomie")) category_counter[19]++;
-					if (rs.getString("category_name").contains("Automobil")) category_counter[20]++;
-					if (rs.getString("category_name").contains("Gastronomie")) category_counter[21]++;
-					if (rs.getString("category_name").contains("Schifffahrt")) category_counter[22]++;
-					if (rs.getString("category_name").contains("Biochemie")) category_counter[23]++;
-					if (rs.getString("category_name").contains("Geschichte")) category_counter[24]++;
-					if (rs.getString("category_name").contains("Politik")) category_counter[25]++;
-					if (rs.getString("category_name").contains("Geologie")) category_counter[26]++;
-					if (rs.getString("category_name").contains("Eisenbahn")) category_counter[27]++;
-					if (rs.getString("category_name").contains("Linguistik/Sprache")) category_counter[28]++;
-					if (rs.getString("category_name").contains("Kunst")) category_counter[29]++;
-					if (rs.getString("category_name").contains("Geographie")) category_counter[30]++;
-					if (rs.getString("category_name").contains("Luftfahrt")) category_counter[31]++;
-					if (rs.getString("category_name").contains("Psychologie")) category_counter[32]++;					
-					if (rs.getString("category_name").contains("Terrorismus")) category_counter[33]++;
-					if (rs.getString("category_name").contains("Emotionen")) category_counter[34]++;
-					if (rs.getString("category_name").contains("Farben")) category_counter[35]++;
+					if (rs.getString("category_name").contains("Mathematik")) category_counter[15]++;
+					if (rs.getString("category_name").contains("Militär")) category_counter[16]++;
+					if (rs.getString("category_name").contains("Ökonomie")) category_counter[17]++;
+					if (rs.getString("category_name").contains("Automobil")) category_counter[18]++;
+					if (rs.getString("category_name").contains("Gastronomie")) category_counter[19]++;
+					if (rs.getString("category_name").contains("Schifffahrt")) category_counter[20]++;
+					if (rs.getString("category_name").contains("Biochemie")) category_counter[21]++;
+					if (rs.getString("category_name").contains("Geschichte")) category_counter[22]++;
+					if (rs.getString("category_name").contains("Politik")) category_counter[23]++;
+					if (rs.getString("category_name").contains("Geologie")) category_counter[24]++;
+					if (rs.getString("category_name").contains("Eisenbahn")) category_counter[25]++;
+					if (rs.getString("category_name").contains("Linguistik/Sprache")) category_counter[26]++;
+					if (rs.getString("category_name").contains("Kunst")) category_counter[27]++;
+					if (rs.getString("category_name").contains("Geographie")) category_counter[28]++;
+					if (rs.getString("category_name").contains("Luftfahrt")) category_counter[29]++;
+					if (rs.getString("category_name").contains("Psychologie")) category_counter[30]++;					
+					if (rs.getString("category_name").contains("Terrorismus")) category_counter[31]++;
+					if (rs.getString("category_name").contains("Emotionen")) category_counter[32]++;
+					if (rs.getString("category_name").contains("Farben")) category_counter[33]++;
 					rs.close();
 				}
 			} catch (SQLException e) {

@@ -11,12 +11,10 @@ import org.languagetool.AnalyzedToken;
 import org.languagetool.AnalyzedTokenReadings;
 import org.languagetool.JLanguageTool;
 import org.languagetool.language.German;
-import org.languagetool.rules.RuleMatch;
 
 public class Calculator 
 {
 	private JLanguageTool langTool;
-	private List<RuleMatch> matches;
 	private int numb_errors;
 	private int numb_unknown;
 	private int average_length_sentence;
@@ -45,6 +43,10 @@ public class Calculator
 	private int numb_r;
 	private int numb_i_l;
 	private String errorID;
+	private String[] str;
+	private String[] str_cat;
+	private String str_start;
+	private String str_end;
 	
 	public void doInitialisations()
 	{
@@ -60,7 +62,6 @@ public class Calculator
 			errorID = "05";
 		}
 
-		matches = null;
 		numb_errors = 0;
 		numb_unknown = 0;
 		average_length_sentence = 0;
@@ -84,9 +85,9 @@ public class Calculator
 		numb_r = 0;
 		numb_i_l = 0;		
 		db = new DBAccess();
-		category_counter  = new int[36];
+		category_counter  = new int[34];
 		for(int i=0; i<category_counter.length; i++) category_counter[i] = 0;
-		category_title = new String[36];
+		category_title = new String[34];
 		category_title[0] = "physics";
 		category_title[1] = "medicin";
 		category_title[2] = "botanic";
@@ -102,43 +103,41 @@ public class Calculator
 		category_title[12] = "astronomy";
 		category_title[13] = "electricity";
 		category_title[14] = "religion";
-		category_title[15] = "figurative";
-		category_title[16] = "ugs";
-		category_title[17] = "math";
-		category_title[18] = "military";
-		category_title[19] = "economy";
-		category_title[20] = "auto";
-		category_title[21] = "gastronomy";
-		category_title[22] = "shipping";
-		category_title[23] = "biochemistry";
-		category_title[24] = "history";
-		category_title[25] = "politic";
-		category_title[26] = "geology";
-		category_title[27] = "railway";
-		category_title[28] = "language";
-		category_title[29] = "art";
-		category_title[30] = "geography";
-		category_title[31] = "air";
-		category_title[32] = "psychology";
-		category_title[33] = "terrorism";
-		category_title[34] = "emotions";
-		category_title[35] = "color";
+		category_title[15] = "math";
+		category_title[16] = "military";
+		category_title[17] = "economy";
+		category_title[18] = "auto";
+		category_title[19] = "gastronomy";
+		category_title[20] = "shipping";
+		category_title[21] = "biochemistry";
+		category_title[22] = "history";
+		category_title[23] = "politic";
+		category_title[24] = "geology";
+		category_title[25] = "railway";
+		category_title[26] = "language";
+		category_title[27] = "art";
+		category_title[28] = "geography";
+		category_title[29] = "air";
+		category_title[30] = "psychology";
+		category_title[31] = "terrorism";
+		category_title[32] = "emotions";
+		category_title[33] = "color";
+		str = new String[22];
+		str_cat = new String[category_counter.length];
 	}
 	
 	public String doCalculations(String enteredText)
 	{		
 		//check the entered text for errors	
 		try {
-			matches = langTool.check(enteredText);
-			numb_errors = matches.size(); 									//numb_errors
+			numb_errors = langTool.check(enteredText).size(); 				//numb_errors
 		} catch (IOException e) {
 			errorID = "06";
 			return ""; 
 		}
 		
 		//count unknown words
-		List<String> listUnknown = langTool.getUnknownWords();
-		numb_unknown = listUnknown.size();									//numb_unknown
+		numb_unknown = langTool.getUnknownWords().size();					//numb_unknown
 		
 		//list of all sentences
 		List<String> listSentences = langTool.sentenceTokenize(enteredText);		
@@ -154,71 +153,75 @@ public class Calculator
 		m = p.matcher(enteredText);
 		while (m.find()) numb_vocals++;									 	//numb_vocals
 		
+		try {
+			AnalyzedSentence textComplete = langTool.getRawAnalyzedSentence(enteredText);
+			AnalyzedTokenReadings[] tokens = textComplete.getTokensWithoutWhitespace();
+
+			for(int i = 0; i<tokens.length; i++) 
+			{
+				AnalyzedToken tok = tokens[i].getAnalyzedToken(0);
+				if(!tok.hasNoTag())
+				{
+					if(tok.getPOSTag().contains("SUB"))
+					{
+						numb_noun++;									//numb_noun
+					
+						if(tok.getPOSTag().contains("FEM"))
+						{
+							numb_noun_fem++;
+						}
+						else if(tok.getPOSTag().contains("MAS")) 
+							{
+								numb_noun_male++;
+							}
+							else numb_noun_neutr++;
+					}
+					if (tok.getPOSTag().contains("VER")) numb_ver++;	//numb_ver	
+					if (tok.getPOSTag().contains("ADJ")) numb_adj++;	//numb_adj
+					if (tok.getPOSTag().contains("ADV")) numb_adv++;	//numb_adv
+					if (tok.getPOSTag().contains("KON")) numb_kon++;	//numb_kon
+					if (tok.getPOSTag().contains("NEG")) numb_neg++;	//numb_neg
+					if (tok.getPOSTag().contains("PRP")) numb_prp++;	//numb_prp
+					
+					if (tok.getPOSTag().contains("ART") && !tok.getPOSTag().contains("START"))
+					{
+						numb_art++;										//numb_art
+						if(tok.getPOSTag().contains("FEM"))
+						{
+							numb_art_fem++;
+						}	
+						else 
+							if (tok.getPOSTag().contains("MAS")) 
+							{
+								numb_art_male++;
+							}
+							else numb_art_neutr++;
+					}	
+				}
+			}
+		} catch (IOException e) {
+			errorID = "07";
+			return "";
+		}
+		
 		//Thesaurus-DB access
 		db.establishConnection();
 
 		if(!db.isError())
 		{
-			try {
-				AnalyzedSentence textComplete = langTool.getRawAnalyzedSentence(enteredText);
-				AnalyzedTokenReadings[] tokens = textComplete.getTokensWithoutWhitespace();
-
-				for(int i = 0; i<tokens.length; i++) 
-				{
-					AnalyzedToken tok = tokens[i].getAnalyzedToken(0);
-					if(!tok.hasNoTag())
-					{
-						category_counter = db.checkToken(category_counter, tok.getTokenInflected());							
-						if(tok.getPOSTag().contains("SUB"))
-						{
-							numb_noun++;									//numb_noun
-						
-							if(tok.getPOSTag().contains("FEM"))
-							{
-								numb_noun_fem++;
-							}
-							else if(tok.getPOSTag().contains("MAS")) 
-								{
-									numb_noun_male++;
-								}
-								else numb_noun_neutr++;
-						}
-						if (tok.getPOSTag().contains("VER")) numb_ver++;	//numb_ver	
-						if (tok.getPOSTag().contains("ADJ")) numb_adj++;	//numb_adj
-						if (tok.getPOSTag().contains("ADV")) numb_adv++;	//numb_adv
-						if (tok.getPOSTag().contains("KON")) numb_kon++;	//numb_kon
-						if (tok.getPOSTag().contains("NEG")) numb_neg++;	//numb_neg
-						if (tok.getPOSTag().contains("PRP")) numb_prp++;	//numb_prp
-						
-						if (tok.getPOSTag().contains("ART") && !tok.getPOSTag().contains("START"))
-						{
-							numb_art++;										//numb_art
-							if(tok.getPOSTag().contains("FEM"))
-							{
-								numb_art_fem++;
-							}	
-							else 
-								if (tok.getPOSTag().contains("MAS")) 
-								{
-									numb_art_male++;
-								}
-								else numb_art_neutr++;
-						}	
-					}
-				}
-			} catch (IOException e) {
-				errorID = "07";
-				return "";
+			//count all words
+			p = Pattern.compile("[a-zA-ZäüöÄÜÖß-]+");
+			m = p.matcher(enteredText);
+			while (m.find()) 
+			{
+				category_counter = db.checkToken(category_counter, m.group());							
+				if(db.isError()) errorID = db.getErrorID();
+				numb_words++;												//numb_words
 			}
-		}else errorID = db.getErrorID();
+			db.closeConnection();
+		}
 		
-		db.closeConnection();
 		if(db.isError()) errorID = db.getErrorID();
-		
-		//count all words
-		p = Pattern.compile("[a-zA-ZäüöÄÜÖß]+");
-		m = p.matcher(enteredText);
-		while (m.find()) numb_words++;												//numb_words
 		
 		//count all R´s
 		p = Pattern.compile("(r|R)");
@@ -232,14 +235,13 @@ public class Calculator
 
 		
 		//give stored information
-		String str_start = "{";
-		String[] str = new String[22];
+		str_start = "{";
 		str[0] = ('"' + "sentences" + '"' + ": " + numb_sentences + ", ");
 		str[1] = ('"' + "average length" + '"' + ": " + average_length_sentence + ", ");
 		str[2] = ('"' + "grammar errors" + '"' + ": " + numb_errors + ", ");
-		str[3] = ('"' + "vocals" + ": " + numb_vocals + ", ");
-		str[4] = ('"' + "r-s" + ": " + numb_r + ", ");
-		str[5] = ('"' + "i- and l-s" + ": " + numb_i_l + ", ");
+		str[3] = ('"' + "vocals" + '"' + ": " + numb_vocals + ", ");
+		str[4] = ('"' + "r-s" + '"' + ": " + numb_r + ", ");
+		str[5] = ('"' + "i-s and l-s" + '"' + ": " + numb_i_l + ", ");
 		str[6] = ('"' + "words" + '"' + ": " + numb_words + ", ");
 		str[7] = ('"' + "nouns" + '"' + ": " + numb_noun + ", ");
 		str[8] = ('"' + "fem nouns" + '"' + ": " + numb_noun_fem + ", ");
@@ -256,28 +258,17 @@ public class Calculator
 		str[19] = ('"' + "male article" + '"' + ": " + numb_art_male + ", ");
 		str[20] = ('"' + "neutr article" + '"' + ": " + numb_art_neutr + ", ");
 		str[21] = ('"' + "unknown words" + '"' + ": " + numb_unknown + ", ");
-		String[] str_cat = new String[category_counter.length];
-		for (int i=0; i<category_counter.length-1; i++)
-		{
-			str_cat[i] = ('"' + category_title[i] + '"' + ": " + category_counter[i] + ", ");			
-		}
+		for (int i=0; i<category_counter.length-1; i++) str_cat[i] = ('"' + category_title[i] + '"' + ": " + category_counter[i] + ", ");			
 		str_cat[category_counter.length-1] = ('"' + category_title[category_counter.length-1] + '"' + ": " + category_counter[category_counter.length-1]);			
-
-		String str_end = "}";
+		str_end = "}";
 		
 		//concatenation of the complete JSON-String
 		String completeJSON = "";
 		completeJSON += str_start;
-		for(int i=0; i<22; i++)
-		{
-			completeJSON += str[i];
-		}
-		for(int i=0; i<category_counter.length; i++)
-		{
-			completeJSON += str_cat[i];
-		}
+		for(int i=0; i<22; i++) completeJSON += str[i];
+		for(int i=0; i<category_counter.length; i++) completeJSON += str_cat[i];
 		completeJSON += str_end;
-		
+			
 		return completeJSON;
 	}
 	

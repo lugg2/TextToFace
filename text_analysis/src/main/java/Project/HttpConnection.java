@@ -1,13 +1,16 @@
 package Project;
 
 import java.io.BufferedReader;
+
+import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -23,11 +26,18 @@ public class HttpConnection
 	private List<String> messageID;
 	private Pattern p;
 	private Matcher m;
-
 	private String errorID;
+	
+	private URL url;
+	private URLConnection urlConnection;
+	private DataInputStream inStream;
+
 	
 	HttpConnection()
 	{
+		System.setProperty("http.proxyHost", "localhost");
+		System.setProperty("http.proxyPort", "8888");
+	
 		files = new ArrayList<String>();
 		messageID = new ArrayList<String>();
 	}
@@ -37,10 +47,7 @@ public class HttpConnection
 		errorID = "00";
 		
 		files.clear();
-		files.add(0, " ");
-		
 		messageID.clear();
-		messageID.add(0, "x");
 	}
 	
 	public void setAdress(String newAdress, String newAdressFinish)
@@ -51,12 +58,13 @@ public class HttpConnection
 
 	//GET MessageParameter from website (LISTE)
 	public List<String> getContent(String workerid)
-	{
+	{	
 		HttpURLConnection connection = null;
 		try {
 			URL urlConnect = new URL(adress + "?workerid=" + workerid);						
 			connection = (HttpURLConnection) urlConnect.openConnection();
 			connection.setRequestMethod("GET");
+			connection.setDoInput(true);
 			connection.connect();
 			InputStream in = connection.getInputStream();
 			reader = new BufferedReader(new InputStreamReader(in));
@@ -69,20 +77,19 @@ public class HttpConnection
 			errorID = "02";
 			return files;
 		}	
-
 		p = Pattern.compile("([0-9]+): ([a-zA-ZüäöÜÄÖ0-9]+)");
 		if(input!=null)
 		{
 			m = p.matcher(input);
-		}else m = p.matcher("2: message6; 3: message7");
-		
-		while (m.find())
-		{
-			messageID.add(m.group(1));
-			files.add(m.group(2));
-		}		
+			while (m.find())
+			{
+				messageID.add(m.group(1));
+				files.add(m.group(2));
+			}		
+		}
 		return files;
 	}
+
 	
 	//POST (workid, errormessage, messageID)
 	/*error messages:
@@ -94,29 +101,87 @@ public class HttpConnection
 	 * 05: no access to languagetool DB (initialisation) 
 	 * 06: check failure (languagetool)
 	 * 07: word grouping failure (languagetool)
-	 * 08: no access to Thesaurus DB
+	 * 08: no access to sqlite driver
 	 * 09: Thesaurus DB close problem
-	 * 10: SQL statement failure
+	 * 10: SQL statement failure (DB access failure)
 	 * 11: ResultSet of SQL-Statement cannot be analyzed
 	 */
 	
 	public void postContent(String content, String workerid, String errorMessage, int mID_position)
-	{
-		try {
-			URL urlConnect = new URL(adressFinish + "?workerid=" + workerid + "&&error=" + errorMessage + "&&messageID=" + messageID.get(mID_position));						
-			HttpURLConnection connectionPOST = (HttpURLConnection) urlConnect.openConnection();
-			connectionPOST.setRequestMethod("POST");
-			connectionPOST.setDoOutput(true);
-			OutputStream out = connectionPOST.getOutputStream();
-			out.write(content.getBytes("utf-8"));
-			out.close();
-			connectionPOST.disconnect();
-		} catch (MalformedURLException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
+	{	
+		try
+		{ 
+			// Create connection
+			url = new URL(adressFinish + "?workerid=" + workerid + "&&error=" + errorMessage + "&&messageID=" + messageID.get(mID_position));		
+			urlConnection = url.openConnection();
+			((HttpURLConnection)urlConnection).setRequestMethod("POST");
+			urlConnection.setDoOutput(true);
+			urlConnection.setUseCaches(false);
+			urlConnection.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
+			
+			OutputStreamWriter writer = new OutputStreamWriter(urlConnection.getOutputStream());
+		    writer.write(content);
+		    writer.flush();
+		    writer.close();
+			
+			inStream = new DataInputStream(urlConnection.getInputStream());
+			inStream.close();
+		}	
+		catch(Exception ex) {
+			System.out.println("Exception cought:\n"+ ex.toString());
 		}
 	}
+	
+	public void postError(String workerid, String errorMessage, int mID_position)
+	{
+		try 
+		{
+			// Create connection
+			url = new URL(adressFinish + "?workerid=" + workerid + "&&error=" + errorMessage + "&&messageID=" + messageID.get(mID_position));		
+			urlConnection = url.openConnection();
+			((HttpURLConnection)urlConnection).setRequestMethod("POST");
+			urlConnection.setDoOutput(true);
+			urlConnection.setUseCaches(false);
+			urlConnection.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
+						
+			OutputStreamWriter writer = new OutputStreamWriter(urlConnection.getOutputStream());
+			writer.write("".toString());
+			writer.flush();
+			writer.close();
+				
+			inStream = new DataInputStream(urlConnection.getInputStream());
+			inStream.close();
+		}	
+			catch(Exception ex) {
+				System.out.println("Exception cought:\n"+ ex.toString());
+		}
+	}
+
+	public void postError(String workerid, String errorMessage)
+	{
+		try 
+		{
+			// Create connection
+			url = new URL(adressFinish + "?workerid=" + workerid + "&&error=" + errorMessage + "&&messageID=x");		
+			urlConnection = url.openConnection();
+			((HttpURLConnection)urlConnection).setRequestMethod("POST");
+			urlConnection.setDoOutput(true);
+			urlConnection.setUseCaches(false);
+			urlConnection.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
+						
+			OutputStreamWriter writer = new OutputStreamWriter(urlConnection.getOutputStream());
+			writer.write("".toString());
+			writer.flush();
+			writer.close();
+				
+			inStream = new DataInputStream(urlConnection.getInputStream());
+			inStream.close();
+		}	
+			catch(Exception ex) {
+				System.out.println("Exception cought:\n"+ ex.toString());
+		}		
+	}
+
 	
 	public boolean isError()
 	{
@@ -130,4 +195,4 @@ public class HttpConnection
 	{
 		return errorID;
 	}
-}
+} 

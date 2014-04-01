@@ -11,7 +11,7 @@ public class Analyser {
 		calc.doInitialisations();
 		
 		//start analyser which is scheduled every 10 seconds
-		Timer timer = new Timer();
-		timer.scheduleAtFixedRate(new AnalyserTask(args[0], calc, new Date().getTime()), 0, 10000);
+		Timer t = new Timer();
+		t.scheduleAtFixedRate(new AnalyserTask(args[0], calc, new Date().getTime(), t), 0, 5000);
 	}
 }
