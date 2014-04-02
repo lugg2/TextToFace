@@ -5,7 +5,6 @@ var serveStaticFile = require('./ServeHtmlFiles');
 // function serveStatic(response, absPath) {
 function route(handle, pathname, response, request)
 {
-	console.log(pathname + '<--');
 	if(typeof handle[pathname]==='function')
 	{
 		handle[pathname](response, request);

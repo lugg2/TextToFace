@@ -34,8 +34,6 @@ function serveStatic(response, absPath) {
 
 function loadAndServeFile(exists, absPath, response)
 {
-	console.log('came here with' + absPath);
-	
 	if(exists)
 	{
 		fs.readFile(absPath, function(err,data){
@@ -52,6 +50,7 @@ function loadAndServeFile(exists, absPath, response)
 	}
 	else
 	{
+		console.log('did not find :' + absPath);
 		send404(response);
 	}
 }

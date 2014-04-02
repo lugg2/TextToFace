@@ -18,7 +18,7 @@ function write502(response)
     response.end();
 }
 
-function continueProcessng(postData)
+function continueProcessing(postData)
 {
 
 }
@@ -78,19 +78,14 @@ function finished(response, request) {
       console.log(body);
   } 
   });
-
   request.on('end', function () {
+    var query   = url.parse(request.url).query;
     console.log('recieved data :'+ body);
-    var POST = body.split('$**$',2); 
-    // POST[0] are params example  workerId='abc12'&&error='false'&&messageId='12'
-    // POST[1] is the json with the results of the analyser
-    var query = querystring.parse(POST[0]);
+    console.log(util.inspect(query,{showHidden: true, depth: null}));
 
     response.writeHead(200, {'content-type': 'text/plain'});
-    response.write('upload successfull :');
+    response.write('Acknowledge');
     response.end();
-
-    console.log(util.inspect(query,{showHidden: true, depth: null}));
   });
 
   }

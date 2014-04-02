@@ -7,16 +7,16 @@ function start(route, handle) {
 function onRequest(request, response) {
 	console.log("encountered " + request.url);
 
-	var pathname 	= url.parse(request.url).pathname;
-	var query 	= url.parse(request.url).query;
+	var pathname = url.parse(request.url).pathname;
+	var query = url.parse(request.url).query;
 	
-	console.log("Request for " + pathname + " received, with query: " + query + "request.url :" + request.url);
+	console.log("-----> Time :"+Date()+" Request for " + pathname + " received, with query: " + query);
 	route(handle, pathname, response, request);
 
 }
 
 http.createServer(onRequest).listen(8080);
-console.log("Server has started.");
+console.log("-----> Time :"+Date()+" Server has started.");
 
 }
 
