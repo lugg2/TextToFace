@@ -8,16 +8,12 @@ import java.io.IOException;
 import sun.io.*;
 
 public class Reader {
-	private String errorID = "00";
-	
-	public void initializeEID()
-	{
-		errorID = "00";
-	}
+	private String errorID;
 
 	@SuppressWarnings({ "restriction", "deprecation" })
 	public String readData(String name) throws IOException
 	{	
+		errorID = "00";
 		String ausgabe = "";
 		File file = new File(name);
 		 
@@ -40,7 +36,7 @@ public class Reader {
 			ausgabe = new String(converter.convertAll(data));
 			data = null;
 			
-			// close testfile
+			// close file
 			dis.close();
 			fis.close();
 			converter.reset();

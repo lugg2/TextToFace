@@ -10,7 +10,7 @@ public class Analyser {
 		Calculator calc = new Calculator();
 		calc.doInitialisations();
 		
-		//start analyser which is scheduled every 10 seconds
+		//start analyser which is scheduled every 5 seconds
 		Timer t = new Timer();
 		t.scheduleAtFixedRate(new AnalyserTask(args[0], calc, new Date().getTime(), t), 0, 5000);
 	}

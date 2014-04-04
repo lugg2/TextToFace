@@ -61,7 +61,7 @@ public class AnalyserTask extends TimerTask{
 						try {
 							enteredText = reader.readData(inputFiles.get(i));
 						} catch (IOException e) {
-							http.postError(workerid, reader.getErrorID(), i);
+							http.postError(workerid, "12", i);
 						}
 			
 						if(!reader.isError())
@@ -69,14 +69,14 @@ public class AnalyserTask extends TimerTask{
 							//2nd step: doCalculations and POST the results
 							if(!enteredText.isEmpty())
 							{
+								String output = calc.doCalculations(enteredText);
 								if(!calc.isError())
 								{					
-									http.postContent(calc.doCalculations(enteredText), workerid, calc.getErrorID(), i);
-									calc.doInitialisations();
+									http.postContent(output, workerid, calc.getErrorID(), i);
 								}else http.postError(workerid, calc.getErrorID(), i);								
+								calc.initializeJSON();
 							}else http.postError(workerid, "04", i);
 						}else http.postError(workerid, reader.getErrorID(), i);
-						reader.initializeEID();
 					}
 				}
 			}else http.postError(workerid, http.getErrorID());
