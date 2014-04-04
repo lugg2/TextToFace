@@ -50,7 +50,7 @@ public class Calculator
 	
 	public void doInitialisations()
 	{
-		errorID = "00";
+		initErrorID();
 		langTool = null;
 	
 		//access to all rules over langTool plus activation of all default pattern rules
@@ -224,7 +224,6 @@ public class Calculator
 				category_counter = db.checkToken(category_counter, m.group());							
 				numb_words++;												//numb_words
 			}
-			db.closeConnection();
 		}		
 		if(db.isError()) errorID = db.getErrorID();
 		
@@ -288,5 +287,15 @@ public class Calculator
 	public String getErrorID()
 	{
 		return errorID;
+	}
+	
+	public void initErrorID()
+	{
+		errorID = "00";
+	}
+	
+	public void closeDB()
+	{
+		db.closeConnection();
 	}
 }
