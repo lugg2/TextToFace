@@ -45,7 +45,6 @@ public class HttpConnection
 	public void initializeLists()
 	{
 		errorID = "00";
-		
 		files.clear();
 		messageID.clear();
 	}
@@ -105,6 +104,7 @@ public class HttpConnection
 	 * 09: Thesaurus DB close problem
 	 * 10: SQL statement failure (DB access failure)
 	 * 11: ResultSet of SQL-Statement cannot be analyzed
+	 * 12: I/O failure by reading the text file
 	 */
 	
 	public void postContent(String content, String workerid, String errorMessage, int mID_position)

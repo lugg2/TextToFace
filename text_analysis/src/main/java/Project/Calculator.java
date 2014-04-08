@@ -50,7 +50,7 @@ public class Calculator
 	
 	public void doInitialisations()
 	{
-		errorID = "00";
+		initErrorID();
 		langTool = null;
 	
 		//access to all rules over langTool plus activation of all default pattern rules
@@ -61,32 +61,12 @@ public class Calculator
 		} catch (IOException e) {
 			errorID = "05";
 		}
-
-		numb_errors = 0;
-		numb_unknown = 0;
-		average_length_sentence = 0;
-		numb_sentences = 0;
-		numb_vocals = 0;
-		numb_noun = 0;
-		numb_noun_fem = 0;
-		numb_noun_male = 0;
-		numb_noun_neutr = 0;
-		numb_ver = 0;
-		numb_adj = 0;
-		numb_adv = 0;
-		numb_kon = 0;
-		numb_neg = 0;
-		numb_prp = 0;
-		numb_art = 0;
-		numb_art_fem = 0;
-		numb_art_male = 0;
-		numb_art_neutr = 0;
-		numb_words = 0;
-		numb_r = 0;
-		numb_i_l = 0;		
+		
+		//Thesaurus-DB access
 		db = new DBAccess();
-		category_counter  = new int[34];
-		for(int i=0; i<category_counter.length; i++) category_counter[i] = 0;
+		db.establishConnection();
+		if(db.isError()) errorID = db.getErrorID();
+		
 		category_title = new String[34];
 		category_title[0] = "physics";
 		category_title[1] = "medicin";
@@ -122,8 +102,37 @@ public class Calculator
 		category_title[31] = "terrorism";
 		category_title[32] = "emotions";
 		category_title[33] = "color";
+		category_counter  = new int[34];
 		str = new String[22];
 		str_cat = new String[category_counter.length];
+		initializeJSON();
+	}
+	
+	public void initializeJSON()
+	{
+		numb_errors = 0;
+		numb_unknown = 0;
+		average_length_sentence = 0;
+		numb_sentences = 0;
+		numb_vocals = 0;
+		numb_noun = 0;
+		numb_noun_fem = 0;
+		numb_noun_male = 0;
+		numb_noun_neutr = 0;
+		numb_ver = 0;
+		numb_adj = 0;
+		numb_adv = 0;
+		numb_kon = 0;
+		numb_neg = 0;
+		numb_prp = 0;
+		numb_art = 0;
+		numb_art_fem = 0;
+		numb_art_male = 0;
+		numb_art_neutr = 0;
+		numb_words = 0;
+		numb_r = 0;
+		numb_i_l = 0;				
+		for(int i=0; i<category_counter.length; i++) category_counter[i] = 0;
 	}
 	
 	public String doCalculations(String enteredText)
@@ -162,6 +171,7 @@ public class Calculator
 				AnalyzedToken tok = tokens[i].getAnalyzedToken(0);
 				if(!tok.hasNoTag())
 				{
+					//System.out.println("TAG: " + tok.getPOSTag().toString();
 					if(tok.getPOSTag().contains("SUB"))
 					{
 						numb_noun++;									//numb_noun
@@ -204,9 +214,6 @@ public class Calculator
 			return "";
 		}
 		
-		//Thesaurus-DB access
-		db.establishConnection();
-
 		if(!db.isError())
 		{
 			//count all words
@@ -215,12 +222,9 @@ public class Calculator
 			while (m.find()) 
 			{
 				category_counter = db.checkToken(category_counter, m.group());							
-				if(db.isError()) errorID = db.getErrorID();
 				numb_words++;												//numb_words
 			}
-			db.closeConnection();
-		}
-		
+		}		
 		if(db.isError()) errorID = db.getErrorID();
 		
 		//count all R´s
@@ -283,5 +287,15 @@ public class Calculator
 	public String getErrorID()
 	{
 		return errorID;
+	}
+	
+	public void initErrorID()
+	{
+		errorID = "00";
+	}
+	
+	public void closeDB()
+	{
+		db.closeConnection();
 	}
 }

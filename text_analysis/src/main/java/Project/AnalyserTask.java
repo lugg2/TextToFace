@@ -37,10 +37,11 @@ public class AnalyserTask extends TimerTask{
 
 	public void run() 
 	{
-		// calculate complete time and cancel run if time over
+		// calculate complete time and cancel run if time over (120 min)
 		time = new Date().getTime() - start;
-		if(time>=15000)
+		if(time>=7200000)
 		{
+			calc.closeDB();
 			t.cancel();
 			return;
 		}
@@ -55,13 +56,14 @@ public class AnalyserTask extends TimerTask{
 			{
 				if(!inputFiles.isEmpty())
 				{
+					start = new Date().getTime();
 					for(int i=0; i<inputFiles.size(); i++)
 					{	
 						//1st step: read entered text
 						try {
 							enteredText = reader.readData(inputFiles.get(i));
 						} catch (IOException e) {
-							http.postError(workerid, reader.getErrorID(), i);
+							http.postError(workerid, "12", i);
 						}
 			
 						if(!reader.isError())
@@ -69,14 +71,15 @@ public class AnalyserTask extends TimerTask{
 							//2nd step: doCalculations and POST the results
 							if(!enteredText.isEmpty())
 							{
+								String output = calc.doCalculations(enteredText);
 								if(!calc.isError())
 								{					
-									http.postContent(calc.doCalculations(enteredText), workerid, calc.getErrorID(), i);
-									calc.doInitialisations();
+									http.postContent(output, workerid, calc.getErrorID(), i);
 								}else http.postError(workerid, calc.getErrorID(), i);								
+								calc.initializeJSON();
+								calc.initErrorID();
 							}else http.postError(workerid, "04", i);
 						}else http.postError(workerid, reader.getErrorID(), i);
-						reader.initializeEID();
 					}
 				}
 			}else http.postError(workerid, http.getErrorID());

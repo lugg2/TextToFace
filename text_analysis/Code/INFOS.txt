@@ -17,5 +17,7 @@ Die Errorkennung hat entsprechend der Ausprägung folgende Bedeutung:
   09: Thesaurus DB close problem
   10: SQL statement failure
   11: ResultSet of SQL-Statement cannot be analyzed
+  12: I/O failure by reading the text file
 
-Die Abfrage erfolgt in dieses JAR 3 mal in einem Abstand von 10 Sekunden.
+Die Abfrage erfolgt in dieses JAR 2 Stunden in einem Abstand von 5 Sekunden. Wenn er einen zu verarbeitenden
+Text findet, wird die Zeit zurückgesetzt.
