@@ -1,3 +1,6 @@
+//Support: Patrick
+
+//Function for the easy creation of objects, which are inherited from objFace
 if (typeof Object.create !== 'function') {
 	Object.create = function (o) {
 		var F = function () {};
@@ -5,7 +8,7 @@ if (typeof Object.create !== 'function') {
 		return new F();
 	};
 }
-
+//Basis object from which other objFace's can inherit their atributes
 var objFace = {
 	hair1 : null,
 	faceForm : null,
