@@ -1,11 +1,11 @@
-var exec = require("child_process").exec;
 var formidable = require("formidable");
 var querystring = require("querystring");
 var fs = require("fs");
 var util = require("util");
 var url = require("url");
+var analyser = require("./analyserHandler");
 
-var invoke = require('invoke')
+var invoke = require('invoke');
 
 var worklist = new Array();
 var requestID = -1;
@@ -39,6 +39,7 @@ function upload(response, request) {
     	  response.writeHead(200, {'content-type': 'text/plain'});
           response.write('upload successfull');
           response.end();
+          analyser.startAnalyserIfNecessary();
         });
       });
       }
