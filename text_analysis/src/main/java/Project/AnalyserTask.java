@@ -56,6 +56,7 @@ public class AnalyserTask extends TimerTask{
 			{
 				if(!inputFiles.isEmpty())
 				{
+					start = new Date().getTime();
 					for(int i=0; i<inputFiles.size(); i++)
 					{	
 						//1st step: read entered text
