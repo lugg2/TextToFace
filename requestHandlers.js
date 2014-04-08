@@ -33,8 +33,9 @@ function upload(response, request) {
         form.parse(request, function(err, fields, files) {
 
         requestID++;
-        fs.writeFile(__dirname + '/text_analysis/message' + requestID , fields.Text1, function (err) {
-          if (err) throw err;
+        fs.writeFile(__dirname + '/text_analysis/Code/msg/message' + requestID , fields.Text1, function (err) {
+          if (err) 
+            {throw err;}
         worklist.push('message' + requestID);
     	  response.writeHead(200, {'content-type': 'text/plain'});
           response.write('upload successfull');
