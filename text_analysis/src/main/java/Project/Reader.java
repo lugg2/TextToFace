@@ -15,7 +15,7 @@ public class Reader {
 	{	
 		errorID = "00";
 		String ausgabe = "";
-		File file = new File("msg/" + name);
+		File file = new File("./msg/" + name);
 		 
 		// inputstream to read from file 
 		FileInputStream fis = null;
