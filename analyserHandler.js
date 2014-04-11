@@ -4,13 +4,16 @@ var isAnalyserOnline = false;
 
 function startAnalyserIfNecessary()
 {
-	console.log('try to start analyser');
+	
 	if(isAnalyserOnline == false)
 	{
-		console.log('analyser started')
-		exec(__dirname + 'text_analyser/Code/Source.js',onCloseAnalyser)
+        console.log('try to start analyser');
+        var command = ("java -jar " + __dirname + '\\text_analysis\\Code\\Source.jar' + ' ' + generateKey());
+        console.log(command);
+
+        exec(command,onCloseAnalyser)
 		isAnalyserOnline =true;
-		console.log('Analyser Started');
+		
 	} // else do nothing
 }
 
@@ -22,6 +25,17 @@ function onCloseAnalyser(error, stdout, stderr)
 	}
 	console.log('Analyser start');
 	isAnalyserOnline = false;
+}
+
+function generateKey()
+{
+    var text = "";
+    var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+    for( var i=0; i < 5; i++ )
+        text += possible.charAt(Math.floor(Math.random() * possible.length));
+
+    return text;
 }
 
 exports.startAnalyserIfNecessary = startAnalyserIfNecessary;
