@@ -39,7 +39,8 @@ public class AnalyserTask extends TimerTask{
 	{
 		// calculate complete time and cancel run if time over (120 min)
 		time = new Date().getTime() - start;
-		if(time>=7200000)
+//		if(time>=7200000)
+		if(time >= 5000)
 		{
 			calc.closeDB();
 			t.cancel();

@@ -15,8 +15,9 @@ public class Reader {
 	{	
 		errorID = "00";
 		String ausgabe = "";
-		File file = new File("./msg/" + name);
+		File file = new File("msg/" + name);
 		 
+		System.out.println("Pfad: " + file.getAbsolutePath());
 		// inputstream to read from file 
 		FileInputStream fis = null;
 		try {
