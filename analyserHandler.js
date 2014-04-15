@@ -50,13 +50,13 @@ function startAnalyserIfNecessary()
 	
 	if(isAnalyserOnline == false)
 	{
-        analyserKey = generateKey;
-        console.log('try to start analyser');
+        analyserKey = generateKey();
         // var command = ("java -jar " + __dirname + '\\text_analysis\\Code\\Source.jar' + ' ' + analyserKey); // windows
-        // var command = ("java -jar " + __dirname + '/text_analysis/Code/Source.jar' + ' ' + analyserKey); // unix
+        var command = ("java -jar " + __dirname + '/text_analysis/Code/Source.jar' + ' ' + analyserKey); // unix
+        console.log("try to start analyser with command :" + command);
 
-        // exec(command,onCloseAnalyser)
-		isAnalyserOnline =true;
+        exec(command,onCloseAnalyser)
+	isAnalyserOnline =true;
 	} // else do nothing
 }
 
