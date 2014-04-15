@@ -7,8 +7,6 @@ var analyser = require("./analyserHandler");
 
 var invoke = require('invoke');
 
-var worklist = new Array();
-var requestID = -1;
 
 
 // helper functions
@@ -31,12 +29,11 @@ function upload(response, request) {
         var form = new formidable.IncomingForm();
 
         form.parse(request, function(err, fields, files) {
-
-        requestID++;
+            
+        requestID = analyser.generateWorklistItem();
         fs.writeFile(__dirname + '/text_analysis/Code/msg/message' + requestID , fields.Text1, function (err) {
           if (err) 
             {throw err;}
-        worklist.push('message' + requestID);
     	  response.writeHead(200, {'content-type': 'text/plain'});
           response.write('upload successfull');
           response.end();
@@ -53,16 +50,7 @@ function upload(response, request) {
 
 function getWorklist(response, request)
 { 
-  var temp;
-  response.writeHead(200, {'content-type': 'text/plain'});
-
-  for(var i = 0; i<worklist.length;i++)
-  {
-    response.write(i+': '+worklist[i]+'; ');
-  }
-
-  response.end();
-  worklist.length = 0;       
+  analyser.sendWorklist(response);    
     
 }
 
