@@ -4,29 +4,19 @@ var isAnalyserOnline = false;
 var analyserKey = '';
 var currentID = -1;
 
-
-function worklistItem(publicKey, id, status)
+var worklistItems = [];
+function WorklistItem(publicKey, id, status)
 {
     this.publicKey = publicKey;
     this.id = id;
     this.status = status;
 }
 
-function waitlistItem(workerKey, worklistItem, id)
-{
-    this.workerKey = workerKey;
-    worklistItem = worklistItem;
-    timeStamp = Date.now();
-}
-
-var worklistItems = new Array();
-var waitlistItems = new Array();
-
 function generateWorklistItem()
 {
     currentID +=1;
     // Status has to be done
-    var newItem = new worklistItem(generateKey(),currentID,'null');
+    var newItem = new WorklistItem(generateKey(),currentID,'null');
     worklistItems.push(newItem);
     return currentID;
 }
@@ -55,8 +45,8 @@ function startAnalyserIfNecessary()
         var command = ("java -jar " + __dirname + '/text_analysis/Code/Source.jar' + ' ' + analyserKey); // unix
         console.log("try to start analyser with command :" + command);
 
-        exec(command,onCloseAnalyser)
-	isAnalyserOnline =true;
+        exec(command,onCloseAnalyser);
+	    isAnalyserOnline =true;
 	} // else do nothing
 }
 
@@ -66,7 +56,8 @@ function onCloseAnalyser(error, stdout, stderr)
 	if(error !== null) {
 		console.log('============== > exec error: ' + stderr + 'stdout ' + stdout);
 	}
-	console.log('Analyser start');
+    else
+	console.log('Analyser stdout :' + stdout);
 	isAnalyserOnline = false;
 }
 

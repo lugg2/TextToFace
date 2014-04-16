@@ -48,7 +48,7 @@ public class Calculator
 	private String str_start;
 	private String str_end;
 	
-	public void doInitialisations()
+	public void doInitialisations(String path)
 	{
 		initErrorID();
 		langTool = null;
@@ -64,7 +64,7 @@ public class Calculator
 		
 		//Thesaurus-DB access
 		db = new DBAccess();
-		db.establishConnection();
+		db.establishConnection(path);
 		if(db.isError()) errorID = db.getErrorID();
 		
 		category_title = new String[34];

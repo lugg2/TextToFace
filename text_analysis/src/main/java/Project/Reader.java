@@ -5,18 +5,20 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+
 import sun.io.*;
 
 public class Reader {
 	private String errorID;
 
 	@SuppressWarnings({ "restriction", "deprecation" })
-	public String readData(String name) throws IOException
+	public String readData(String name, String path) throws IOException
 	{	
 		errorID = "00";
 		String ausgabe = "";
-		File file = new File("msg/" + name);
-		 
+		
+		//search for message in this path
+		File file = new File(path + "/msg/" + name);		 
 		System.out.println("Pfad: " + file.getAbsolutePath());
 		// inputstream to read from file 
 		FileInputStream fis = null;
