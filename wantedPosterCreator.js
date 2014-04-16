@@ -1,18 +1,14 @@
-
-
+var fs = require('fs');
+/*
 var metaData = {
 	gender : 1,
 	age : 2,
 	dangerLevel : 1,
 	iq : 1,
 	mentalHealth : 1
-}
+}*/
 
-function main()
-{
-	createWantedPoster(metaData);
-}
-function createWantedPoster( mData)
+function createWantedPoster( mData, callback )
 {
 	var wantedPoster = '';
 	var gender='';
@@ -67,8 +63,11 @@ function createWantedPoster( mData)
 	case 3: wantedPoster += pronomen +' ist total entspannt (fast schon tiefen entspannt) und weiß wie '+spronomen+' mit gefährlichen Situationen (Verhaftung) entspannt umgehen kann.<br>' ;break; 
 	}
 	wantedPoster +='</p>';
+	console.log(wantedPoster);
 	
-	
-	return wantedPoster;
+	fs.writeFile(__dirname + 'wantedPoster/wantedPoster' + id, wantedPoster, function(err) {
+		callback(err);
+	}); 
 }
-main();
+
+module.exports = createWantedPoster;
