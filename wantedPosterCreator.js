@@ -31,7 +31,7 @@ function createWantedPoster( mData)
 		spronomen='er';
 		possessivartikel='seine';
 		personalpronomen='ihn';
-		
+
 	}
 	else {
 	wantedPoster += 'eine Frau.<br> Sie ';
