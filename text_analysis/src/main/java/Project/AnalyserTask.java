@@ -51,8 +51,7 @@ public class AnalyserTask extends TimerTask{
 		{
 			http.setAdress(adress, adressFinish);		
 			http.initializeLists();
-			inputFiles = http.getContent(workerid); 	//list of files to read and analyse
-		
+			inputFiles = http.getContent(workerid); 	//list of files to read and analyse	
 			if(!http.isError())
 			{
 				if(!inputFiles.isEmpty())

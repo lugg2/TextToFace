@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+
 import sun.io.*;
 
 public class Reader {
@@ -15,8 +16,12 @@ public class Reader {
 	{	
 		errorID = "00";
 		String ausgabe = "";
-		File file = new File("msg/" + name);
-		 
+		
+		//get origin path
+		String path = new File(System.getProperty("java.class.path")).getAbsoluteFile().getParentFile().toString();
+	
+		//search for message in this path
+		File file = new File(path + "/msg/" + name);		 
 		System.out.println("Pfad: " + file.getAbsolutePath());
 		// inputstream to read from file 
 		FileInputStream fis = null;
