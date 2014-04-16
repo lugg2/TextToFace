@@ -4,15 +4,13 @@ var isAnalyserOnline = false;
 var analyserKey = '';
 var currentID = -1;
 
-
+var worklistItems = [];
 function WorklistItem(publicKey, id, status)
 {
     this.publicKey = publicKey;
     this.id = id;
     this.status = status;
 }
-
-var worklistItems;
 
 function generateWorklistItem()
 {
