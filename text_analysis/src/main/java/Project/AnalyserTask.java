@@ -19,8 +19,9 @@ public class AnalyserTask extends TimerTask{
 	String adressFinish;
 	String enteredText;
 	Timer t;
+	String path;
 	
-	AnalyserTask(String wid, Calculator c, long s, Timer timer)
+	AnalyserTask(String wid, Calculator c, long s, Timer timer, String p)
 	{
 		adress = "http://www.texttoface.de/getworklist";
 		adressFinish = "http://www.texttoface.de/finished";
@@ -29,6 +30,7 @@ public class AnalyserTask extends TimerTask{
 		calc = c;
 		start = s;
 		t = timer;
+		path = p;
 		
 		http = new HttpConnection();
 		inputFiles = new ArrayList<String>();
@@ -61,7 +63,7 @@ public class AnalyserTask extends TimerTask{
 					{	
 						//1st step: read entered text
 						try {
-							enteredText = reader.readData(inputFiles.get(i));
+							enteredText = reader.readData(inputFiles.get(i), path);
 						} catch (IOException e) {
 							http.postError(workerid, "12", i);
 						}

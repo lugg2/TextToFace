@@ -12,14 +12,11 @@ public class Reader {
 	private String errorID;
 
 	@SuppressWarnings({ "restriction", "deprecation" })
-	public String readData(String name) throws IOException
+	public String readData(String name, String path) throws IOException
 	{	
 		errorID = "00";
 		String ausgabe = "";
 		
-		//get origin path
-		String path = new File(System.getProperty("java.class.path")).getAbsoluteFile().getParentFile().toString();
-	
 		//search for message in this path
 		File file = new File(path + "/msg/" + name);		 
 		System.out.println("Pfad: " + file.getAbsolutePath());
