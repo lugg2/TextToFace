@@ -1,14 +1,23 @@
 var fs = require('fs');
-/*
-var metaData = {
+
+/*var metaData = {
 	gender : 1,
 	age : 2,
 	dangerLevel : 1,
 	iq : 1,
 	mentalHealth : 1
-}*/
+}
 
-function createWantedPoster( mData, callback )
+function main()
+{
+createWantedPoster(2,metaData,ready);
+}
+function ready(err)
+{
+console.log("ready"+err);
+}
+*/
+function createWantedPoster( id,mData, callback )
 {
 	var wantedPoster = '';
 	var gender='';
@@ -65,9 +74,9 @@ function createWantedPoster( mData, callback )
 	wantedPoster +='</p>';
 	console.log(wantedPoster);
 	
-	fs.writeFile(__dirname + 'wantedPoster/wantedPoster' + id, wantedPoster, function(err) {
+	fs.writeFile(__dirname + '/wantedPoster/wantedPoster' + id, wantedPoster, function(err) {
 		callback(err);
 	}); 
 }
-
+//main ();
 module.exports = createWantedPoster;
