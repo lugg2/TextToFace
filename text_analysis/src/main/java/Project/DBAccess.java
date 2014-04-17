@@ -14,7 +14,6 @@ public class DBAccess {
 	{
 		try {
 			Class.forName("org.sqlite.JDBC");
-			System.out.println("Pfad:" + path);
 			c = DriverManager.getConnection("jdbc:sqlite:/"+path+"/thesaurusDB.db");
 		} catch ( Exception e ) {
 			errorID = "08";

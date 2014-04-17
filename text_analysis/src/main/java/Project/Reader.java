@@ -19,7 +19,6 @@ public class Reader {
 		
 		//search for message in this path
 		File file = new File(path + "/msg/" + name);		 
-		System.out.println("Pfad: " + file.getAbsolutePath());
 		// inputstream to read from file 
 		FileInputStream fis = null;
 		try {
