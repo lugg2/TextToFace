@@ -28,14 +28,14 @@ function createWantedPoster( id,mData, callback )
 	var personalpronomen='';
 	wantedPoster +='<p>';
 	
-	if (metaData.pirat ==1)
+	if (mData.pirat ==1)
 		{
 		wantedPoster += 'Der Text stammt von einem sehr gefährlichen Piraten.<br> Er hat bereits alle sieben Weltmeere besegelt. Und schon sehr viele Städte ausgeplündert.<br> Es lässt sich nicht ausschließen, dass es sich um einen Kapitän eines Piratenschiffes handelt.';
 		}
 	else
 		{
 		wantedPoster += 'Bei der gesuchten Person handelt es sich um ';
-		if	(metaData.gender ==1)
+		if	(mData.gender ==1)
 		{	wantedPoster += 'einen Mann.<br> Er ';	
 			gender = 'Der Mann';
 			demgender = 'dem Mann';
