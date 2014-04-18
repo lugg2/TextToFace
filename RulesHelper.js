@@ -188,19 +188,172 @@ function ruleAutomata (textA, id, callbackMetaData, callbackFullData){
 		}
 		console.log(util.inspect(mData));
 	});
+
+
+	
+	
+	//var name = queryDB(tablename, queryArray, bestMatchCallback);
+
+	function QueryParameter(key, value){
+			this.key = key;
+			this.value = value;
+	}
+
+	function addToQueryArray(key, value, QuerryArray)
+	{
+		if(typeof QuerryArray == 'undefined')
+		{
+			QuerryArray = [];
+		}
+		return QuerryArray.push(new QueryParameter(key,value));
+	}
+
 /*
 	//FeceParts
 	invoke(function (data, callback) {
+		var FacePartsDB0 = require("./FacePartsDBInterface.js");
+		//faceForm
+		//width: 
+		var queryArray = addToQueryArray("with", mData.iq, queryArray);
+		//age:
+		queryArray = addToQueryArray("age", mData.age, queryArray);
+		//form:
+		var form = pRule( pCalculator(textA["kon"], textA["vocals"]) , 0.20, 0.35, 'asc' );
+		queryArray = addToQueryArray("from", form, queryArray);
 
-		callback(null, mData)
+		oface.faceForm = FacePartsDB0.queryDB("head", queryArray, ??callback??);
+
+		queryArray.length = 0;
+		callback(null, oface)
 	}).and( function (data, callback) {
-		
-		callback(null, mData)
+		var FacePartsDB1 = require("./FacePartsDBInterface.js");
+		//Rules : hair
+		//volume:
+		var hairVolume = pRule( pCalculator( (textA["zoology"]+textA["electricity"]-textA["sport"]-textA["technic"]), textA["words"] ) ,0.20, 0.35, 'asc' );
+		var queryArray = addToQueryArray("volume", hairVolume, queryArray);
+		//length:
+		var hairlength;
+		var b = pCalculator(textA["adj"], textA["words"]);
+		if (mData.gender === 3){
+			//0.2 is womenfactor
+			hairlength = pRule( pCalculator( (b + 0.2), textA["words"] ) , 0.20, 0.35, 'asc' );
+		}else {
+			hairlength = pRule( pCalculator( b, textA["words"] ) , 0.20, 0.35, 'asc' );
+		}
+		queryArray = addToQueryArray("length", hairlength, queryArray);
+		//gender:
+		queryArray = addToQueryArray("gender", mData.gender, queryArray);
+
+		oface.hair2 = FacePartsDB1.queryDB("hair", queryArray, ??callback??);
+		queryArray.length = 0;
+		callback(null, oface)
+	}).and( function (data, callback) {
+		var FacePartsDB2 = require("./FacePartsDBInterface.js");
+		//Rules: ear
+		//height:
+		var earHeight = pRule( pCalculator( textA["adv"], textA["words"] ) , 0.20, 0.35, 'asc' );
+		var queryArray = addToQueryArray("height", earHeight, queryArray);
+		//width:
+		var earWidth = pRule( pCalculator( (textA["air"]+textA["art"]+textA["unknown_words"]), textA["words"] ), 0.20, 0.35, 'asc' );
+		queryArray = addToQueryArray("width", earWidth, queryArray);
+		//jewelry:
+		var earJewelry;
+		if(mData.pirat === 1){
+			earJewelry = 3;
+		}else{
+			earJewelry = 1;
+		}
+		queryArray = addToQueryArray("jewelry", earJewelry, queryArray);
+
+		oface.ear = FacePartsDB2.queryDB("ear", queryArray, ??callback??);
+		queryArray.length = 0;
+		callback(null, oface)
+	}).and( function (data, callback) {
+		var FacePartsDB3 = require("./FacePartsDBInterface.js");
+		//Rules: eye
+		//length:
+		var eyeLength = pRule( pCalculator(textA["i-s_and_l-s"], textA["r-s"]), 0.20, 0.35, 'asc' );
+		var queryArray = addToQueryArray("length", eyeLength, queryArray);
+		//width:
+		var eyeWidth = pRule( pCalculator(textA["average_sentence_length"], textA["words"]), 0.20, 0.35, 'asc' );
+		queryArray = addToQueryArray("width", eyeWidth, queryArray);
+
+		oface.eye = FacePartsDB3.queryDB("eye", queryArray, ??callback??);
+		queryArray.length = 0;
+		callback(null, oface)
+	}).and( function (data, callback) {
+		var FacePartsDB4 = require("./FacePartsDBInterface.js");
+		//Rules : eyebrow
+		//height:
+		var eyebrowHeight = pRule( pCalculator( (textA["neutr_nouns"]+textA["literatur"]+textA["unknown_words"]) , textA["words"]), 0.20, 0.35, 'asc' );
+		var queryArray = addToQueryArray("height", eyebrowHeight, queryArray);
+		//width:
+		//TODO fix .toFixed(0) --> kein string als output
+		eyebrowWidth = ( (mData.iq + mData.mentalHealth)/2 ).toFixed(0);
+		queryArray = addToQueryArray("width", eyebrowWidth, queryArray);
+		//gender:
+		queryArray = addToQueryArray("gender", mData.gender, queryArray);
+
+		oface.eyebrow = FacePartsDB4.queryDB("brow", queryArray, ??callback??);
+		queryArray.length = 0;
+		callback(null, oface)
+	}).and( function (data, callback) {
+		var FacePartsDB5 = require("./FacePartsDBInterface.js");
+		//Rules : nose
+		//width:
+		var noseWidth = pRule( pCalculator( (textA["verbs"]+textA["geology"]), textA["words"] ), 0.20, 0.35, 'asc' );
+		var queryArray = addToQueryArray("width", noseWidth, queryArray);
+		//length:
+		var noseLength = pRule( pCalculator( (textA["air"]+textA["average_word_length"]), textA["words"] ), 0.20, 0.35, 'asc' );
+		queryArray = addToQueryArray("length", noseLength, queryArray);
+		//form:
+		var noseForm = pRule( pCalculator( (textA["terrorism"]+textA["military"]) , textA["words"] ) , 0.20, 0.35, 'asc' );
+		queryArray = addToQueryArray("form", noseForm, queryArray);
+
+		oface.nose = FacePartsDB5.queryDB("nose", queryArray, ??callback??);
+		queryArray.length = 0;
+		callback(null, oface)
+	}).and( function (data, callback) {
+		var FacePartsDB6 = require("./FacePartsDBInterface.js");
+		//TODO Regeln definieren und implementieren
+		//Rules: mouth
+		//width:
+		var mouthWidth =1;
+		var queryArray = addToQueryArray("width", mouthWidth, queryArray);
+		//height:
+		var mouthHight =2;
+		queryArray = addToQueryArray("width", mouthHight, queryArray);
+		//gender:
+		queryArray = addToQueryArray("gender", mData.gender, queryArray);
+
+		oface.mouth = FacePartsDB6.queryDB("mouth", queryArray, ??callback??);
+		queryArray.length = 0;
+		callback(null, oface)
+	}).and( function (data, callback) {
+		var FacePartsDB7 = require("./FacePartsDBInterface.js");
+
+		//Rules : beard
+		var beard;
+		if(mData.gender === 3){
+			beard = 1;
+		}else{
+			//Zoologie + Religion + Kunst <0,005
+			beard = pRule( pCalculator( (textA["zoology"]+textA["religion"]+textA["art"]), textA["words"] ) , 0.20, 0.35, 'asc');
+		}
+		var queryArray = addToQueryArray("beard", beard, queryArray);
+
+		oface.beard = FacePartsDB5.queryDB("beard", queryArray, ??callback??);
+		queryArray.length = 0;	
+		callback(null, oface)
 	}).end( oface, function(data, callbackFullData){
+		console.log(util.inspect(oface));
+		if (typeof callbackFullData == 'function') {
+			callbackFullData(oface);
+		}
 
 	});
-*/
 
+*/
 
 
 	//Rules : faceForm
@@ -278,9 +431,9 @@ function ruleAutomata (textA, id, callbackMetaData, callbackFullData){
 	//width:
 	//viele Verben + Geologie  > 0,15 && frauenfakrtor s.o. < 0,5
 	nose.width = pRule( pCalculator( (textA["verbs"]+textA["geology"]), textA["words"] ), 0.20, 0.35, 'asc' );
-	//length:
+	//lenght:
 	//aerospace + wortlänge +  = lange nase
-	nose.lenght = pRule( pCalculator( (textA["air"]+textA["average_word_length"]), textA["words"] ), 0.20, 0.35, 'asc' );
+	nose.length = pRule( pCalculator( (textA["air"]+textA["average_word_length"]), textA["words"] ), 0.20, 0.35, 'asc' );
 	//form:
 	// Intelligenz s.o. && terrotismus + militär > 0.005 = krumme nase
 	//TODO iq ergänzen
@@ -306,27 +459,14 @@ function ruleAutomata (textA, id, callbackMetaData, callbackFullData){
 	}
 	console.log(beard);
 
-	var tablename = 'nose';
-	var queryArray = new Array();
 	
-	var objKeyValue = {
-		key:0,
-		value:0
-	};
-	var queryElement1 = Object.create(objKeyValue);
-	queryElement1.key = "width";
-	queryElement1.value = 3;
-	queryArray.push(queryElement1);
-
-	console.log(queryArray);
-	
-	//var name = queryDB(tablename, queryArray, bestMatchCallback);
 
 
 	//callback for faceCreator
 	if (typeof callbackFullData == 'function') {
 		callbackFullData(objFace);
 	}
+
 }
 
 exports.evaluateAnalyserOutput = ruleAutomata;

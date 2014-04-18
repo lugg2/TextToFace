@@ -78,3 +78,4 @@ function bestMatchCallback(name)
   console.log(name);
 
 }
+exports.queryDB = queryDB;
