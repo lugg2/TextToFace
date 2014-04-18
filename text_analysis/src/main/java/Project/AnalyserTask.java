@@ -49,18 +49,28 @@ public class AnalyserTask extends TimerTask{
 	{
 		// calculate complete time and cancel run if time over (120 min)
 		time = new Date().getTime() - start;
-		if(time>=7200000) stopAnalyserTask();
+		if(time>=7200000)
+		{
+			calc.closeDB();
+			t.cancel();
+			return;
+		}
 		
 		try
 		{
 			if(calc.isError())	throw new AnalyserException(calc.getErrorID());			//check for calculator-error
-
+			
 			//initialize lists for HTTP handling (GET and POST)
 			http.initializeLists();
 			
 			//GET Content from Server --> list of files to read and analyse (if server sends "kill" signal - stop AnalyserTask)
 			inputFiles = http.getContent(workerid); 		
-			if(http.stopAnalyser()) stopAnalyserTask();
+			if(http.stopAnalyser())
+			{
+				calc.closeDB();
+				t.cancel();
+				return;
+			}
 			
 			if(http.isError())	throw new AnalyserException(http.getErrorID());			//check for http-error			
 			if(!inputFiles.isEmpty())													//check if there are messages to analyse
@@ -88,19 +98,11 @@ public class AnalyserTask extends TimerTask{
 					calc.initErrorID();
 				}
 			}
-		}catch (AnalyserException e)
-		{
+		}catch (AnalyserException e){
 			if(!e.MID_set())
 			{
 				http.postError(workerid, e.getErrorID());
 			}else http.postError(workerid, e.getErrorID(), e.getMessageID());
 		}
-	}
-	
-	private void stopAnalyserTask()
-	{
-		calc.closeDB();
-		t.cancel();
-		return;
 	}
 }

@@ -19,7 +19,7 @@ public class Reader {
 		//search for message in this path
 			//for Server
 		File file = new File(path + "/msg/" + name);
-			//for Windows (Testing):	File file = new File("msg/" + name);
+			//for Windows (Testing):			File file = new File("msg/" + name);
 	
 		// inputstream to read from file 
 		FileInputStream fis = null;

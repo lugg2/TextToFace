@@ -77,23 +77,31 @@ public class HttpConnection
 			return files;
 		}	
 		
-		if(input.equals("kill"))
-		{
-			stopAnalyser = true;
-			return files;
-		}
-		
-		p = Pattern.compile("[0-9]+: ([a-zA-ZüäöÜÄÖ]+)([0-9]+)");
 		if(input!=null)
 		{
-			m = p.matcher(input);
-			while (m.find())
+			if(input.equals("kill"))
 			{
-				messageID.add(m.group(2));
-				files.add(m.group(1)+m.group(2));
-			}		
+				System.out.println("kill");
+				stopAnalyser = true;
+				return files;
+			}
+		
+			p = Pattern.compile("[0-9]+: ([a-zA-ZüäöÜÄÖ]+)([0-9]+)");
+			if(input!=null)
+			{
+				m = p.matcher(input);
+				while (m.find())
+				{
+					messageID.add(m.group(2));
+					files.add(m.group(1)+m.group(2));
+				}		
+			}
+			return files;
 		}
-		return files;
+		else
+		{
+			return files;
+		}
 	}
 
 	
@@ -144,7 +152,7 @@ public class HttpConnection
 	{	
 		try {
 			// Create connection
-			url = new URL(adressFinish + "?workerid=" + workerid + "&&error=" + errorMessage + "&&messageID=" + messageID.get(mID_position));			
+			url = new URL(adressFinish + "?workerid=" + workerid + "&&error=" + errorMessage + "&&messageID=" + messageID.get(mID_position));
 			post(url,content);
 		} catch (IOException e) {
 			System.out.println("POST Exception: "+ e.toString());
@@ -157,7 +165,7 @@ public class HttpConnection
 		try 
 		{
 			// Create connection
-			url = new URL(adressFinish + "?workerid=" + workerid + "&&error=" + errorMessage + "&&messageID=" + messageID.get(mID_position));		
+			url = new URL(adressFinish + "?workerid=" + workerid + "&&error=" + errorMessage + "&&messageID=" + messageID.get(mID_position));
 			post(url,"");
 		} catch(Exception e) {
 			System.out.println("POST Exception: "+ e.toString());
@@ -169,7 +177,7 @@ public class HttpConnection
 		try 
 		{
 			// Create connection
-			url = new URL(adressFinish + "?workerid=" + workerid + "&&error=" + errorMessage + "&&messageID=x");		
+			url = new URL(adressFinish + "?workerid=" + workerid + "&&error=" + errorMessage + "&&messageID=x");
 			post(url, "");
 		} catch(Exception e) {
 			System.out.println("POST Exception: "+ e.toString());
