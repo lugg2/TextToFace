@@ -208,6 +208,8 @@ function ruleAutomata (textA, id, callbackMetaData, callbackFullData){
 		return QuerryArray.push(new QueryParameter(key,value));
 	}
 
+
+
 /*
 	//FeceParts
 	invoke(function (data, callback) {
@@ -221,10 +223,14 @@ function ruleAutomata (textA, id, callbackMetaData, callbackFullData){
 		var form = pRule( pCalculator(textA["kon"], textA["vocals"]) , 0.20, 0.35, 'asc' );
 		queryArray = addToQueryArray("from", form, queryArray);
 
-		oface.faceForm = FacePartsDB0.queryDB("head", queryArray, ??callback??);
-
+        // Thats how it is supposed to work
+		FacePartsDB0.queryDB("head", queryArray, function(name)
+		{
+            oface.faceForm = name;
+            callback(null, oface); // ich glaube das muss auch hier rein und soll anzeigen, dass der and teil jetzt abgeschlossen ist
+		});
 		queryArray.length = 0;
-		callback(null, oface)
+
 	}).and( function (data, callback) {
 		var FacePartsDB1 = require("./FacePartsDBInterface.js");
 		//Rules : hair

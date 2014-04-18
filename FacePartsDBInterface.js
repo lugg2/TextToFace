@@ -20,12 +20,13 @@ var OFace;
 var OFaceValue;
 
 // valuechang is for example eyebrow
-function queryDB(tablename, qArray, ObjectFace, valueChange, callback){
+function queryDB(tablename, qArray, callback){
   funcCallback=callback;
   queryArray = qArray;
   OFace = ObjectFace;
   OFaceValue = valueChange;
-   db.each(squel.select().from(tablename).toString(), dbEachCallback, complete);
+
+    db.each(squel.select().from(tablename).toString(), dbEachCallback, complete);
 } 
 
 function dbEachCallback(err, row)
@@ -55,12 +56,10 @@ function dbEachCallback(err, row)
 
 function complete()
 {
-  
   console.log("Picturename: "+ bestMatchName);
-  OFace[OFaceValue] = bestMatchName;
   if (typeof funcCallback == "function") {
       funcCallback(bestMatchName);
-  };
+  }
 }
 
 exports.queryDB = queryDB;
