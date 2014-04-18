@@ -1,16 +1,10 @@
 var mime 	= require('mime');
 var fs 		= require('fs');
 var path 	= require('path');
-
+var templateCreator = require("./templateCreator.js")
 var cache 	= new Array	();	// used to cache html, css and js files 
   
-
-function send404(response)
-{
-	response.writeHead(404,{'Content-Type':'text/plain'});
-	response.write('Error 404: ressource not found');
-	response.end();
-}
+  
 
 function sendFile(response,filePath,fileContents)	
 {
@@ -39,7 +33,7 @@ function loadAndServeFile(exists, absPath, response)
 		fs.readFile(absPath, function(err,data){
 			if(err)
 			{
-				send404(response);
+				templateCreator.generateErrorTemplate(response,404,"Page not found");
 			}
 			else
 			{
@@ -51,7 +45,7 @@ function loadAndServeFile(exists, absPath, response)
 	else
 	{
 		console.log('did not find :' + absPath);
-		send404(response);
+		templateCreator.generateErrorTemplate(response,404,"Page not found");
 	}
 }
 

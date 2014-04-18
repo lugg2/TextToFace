@@ -1,6 +1,6 @@
 var fs = require('fs');
-
-/*var metaData = {
+/*
+var metaData = {
 	gender : 1,
 	age : 2,
 	dangerLevel : 1,
@@ -15,8 +15,8 @@ createWantedPoster(2,metaData,ready);
 function ready(err)
 {
 console.log("ready"+err);
-}
-*/
+}*/
+
 function createWantedPoster( id,mData, callback )
 {
 	var wantedPoster = '';
