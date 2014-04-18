@@ -8,5 +8,6 @@ var handle = {}
 handle["/upload"] 		= requestHandlers.upload;
 handle["/getworklist"] 	= requestHandlers.getWorklist;
 handle["/finished"] 	= requestHandlers.finished;
+handle["/result"]       = requestHandlers.result;
 
 server.start(router.route, handle);

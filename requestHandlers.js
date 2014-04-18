@@ -4,7 +4,7 @@ var fs = require("fs");
 var util = require("util");
 var url = require("url");
 var analyser = require("./analyserHandler");
-
+var templateCreator = require("./templateCreator.js")
 var invoke = require('invoke');
 
 
@@ -22,7 +22,13 @@ function continueProcessing(postData)
 
 }
 
-// exports functions  
+// exports functions
+
+function result(request, response)
+{
+    templateCreator.result(request, response);
+}
+
 function upload(response, request) {
     
       if ( request.method.toLowerCase() == 'post') {
@@ -90,3 +96,4 @@ function finished(response, request) {
 exports.finished = finished;
 exports.getWorklist = getWorklist;
 exports.upload = upload;
+exports.result = result;

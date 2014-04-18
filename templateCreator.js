@@ -1,18 +1,31 @@
-var id=2;
-var publickey=1234;
 var fs = require('fs');
-
-
-
-function main()
+var url = require('url');
+var util = require('util');
+// helper functions
+function write404(response)
 {
-generateTemplate(id,publickey);
+    response.writeHead(404, {'content-type': 'text/plain'});
+    response.write('Result not found');
+    response.end();
 }
 
-function generateTemplate(idToken, publickeyToken)
+function generateTemplate(response, request)
 {
+    console.log(typeof request.url);
+    var queryData = url.parse(request.url, true).query;
+    console.log(util.inspect(queryData));
+
+    if ( typeof queryData.id == "undefined" || typeof  queryData.pkey == "undefinded" )
+    {
+        write404(response);
+        return
+    }
+
+    idToken = queryData.id;
+
+
 	fs.readFile('website/result.html',"utf-8", function (err, data) {
-	if (err) console.log("feheler");
+	if (err) console.log("fehler");
 	
 	data = data.replace("<BILD>","<img src=" + '"' + idToken +".png"+'"'+"width = 40% > ");
 	
@@ -20,17 +33,14 @@ function generateTemplate(idToken, publickeyToken)
 	if (err) console.log("feheler");
 	
 	data = data.replace("<WANTEDPOSTER>",wantedPoster);
-	console.log(data);
-	fs.writeFile(__dirname + '/website/result' + id+'.html', data, function(err) {
-		//callback(err);
-	}); 
-		});
-	
-	
+        response.writeHead(200, {'content-type': 'text/plain'});
+        response.write(data);
+        response.end();
+	});
 	
 	});
 	//console.log(data);
 
 }
 
-main();
+exports.result = generateTemplate;
