@@ -8,18 +8,27 @@ var currentID = -1;
 
 var worklistItems = [];
 
+// used to check wheather staus is legit in notify Status change
+var availableStatus = [];
+availableStatus.push("waiting");
+availableStatus.push("analysed");
+availableStatus.push("evaluated");
+availableStatus.push("drawn");
+availableStatus.push("wantedposter");
+
 function WorklistItem(publicKey, id, status)
 {
     this.publicKey = publicKey;
     this.id = id;
-    this.status = status;
+    this.status = [];
+    status.push(status);
 }
 
 function generateWorklistItem()
 {
     currentID +=1;
     // Status has to be done
-    var newItem = new WorklistItem(generateKey() + currentID.toString(),currentID,'null');
+    var newItem = new WorklistItem(generateKey() + currentID.toString(),currentID,'waiting');
     worklistItems.push(newItem);
     return currentID;
 }
@@ -96,6 +105,10 @@ function notifyStatusChange(id,newStatus)
 {
     var foundItem = false;
     var i = 0;
+    if (!availableStatus.contains(newStatus));
+    {
+
+    }
     while ( i<worklistItems.length && !foundItem )
     {
         if(worklistItems[i].id == id)
