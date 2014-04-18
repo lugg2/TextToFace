@@ -45,7 +45,7 @@ function generateTemplate(response, request)
 
 function generateErrorTemplate(response, errorid, text)
 {
-	fs.readFile('website/error.html',"utf-8", function (err, errorsite) {
+	fs.readFile(__dirname+'/website/error.html',"utf-8", function (err, errorsite) {
 		if (err) console.log("error : "+err);
 		else {
 	
