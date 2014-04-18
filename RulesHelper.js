@@ -221,7 +221,7 @@ function ruleAutomata (textA, id, callbackMetaData, callbackFullData){
 		var form = pRule( pCalculator(textA["kon"], textA["vocals"]) , 0.20, 0.35, 'asc' );
 		queryArray = addToQueryArray("from", form, queryArray);
 
-		oface.faceForm = FacePartsDB0.queryDB("head", queryArray, ??callback??);
+		FacePartsDB0.queryDB("head", queryArray, oface, "faceform", ??callback??);
 
 		queryArray.length = 0;
 		callback(null, oface)
@@ -244,7 +244,7 @@ function ruleAutomata (textA, id, callbackMetaData, callbackFullData){
 		//gender:
 		queryArray = addToQueryArray("gender", mData.gender, queryArray);
 
-		oface.hair2 = FacePartsDB1.queryDB("hair", queryArray, ??callback??);
+		FacePartsDB1.queryDB("hair", queryArray, oface, "hair2", ??callback??);
 		queryArray.length = 0;
 		callback(null, oface)
 	}).and( function (data, callback) {
@@ -265,7 +265,7 @@ function ruleAutomata (textA, id, callbackMetaData, callbackFullData){
 		}
 		queryArray = addToQueryArray("jewelry", earJewelry, queryArray);
 
-		oface.ear = FacePartsDB2.queryDB("ear", queryArray, ??callback??);
+		FacePartsDB2.queryDB("ear", queryArray, oface, "ear", ??callback??);
 		queryArray.length = 0;
 		callback(null, oface)
 	}).and( function (data, callback) {
@@ -278,7 +278,7 @@ function ruleAutomata (textA, id, callbackMetaData, callbackFullData){
 		var eyeWidth = pRule( pCalculator(textA["average_sentence_length"], textA["words"]), 0.20, 0.35, 'asc' );
 		queryArray = addToQueryArray("width", eyeWidth, queryArray);
 
-		oface.eye = FacePartsDB3.queryDB("eye", queryArray, ??callback??);
+		FacePartsDB3.queryDB("eye", queryArray, oface, "eye", ??callback??);
 		queryArray.length = 0;
 		callback(null, oface)
 	}).and( function (data, callback) {
@@ -294,7 +294,7 @@ function ruleAutomata (textA, id, callbackMetaData, callbackFullData){
 		//gender:
 		queryArray = addToQueryArray("gender", mData.gender, queryArray);
 
-		oface.eyebrow = FacePartsDB4.queryDB("brow", queryArray, ??callback??);
+		FacePartsDB4.queryDB("brow", queryArray, oface, "eyebrow", ??callback??);
 		queryArray.length = 0;
 		callback(null, oface)
 	}).and( function (data, callback) {
@@ -310,7 +310,7 @@ function ruleAutomata (textA, id, callbackMetaData, callbackFullData){
 		var noseForm = pRule( pCalculator( (textA["terrorism"]+textA["military"]) , textA["words"] ) , 0.20, 0.35, 'asc' );
 		queryArray = addToQueryArray("form", noseForm, queryArray);
 
-		oface.nose = FacePartsDB5.queryDB("nose", queryArray, ??callback??);
+		FacePartsDB5.queryDB("nose", queryArray, oface, "nose", ??callback??);
 		queryArray.length = 0;
 		callback(null, oface)
 	}).and( function (data, callback) {
@@ -326,7 +326,7 @@ function ruleAutomata (textA, id, callbackMetaData, callbackFullData){
 		//gender:
 		queryArray = addToQueryArray("gender", mData.gender, queryArray);
 
-		oface.mouth = FacePartsDB6.queryDB("mouth", queryArray, ??callback??);
+		FacePartsDB6.queryDB("mouth", queryArray, oface, "mouth", ??callback??);
 		queryArray.length = 0;
 		callback(null, oface)
 	}).and( function (data, callback) {
@@ -342,7 +342,7 @@ function ruleAutomata (textA, id, callbackMetaData, callbackFullData){
 		}
 		var queryArray = addToQueryArray("beard", beard, queryArray);
 
-		oface.beard = FacePartsDB5.queryDB("beard", queryArray, ??callback??);
+		FacePartsDB5.queryDB("beard", queryArray, oface, "beard",??callback??);
 		queryArray.length = 0;	
 		callback(null, oface)
 	}).end( oface, function(data, callbackFullData){
