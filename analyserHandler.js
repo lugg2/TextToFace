@@ -1,5 +1,5 @@
 var exec = require("child_process").exec;
-
+var url = require("url");
 var isAnalyserOnline = false;
 var analyserKey = '';
 var currentID = -1;
@@ -22,18 +22,30 @@ function generateWorklistItem()
     return currentID;
 }
 
-function sendWorklist(response)
+function sendWorklist(response, request)
 {
-   // output looks like 
-   // 0: message0; 1: message1; 2: message2; 
-  response.writeHead(200, {'content-type': 'text/plain'});
-  for(var i = 0; i<worklistItems.length;i++)
-  {
-    response.write(i+': '+'message'+worklistItems[i].id +'; ');
-  }
 
-  response.end();
-  worklistItems.length = 0;  
+    var query = url.parse(request.url).query;
+    if (typeof query.workerid != undefined && query.workerid === analyserKey)
+    {
+        // output looks like
+        // 0: message0; 1: message1; 2: message2;
+        response.writeHead(200, {'content-type': 'text/plain'});
+        for(var i = 0; i<worklistItems.length;i++)
+        {
+            response.write(i+': '+'message'+worklistItems[i].id +'; ');
+        }
+
+        response.end();
+        worklistItems.length = 0;
+    }
+    else
+    {
+        // kill old workers
+        response.writeHead(200, {'content-type': 'text/plain'});
+        response.write('kill');
+        response.end();
+    }
 }
 
 function startAnalyserIfNecessary()
