@@ -148,7 +148,7 @@ function ruleAutomata (textA, id){
 
 	//Rule 2: mentalHealth
 	//a = (Viele Negationen + Medizin + computer + psychology + math) (a min 5 p(a) > 0.02) (a min 3 p(a) > 0.01) sonst
-	//var a = textA["neg"] + textA["medicin"] + textA["psychology"] + textA["computer"] + textA["math"] ;
+	var a = textA["neg"] + textA["medicin"] + textA["psychology"] + textA["computer"] + textA["math"] ;
 
 	mData.mentalHealth = pRule( pCalculator( (textA["neg"]+textA["medicin"]+textA["psychology"]+textA["computer"]+textA["math"]) ,textA["words"]) , 0.02, 0.31, 'asc');
 
