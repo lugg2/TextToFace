@@ -54,7 +54,6 @@ function upload(response, request) {
 function getWorklist(response, request)
 { 
   analyser.sendWorklist(response, request);
-    
 }
 
 function finished(response, request) {
