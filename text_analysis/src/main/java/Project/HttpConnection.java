@@ -125,6 +125,14 @@ public class HttpConnection
 		    writer.close();
 			
 			inStream = new DataInputStream(urlConnection.getInputStream());
+/*			reader = new BufferedReader(new InputStreamReader(inStream));
+			String answer = reader.readLine();
+	
+			if(answer.contains("Acknowledged"))
+			{
+				this.postError("Sending not successfull", errorMessage, mID_position);
+			}
+*/
 			inStream.close();
 		}	
 		catch(Exception ex) {
@@ -150,6 +158,14 @@ public class HttpConnection
 			writer.close();
 				
 			inStream = new DataInputStream(urlConnection.getInputStream());
+/*			reader = new BufferedReader(new InputStreamReader(inStream));
+			String answer = reader.readLine();
+	
+			if(answer.contains("Acknowledged"))
+			{
+				this.postError("Sending not successfull", errorMessage, mID_position);
+			}
+*/
 			inStream.close();
 		}	
 			catch(Exception ex) {
@@ -175,6 +191,14 @@ public class HttpConnection
 			writer.close();
 				
 			inStream = new DataInputStream(urlConnection.getInputStream());
+/*			reader = new BufferedReader(new InputStreamReader(inStream));
+			String answer = reader.readLine();
+	
+			if(answer.contains("Acknowledged"))
+			{
+				this.postError("Sending not successfull", errorMessage, mID_position);
+			}
+*/
 			inStream.close();
 		}	
 			catch(Exception ex) {

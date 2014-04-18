@@ -10,11 +10,11 @@ public class DBAccess {
 	public Connection c = null;
 	private String errorID = "00";
 	
-	public void establishConnection()
+	public void establishConnection(String path)
 	{
 		try {
 			Class.forName("org.sqlite.JDBC");
-			c = DriverManager.getConnection("jdbc:sqlite:thesaurusDB.db");
+			c = DriverManager.getConnection("jdbc:sqlite:/"+path+"/thesaurusDB.db");
 		} catch ( Exception e ) {
 			errorID = "08";
 		}
