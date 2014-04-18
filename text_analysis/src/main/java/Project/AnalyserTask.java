@@ -1,6 +1,5 @@
 package Project;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -8,82 +7,100 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class AnalyserTask extends TimerTask{
-	Calculator calc;
-	HttpConnection http;
-	Reader reader;
-	long start;
-	long time;
-	List<String> inputFiles;
-	String workerid;
-	String adress;
-	String adressFinish;
-	String enteredText;
-	Timer t;
-	String path;
-	
-	AnalyserTask(String wid, Calculator c, long s, Timer timer, String p)
+	private Calculator calc;
+	private HttpConnection http;
+	private Reader reader;
+	private long start;
+	private long time;
+	private List<String> inputFiles;
+	private String workerid;
+	private String adress;
+	private String adressFinish;
+	private String enteredText;
+	private Timer t;
+	private String path;
+		
+	AnalyserTask(String workerid, String host, Calculator c, long s, Timer timer, String p)
 	{
-		adress = "http://www.texttoface.de/getworklist";
-		adressFinish = "http://www.texttoface.de/finished";
-
-		workerid = wid;
-		calc = c;
-		start = s;
-		t = timer;
-		path = p;
+		this.workerid = workerid;
+		this.calc = c;
+		this.start = s;
+		this.t = timer;
+		this.path = p;
+		
+		if(host.equals("-localhost"))
+		{
+			adress = "http://localhost/getworklist";
+			adressFinish = "http://localhost/finished";
+		}else{
+			adress = "http://www.texttoface.de/getworklist";
+			adressFinish = "http://www.texttoface.de/finished";
+		}
 		
 		http = new HttpConnection();
 		inputFiles = new ArrayList<String>();
 		reader = new Reader();
+		
+		//set adresses for GET and POST requests
+		http.setAdress(adress, adressFinish);		
 	}
 
 	public void run() 
 	{
 		// calculate complete time and cancel run if time over (120 min)
 		time = new Date().getTime() - start;
-		if(time>=7200000)
-		{
-			calc.closeDB();
-			t.cancel();
-			return;
-		}
+		if(time>=7200000) stopAnalyserTask();
 		
-		if(!calc.isError())	
+		try
 		{
-			http.setAdress(adress, adressFinish);		
+			if(calc.isError())	throw new AnalyserException(calc.getErrorID());			//check for calculator-error
+
+			//initialize lists for HTTP handling (GET and POST)
 			http.initializeLists();
-			inputFiles = http.getContent(workerid); 	//list of files to read and analyse	
-			if(!http.isError())
-			{
-				if(!inputFiles.isEmpty())
-				{
-					start = new Date().getTime();
-					for(int i=0; i<inputFiles.size(); i++)
-					{	
-						//1st step: read entered text
-						try {
-							enteredText = reader.readData(inputFiles.get(i), path);
-						} catch (IOException e) {
-							http.postError(workerid, "12", i);
-						}
 			
-						if(!reader.isError())
-						{
-							//2nd step: doCalculations and POST the results
-							if(!enteredText.isEmpty())
-							{
-								String output = calc.doCalculations(enteredText);
-								if(!calc.isError())
-								{					
-									http.postContent(output, workerid, calc.getErrorID(), i);
-								}else http.postError(workerid, calc.getErrorID(), i);								
-								calc.initializeJSON();
-								calc.initErrorID();
-							}else http.postError(workerid, "04", i);
-						}else http.postError(workerid, reader.getErrorID(), i);
-					}
+			//GET Content from Server --> list of files to read and analyse (if server sends "kill" signal - stop AnalyserTask)
+			inputFiles = http.getContent(workerid); 		
+			if(http.stopAnalyser()) stopAnalyserTask();
+			
+			if(http.isError())	throw new AnalyserException(http.getErrorID());			//check for http-error			
+			if(!inputFiles.isEmpty())													//check if there are messages to analyse
+			{
+				//if there are files to analyse - start timer again
+				start = new Date().getTime();			
+				
+				for(int i=0; i<inputFiles.size(); i++)
+				{	
+					//ANALYSIS START
+					//1st step: read entered text (according to message name and absolute path)
+						enteredText = reader.readData(inputFiles.get(i), path);
+						if(reader.isError())	throw new AnalyserException(reader.getErrorID(), i);	//check for reader-error
+						if(enteredText.isEmpty())	throw new AnalyserException("04", i);				//check for empty files
+
+					//2nd step: doCalculations with the text and POST the results
+						String output = calc.doCalculations(enteredText);
+						if(calc.isError())	throw new AnalyserException(calc.getErrorID(), i);			//check for calculator-error
+					
+						//post Content to website/localhost
+						http.postContent(output, workerid, calc.getErrorID(), i);
+					
+					//initialisations for next calculation (JSON-Output and calculator ErrorID)
+					calc.initializeJSON();
+					calc.initErrorID();
 				}
-			}else http.postError(workerid, http.getErrorID());
-		}else http.postError(workerid, calc.getErrorID());
+			}
+		}catch (AnalyserException e)
+		{
+			if(!e.MID_set())
+			{
+				http.postError(workerid, e.getErrorID());
+			}else http.postError(workerid, e.getErrorID(), e.getMessageID());
+		}
+	}
+	
+	private void stopAnalyserTask()
+	{
+		calc.closeDB();
+		t.cancel();
+		return;
 	}
 }

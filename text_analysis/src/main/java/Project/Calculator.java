@@ -2,6 +2,7 @@ package Project;
 
 import java.io.IOException;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -15,39 +16,24 @@ import org.languagetool.language.German;
 public class Calculator 
 {
 	private JLanguageTool langTool;
-	private int numb_errors;
-	private int numb_unknown;
-	private int average_length_sentence;
-	private int numb_sentences;
-	private int numb_vocals;
-	private Pattern p;
-	private Matcher m;
-	private int numb_noun;
-	private int numb_noun_fem;
-	private int numb_noun_male;
-	private int numb_noun_neutr;
-	private int numb_ver;
-	private int numb_adj;
-	private int numb_adv;
-	private int numb_kon;
-	private int numb_neg;
-	private int numb_prp;
-	private int numb_art;
-	private int numb_art_fem;
-	private int numb_art_male;
-	private int numb_art_neutr;
+
+	private int[] counter;
 	private int[] category_counter;
+	private String[] counter_title;
 	private String[] category_title;
+	
 	private DBAccess db;
-	private int numb_words;
-	private int numb_r;
-	private int numb_i_l;
 	private String errorID;
+	
 	private String[] str;
 	private String[] str_cat;
+	
 	private String str_start;
 	private String str_end;
 	
+	private Pattern p;
+	private Matcher m;
+		
 	public void doInitialisations(String path)
 	{
 		initErrorID();
@@ -72,7 +58,7 @@ public class Calculator
 		category_title[1] = "medicin";
 		category_title[2] = "botanic";
 		category_title[3] = "zoology";
-		category_title[4] = "anatomy";
+		category_title[4] = "anatomy";			
 		category_title[5] = "computer";
 		category_title[6] = "biology";
 		category_title[7] = "music";
@@ -90,7 +76,7 @@ public class Calculator
 		category_title[19] = "gastronomy";
 		category_title[20] = "shipping";
 		category_title[21] = "biochemistry";
-		category_title[22] = "history";
+		category_title[22] = "history";	
 		category_title[23] = "politic";
 		category_title[24] = "geology";
 		category_title[25] = "railway";
@@ -102,66 +88,90 @@ public class Calculator
 		category_title[31] = "terrorism";
 		category_title[32] = "emotions";
 		category_title[33] = "color";
-		category_counter  = new int[34];
-		str = new String[22];
+
+		counter_title = new String[25];
+		counter_title[0] = "sentences";
+		counter_title[1] = "average_sentence_length";
+		counter_title[2] = "grammar_errors";
+		counter_title[3] = "vocals";
+		counter_title[4] = "r-s";
+		counter_title[5] = "i-s_and_l-s";
+		counter_title[6] = "words";
+		counter_title[7] = "nouns";
+		counter_title[8] = "fem_nouns";
+		counter_title[9] = "male_nouns";
+		counter_title[10] = "neutr_nouns";
+		counter_title[11] = "verbs";
+		counter_title[12] = "adj";
+		counter_title[13] = "adv";
+		counter_title[14] = "kon";
+		counter_title[15] = "neg";
+		counter_title[16] = "prep";
+		counter_title[17] = "article";
+		counter_title[18] = "fem_article";
+		counter_title[19] = "male_article";
+		counter_title[20] = "neutr_article";
+		counter_title[21] = "unknown_words";
+		counter_title[22] = "e-s";
+		counter_title[23] = "spaces";
+		counter_title[24] = "average_word_length";
+		
+		category_counter  = new int[category_title.length];
+		counter  = new int[counter_title.length];
+		
+		str_start = "{";
+		str_end = "}";
+		
+		str = new String[counter.length];
 		str_cat = new String[category_counter.length];
+		
 		initializeJSON();
 	}
 	
+	public void initErrorID()
+	{
+		errorID = "00";
+	}
+
 	public void initializeJSON()
 	{
-		numb_errors = 0;
-		numb_unknown = 0;
-		average_length_sentence = 0;
-		numb_sentences = 0;
-		numb_vocals = 0;
-		numb_noun = 0;
-		numb_noun_fem = 0;
-		numb_noun_male = 0;
-		numb_noun_neutr = 0;
-		numb_ver = 0;
-		numb_adj = 0;
-		numb_adv = 0;
-		numb_kon = 0;
-		numb_neg = 0;
-		numb_prp = 0;
-		numb_art = 0;
-		numb_art_fem = 0;
-		numb_art_male = 0;
-		numb_art_neutr = 0;
-		numb_words = 0;
-		numb_r = 0;
-		numb_i_l = 0;				
-		for(int i=0; i<category_counter.length; i++) category_counter[i] = 0;
+		for(int i=0; i<counter.length; i++) counter[i] = 0;
+		for(int k=0; k<category_counter.length; k++) category_counter[k] = 0;
 	}
 	
 	public String doCalculations(String enteredText)
 	{		
 		//check the entered text for errors	
 		try {
-			numb_errors = langTool.check(enteredText).size(); 				//numb_errors
+			counter[2] = langTool.check(enteredText).size(); 				//numb_errors
 		} catch (IOException e) {
 			errorID = "06";
 			return ""; 
 		}
 		
 		//count unknown words
-		numb_unknown = langTool.getUnknownWords().size();					//numb_unknown
+		counter[21] = langTool.getUnknownWords().size();					//numb_unknown
 		
 		//list of all sentences
 		List<String> listSentences = langTool.sentenceTokenize(enteredText);		
 		for(int i=0; i<listSentences.size(); i++)
 		{
-			numb_sentences++;												//numb_sentences
-			average_length_sentence += listSentences.get(i).length();
+			counter[0]++;													//numb_sentences
+			counter[1] += listSentences.get(i).length();
 		}		
-		average_length_sentence /= listSentences.size();					//average_length_sentence
-
-		//count all VOCALS
-		p = Pattern.compile("(a|e|i|o|u|A|E|I|O|U)");
-		m = p.matcher(enteredText);
-		while (m.find()) numb_vocals++;									 	//numb_vocals
+		counter[1] /= listSentences.size();									//average_sentence_length
 		
+		//count all VOCALS
+		counter[3] = regExp("(a|e|i|o|u|A|E|I|O|U)", enteredText);			//numb_vocals
+		//count all R¥s
+		counter[4] = regExp("(r|R)", enteredText);							//numb_r
+		//count all i¥s and l¥s 
+		counter[5] = regExp("(i|I|l|L)", enteredText);						//numb_i_l
+		//count all e¥s
+		counter[22] = regExp("e|E", enteredText);							//numb_e		
+		//count all spaces
+		counter[23] = regExp(" ", enteredText);								//numb_spaces		
+				
 		try {
 			AnalyzedSentence textComplete = langTool.getRawAnalyzedSentence(enteredText);
 			AnalyzedTokenReadings[] tokens = textComplete.getTokensWithoutWhitespace();
@@ -174,38 +184,39 @@ public class Calculator
 					//System.out.println("TAG: " + tok.getPOSTag().toString();
 					if(tok.getPOSTag().contains("SUB"))
 					{
-						numb_noun++;									//numb_noun
+						counter[7]++;									//numb_noun
 					
 						if(tok.getPOSTag().contains("FEM"))
 						{
-							numb_noun_fem++;
+							counter[8]++;								//numb_fem_noun
 						}
 						else if(tok.getPOSTag().contains("MAS")) 
 							{
-								numb_noun_male++;
+								counter[9]++;							//numb_male_noun
 							}
-							else numb_noun_neutr++;
+							else counter[10]++;							//numb_neutr_noun
 					}
-					if (tok.getPOSTag().contains("VER")) numb_ver++;	//numb_ver	
-					if (tok.getPOSTag().contains("ADJ")) numb_adj++;	//numb_adj
-					if (tok.getPOSTag().contains("ADV")) numb_adv++;	//numb_adv
-					if (tok.getPOSTag().contains("KON")) numb_kon++;	//numb_kon
-					if (tok.getPOSTag().contains("NEG")) numb_neg++;	//numb_neg
-					if (tok.getPOSTag().contains("PRP")) numb_prp++;	//numb_prp
+					if (tok.getPOSTag().contains("VER")) counter[11]++;	//numb_ver++;	//numb_ver	
+					if (tok.getPOSTag().contains("ADJ")) counter[12]++;	//numb_adj++;	//numb_adj
+					if (tok.getPOSTag().contains("ADV")) counter[13]++;	//numb_adv++;	//numb_adv
+					if (tok.getPOSTag().contains("KON")) counter[14]++;	//numb_kon++;	//numb_kon
+					if (tok.getPOSTag().contains("NEG")) counter[15]++;	//numb_neg++;	//numb_neg
+					if (tok.getPOSTag().contains("PRP")) counter[16]++;	//numb_prp++;	//numb_prp
 					
 					if (tok.getPOSTag().contains("ART") && !tok.getPOSTag().contains("START"))
 					{
-						numb_art++;										//numb_art
+						counter[17]++;										//numb_art
+
 						if(tok.getPOSTag().contains("FEM"))
 						{
-							numb_art_fem++;
+							counter[18]++;								//numb_art_fem
 						}	
 						else 
 							if (tok.getPOSTag().contains("MAS")) 
 							{
-								numb_art_male++;
+								counter[19]++;							//numb_art_male
 							}
-							else numb_art_neutr++;
+							else counter[20]++;							//numb_art_neut
 					}	
 				}
 			}
@@ -216,64 +227,47 @@ public class Calculator
 		
 		if(!db.isError())
 		{
+			List<String> words = new ArrayList<String>();
 			//count all words
 			p = Pattern.compile("[a-zA-Z‰¸ˆƒ‹÷ﬂ-]+");
 			m = p.matcher(enteredText);
 			while (m.find()) 
 			{
-				category_counter = db.checkToken(category_counter, m.group());							
-				numb_words++;												//numb_words
+				category_counter = db.checkToken(category_counter, m.group());			
+				words.add(m.group());
 			}
+			
+			for(int l=0; l<words.size(); l++)
+			{
+				counter[6]++;												//numb_words				
+				counter[24] += words.get(l).length();
+			}
+			counter[24] /= counter[6];			
 		}		
 		if(db.isError()) errorID = db.getErrorID();
 		
-		//count all R¥s
-		p = Pattern.compile("(r|R)");
-		m = p.matcher(enteredText);
-		while (m.find()) numb_r++;												 	//numb_r
-						
-		//count all i¥s and l¥s 
-		p = Pattern.compile("(i|I|l|L)");
-		m = p.matcher(enteredText);
-		while (m.find()) numb_i_l++;												 //numb_i_l
-
-		
 		//give stored information
-		str_start = "{";
-		str[0] = ('"' + "sentences" + '"' + ": " + numb_sentences + ", ");
-		str[1] = ('"' + "average_length" + '"' + ": " + average_length_sentence + ", ");
-		str[2] = ('"' + "grammar_errors" + '"' + ": " + numb_errors + ", ");
-		str[3] = ('"' + "vocals" + '"' + ": " + numb_vocals + ", ");
-		str[4] = ('"' + "r-s" + '"' + ": " + numb_r + ", ");
-		str[5] = ('"' + "i-s_and_l-s" + '"' + ": " + numb_i_l + ", ");
-		str[6] = ('"' + "words" + '"' + ": " + numb_words + ", ");
-		str[7] = ('"' + "nouns" + '"' + ": " + numb_noun + ", ");
-		str[8] = ('"' + "fem_nouns" + '"' + ": " + numb_noun_fem + ", ");
-		str[9] = ('"' + "male_nouns" + '"' + ": " + numb_noun_male + ", ");
-		str[10] = ('"' + "neutr_nouns" + '"' + ": " + numb_noun_neutr + ", ");
-		str[11] = ('"' + "verbs" + '"' + ": " + numb_ver + ", ");
-		str[12] = ('"' + "adj" + '"' + ": " + numb_adj + ", ");
-		str[13] = ('"' + "adv" + '"' + ": " + numb_adv + ", ");
-		str[14] = ('"' + "kon" + '"' + ": " + numb_kon + ", ");
-		str[15] = ('"' + "neg" + '"' + ": " + numb_neg + ", ");
-		str[16] = ('"' + "prep" + '"' + ": " + numb_prp + ", ");
-		str[17] = ('"' + "article" + '"' + ": " + numb_art + ", ");
-		str[18] = ('"' + "fem_article" + '"' + ": " + numb_art_fem + ", ");
-		str[19] = ('"' + "male_article" + '"' + ": " + numb_art_male + ", ");
-		str[20] = ('"' + "neutr_article" + '"' + ": " + numb_art_neutr + ", ");
-		str[21] = ('"' + "unknown_words" + '"' + ": " + numb_unknown + ", ");
+		for (int k=0; k<counter.length; k++) str[k] = ('"' + counter_title[k] + '"' + ": " + counter[k] + ", ");			
 		for (int i=0; i<category_counter.length-1; i++) str_cat[i] = ('"' + category_title[i] + '"' + ": " + category_counter[i] + ", ");			
 		str_cat[category_counter.length-1] = ('"' + category_title[category_counter.length-1] + '"' + ": " + category_counter[category_counter.length-1]);			
-		str_end = "}";
 		
 		//concatenation of the complete JSON-String
 		String completeJSON = "";
 		completeJSON += str_start;
-		for(int i=0; i<22; i++) completeJSON += str[i];
+		for(int k=0; k<counter.length; k++) completeJSON += str[k];
 		for(int i=0; i<category_counter.length; i++) completeJSON += str_cat[i];
 		completeJSON += str_end;
 			
 		return completeJSON;
+	}
+	
+	public int regExp(String pattern, String text)
+	{
+		int c = 0;
+		p = Pattern.compile(pattern);
+		m = p.matcher(text);
+		while (m.find()) c++;
+		return c;
 	}
 	
 	public boolean isError()
@@ -288,12 +282,7 @@ public class Calculator
 	{
 		return errorID;
 	}
-	
-	public void initErrorID()
-	{
-		errorID = "00";
-	}
-	
+		
 	public void closeDB()
 	{
 		db.closeConnection();

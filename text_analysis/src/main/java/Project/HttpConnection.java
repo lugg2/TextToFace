@@ -1,7 +1,6 @@
 package Project;
 
 import java.io.BufferedReader;
-
 import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -26,12 +25,11 @@ public class HttpConnection
 	private List<String> messageID;
 	private Pattern p;
 	private Matcher m;
-	private String errorID;
-	
+	private String errorID;	
 	private URL url;
 	private URLConnection urlConnection;
 	private DataInputStream inStream;
-
+	private boolean stopAnalyser;
 	
 	HttpConnection()
 	{
@@ -40,6 +38,8 @@ public class HttpConnection
 	
 		files = new ArrayList<String>();
 		messageID = new ArrayList<String>();
+		
+		stopAnalyser = false;
 	}
 	
 	public void initializeLists()
@@ -76,14 +76,21 @@ public class HttpConnection
 			errorID = "02";
 			return files;
 		}	
-		p = Pattern.compile("([0-9]+): ([a-zA-ZüäöÜÄÖ0-9]+)");
+		
+		if(input.equals("kill"))
+		{
+			stopAnalyser = true;
+			return files;
+		}
+		
+		p = Pattern.compile("[0-9]+: ([a-zA-ZüäöÜÄÖ]+)([0-9]+)");
 		if(input!=null)
 		{
 			m = p.matcher(input);
 			while (m.find())
 			{
-				messageID.add(m.group(1));
-				files.add(m.group(2));
+				messageID.add(m.group(2));
+				files.add(m.group(1)+m.group(2));
 			}		
 		}
 		return files;
@@ -107,37 +114,42 @@ public class HttpConnection
 	 * 12: I/O failure by reading the text file
 	 */
 	
+	public void post(URL url, String content) throws IOException
+	{
+		urlConnection = url.openConnection();
+		((HttpURLConnection)urlConnection).setRequestMethod("POST");
+		urlConnection.setDoOutput(true);
+		urlConnection.setUseCaches(false);
+		urlConnection.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
+		
+		OutputStreamWriter writer = new OutputStreamWriter(urlConnection.getOutputStream());
+	    writer.write(content);
+	    writer.flush();
+	    writer.close();
+		
+		inStream = new DataInputStream(urlConnection.getInputStream());
+		reader = new BufferedReader(new InputStreamReader(inStream));
+		String answer = reader.readLine();
+
+		if(!answer.contains("Acknowledge"))
+		{
+			System.out.println("POST not acknowledged:\n" + "URL: " + url);
+		}
+
+		inStream.close();
+	}
+	
+	
 	public void postContent(String content, String workerid, String errorMessage, int mID_position)
 	{	
-		try
-		{ 
+		try {
 			// Create connection
-			url = new URL(adressFinish + "?workerid=" + workerid + "&&error=" + errorMessage + "&&messageID=" + messageID.get(mID_position));		
-			urlConnection = url.openConnection();
-			((HttpURLConnection)urlConnection).setRequestMethod("POST");
-			urlConnection.setDoOutput(true);
-			urlConnection.setUseCaches(false);
-			urlConnection.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
-			
-			OutputStreamWriter writer = new OutputStreamWriter(urlConnection.getOutputStream());
-		    writer.write(content);
-		    writer.flush();
-		    writer.close();
-			
-			inStream = new DataInputStream(urlConnection.getInputStream());
-/*			reader = new BufferedReader(new InputStreamReader(inStream));
-			String answer = reader.readLine();
-	
-			if(answer.contains("Acknowledged"))
-			{
-				this.postError("Sending not successfull", errorMessage, mID_position);
-			}
-*/
-			inStream.close();
+			url = new URL(adressFinish + "?workerid=" + workerid + "&&error=" + errorMessage + "&&messageID=" + messageID.get(mID_position));			
+			post(url,content);
+		} catch (IOException e) {
+			System.out.println("POST Exception: "+ e.toString());
 		}	
-		catch(Exception ex) {
-			System.out.println("Exception cought:\n"+ ex.toString());
-		}
+		
 	}
 	
 	public void postError(String workerid, String errorMessage, int mID_position)
@@ -146,30 +158,9 @@ public class HttpConnection
 		{
 			// Create connection
 			url = new URL(adressFinish + "?workerid=" + workerid + "&&error=" + errorMessage + "&&messageID=" + messageID.get(mID_position));		
-			urlConnection = url.openConnection();
-			((HttpURLConnection)urlConnection).setRequestMethod("POST");
-			urlConnection.setDoOutput(true);
-			urlConnection.setUseCaches(false);
-			urlConnection.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
-						
-			OutputStreamWriter writer = new OutputStreamWriter(urlConnection.getOutputStream());
-			writer.write("".toString());
-			writer.flush();
-			writer.close();
-				
-			inStream = new DataInputStream(urlConnection.getInputStream());
-/*			reader = new BufferedReader(new InputStreamReader(inStream));
-			String answer = reader.readLine();
-	
-			if(answer.contains("Acknowledged"))
-			{
-				this.postError("Sending not successfull", errorMessage, mID_position);
-			}
-*/
-			inStream.close();
-		}	
-			catch(Exception ex) {
-				System.out.println("Exception cought:\n"+ ex.toString());
+			post(url,"");
+		} catch(Exception e) {
+			System.out.println("POST Exception: "+ e.toString());
 		}
 	}
 
@@ -179,30 +170,9 @@ public class HttpConnection
 		{
 			// Create connection
 			url = new URL(adressFinish + "?workerid=" + workerid + "&&error=" + errorMessage + "&&messageID=x");		
-			urlConnection = url.openConnection();
-			((HttpURLConnection)urlConnection).setRequestMethod("POST");
-			urlConnection.setDoOutput(true);
-			urlConnection.setUseCaches(false);
-			urlConnection.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
-						
-			OutputStreamWriter writer = new OutputStreamWriter(urlConnection.getOutputStream());
-			writer.write("".toString());
-			writer.flush();
-			writer.close();
-				
-			inStream = new DataInputStream(urlConnection.getInputStream());
-/*			reader = new BufferedReader(new InputStreamReader(inStream));
-			String answer = reader.readLine();
-	
-			if(answer.contains("Acknowledged"))
-			{
-				this.postError("Sending not successfull", errorMessage, mID_position);
-			}
-*/
-			inStream.close();
-		}	
-			catch(Exception ex) {
-				System.out.println("Exception cought:\n"+ ex.toString());
+			post(url, "");
+		} catch(Exception e) {
+			System.out.println("POST Exception: "+ e.toString());
 		}		
 	}
 
@@ -218,5 +188,13 @@ public class HttpConnection
 	public String getErrorID()
 	{
 		return errorID;
+	}
+	
+	public boolean stopAnalyser()
+	{
+		if(stopAnalyser)
+		{
+			return true;
+		}else return false;
 	}
 } 

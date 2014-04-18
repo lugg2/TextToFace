@@ -7,14 +7,17 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class DBAccess {
-	public Connection c = null;
+	private Connection c = null;
 	private String errorID = "00";
 	
 	public void establishConnection(String path)
 	{
 		try {
 			Class.forName("org.sqlite.JDBC");
+			//for Server
 			c = DriverManager.getConnection("jdbc:sqlite:/"+path+"/thesaurusDB.db");
+			
+			//for Windows-Testing			c = DriverManager.getConnection("jdbc:sqlite:thesaurusDB.db");
 		} catch ( Exception e ) {
 			errorID = "08";
 		}
@@ -83,11 +86,14 @@ public class DBAccess {
 	
 	public void closeConnection()
 	{
-		try {
-			c.close();
-		} catch (SQLException e) {
-			errorID = "09";
-		}	
+		if(errorID!="08")
+		{
+			try {
+				c.close();
+			} catch (SQLException e) {
+				errorID = "09";
+			}
+		}
 	}
 	
 	public boolean isError()
