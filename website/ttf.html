@@ -77,20 +77,14 @@
         </div>
 
         <div class="content">
-		<div style = "border: 2px solid; margin: 2em; border-radius: 25px; padding:20px">
+		<div style = "border: 2px solid; margin: 2em; border-radius: 25px;">
             <h2 class="content-subhead" style ="text-align: center">Bitte hier den Text eingeben</h2>
             <div id="form" >
 			<form name="input_text" action="/upload" enctype="multipart/form-data" method="post">
-			
-			<div align="center"><textarea name="Text1" cols="40" rows="3"  style="float:center ;width:80%" ></textarea><br>
-			<!--<button data-bind='click: registerClick, disable: hasClickedTooManyTimes'><span data-bind='text: names()[numberOfClicks()]'></span></button></div> -->
-			<input type="submit" value="Upload"></div>
+			<textarea name="Text1" cols="40" rows="5"  ></textarea>
+			<input type="submit" value="Upload">
 			</form>
 		</div>
-		<p>
-		<img src="kreuz.png" alt="nein" data-bind="visible: nichtFertig"/>
-		<img src="haekchen.png" alt="ja" data-bind="visible: fertig"/>
-		</p>
 	</div>
 		<div id="button" style ="text-align: center" >
 			<img src="submit.png" alt="submit" onclick="submit_form()" />
@@ -119,7 +113,7 @@
 
 
 
-
+<script src="js/ui.js"></script>
 
 
 </body>
