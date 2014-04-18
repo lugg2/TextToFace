@@ -27,7 +27,7 @@ function generateWorklistItem()
 function sendWorklist(response, request)
 {
     console.log('get Worklist');
-    var queryString = url.parse(request.url).query;
+    var queryString = url.parse(request.url, true).query;
 
     console.log(util.inspect(queryString));
     console.log(queryString.workerid);
@@ -48,6 +48,7 @@ function sendWorklist(response, request)
     }
     else
     {
+        console.log('send kill');
         // kill old workers
         response.writeHead(200, {'content-type': 'text/plain'});
         response.write('kill');
@@ -61,7 +62,7 @@ function startAnalyserIfNecessary()
 	{
         analyserKey = generateKey();
         // var command = ("java -jar " + __dirname + '\\text_analysis\\Code\\Source.jar' + ' ' + analyserKey + ' -'); // windows
-        var command = ("java -jar " + __dirname + '/text_analysis/Code/Source.jar' + ' ' + analyserKey + ' -'); // unix
+        var command = ("java -jar " + __dirname + '/text_analysis/Code/Source.jar' + ' ' + analyserKey + ' -localhost'); // unix
         console.log("try to start analyser with command :" + command);
 
         exec(command,onCloseAnalyser);
