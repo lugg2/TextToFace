@@ -96,9 +96,9 @@ var textAnalyse = {
 	"color": 0
 };
 
-ruleAutomata(textAnalyse, 1);
+//ruleAutomata(textAnalyse, 1);
 
-function ruleAutomata (textA, id){
+function ruleAutomata (textA, id, callbackMetaData, callbackFullData){
 	
 	//Helper Function
 	function pCalculator(z, n) {
@@ -150,7 +150,7 @@ function ruleAutomata (textA, id){
 	//a = (Viele Negationen + Medizin + computer + psychology + math) (a min 5 p(a) > 0.02) (a min 3 p(a) > 0.01) sonst
 	var a = textA["neg"] + textA["medicin"] + textA["psychology"] + textA["computer"] + textA["math"] ;
 
-	mData.mentalHealth = pRule( pCalculator( (textA["neg"]+textA["medicin"]+textA["psychology"]+textA["computer"]+textA["math"]) ,textA["words"]) , 0.02, 0.31, 'asc');
+	mData.mentalHealth = pRule( pCalculator( a ,textA["words"]) , 0.02, 0.31, 'asc');
 
 	//Rule 3: iq
 	//Grammar Errors + Spell Errors / words = p	1: sonst 	2:p < 0.20	3:p < 0.05
@@ -158,14 +158,14 @@ function ruleAutomata (textA, id){
 
 	//Rule 4: age
 	//(HIstory + Politik + niedriger Geistiger Zustand)/words
-	var b = textA["history"] + textA["politic"] + a;
-	mData.age = pRule( pCalculator(b,textA["words"]), 0.20, 0.03, 'dsc' );
+	//var b = textA["history"] + textA["politic"] + a;
+	mData.age = pRule( pCalculator( (textA["history"]+textA["politic"]+a) ,textA["words"]), 0.20, 0.03, 'dsc' );
 
 
 	//Rule 5: dangerLevel
 	//Terrorismus + Militär + Biochemie + Physik + Chemie + Biologie min 3 und p(Terrorismus + Militär ) > 0.025
-	var c = textA["terrorism"] + textA["biology"] + textA["physics"] + textA["chemistry"] + textA["biology"] + textA["technic"];
-	mData.dangerLevel = pRule( pCalculator(c,textA["words"]) , 0.20, 0.35, 'asc' );
+	//var c = textA["terrorism"] + textA["biology"] + textA["physics"] + textA["chemistry"] + textA["biology"] + textA["technic"];
+	mData.dangerLevel = pRule( pCalculator( (textA["terrorism"]+textA["biology"]+textA["physics"]+textA["chemistry"]+textA["biology"]+textA["technic"]) ,textA["words"]) , 0.20, 0.35, 'asc' );
 
 	//Rule 6: pirat
 	//10 * mehr r's als e und min 20 r's
@@ -175,7 +175,11 @@ function ruleAutomata (textA, id){
 		mData.pirat = 3;
 	}
 
-
+	//callback for wantedPosterCreator
+	if (typeof callbackMetaData == 'function') {
+		callbackMetaData(id, mData);
+	}
+	
 	console.log(util.inspect(mData));
 
 
@@ -200,5 +204,30 @@ function ruleAutomata (textA, id){
 	//volume:
 	//Zoologie + Wortlänge + Elektrizität  - Sport - TEchnik
 	hairs.volume = pRule( pCalculator( (textA["zoology"]+textA["electricity"]-textA["sport"]-textA["technic"]), textA["words"] ) ,0.20, 0.35, 'asc' );
+	//lenght:
+	//adj/word +womenfactor
+	var b = pCalculator(textA["adj"], textA["words"]);
+	if (mData.gender === 3){
+		//0.2 is womenfactor
+		hairs.lenght = pRule( pCalculator( (b + 0.2), textA["words"] ) , 0.20, 0.35, 'asc' );
+	}else {
+		hairs.lenght = pRule( pCalculator( b, textA["words"] ) , 0.20, 0.35, 'asc' );
+	}
 	console.log(util.inspect(hairs));
+
+	//Rules : ear
+	var ear = {};
+	//height:
+	//viele adverben + adjektive = große Ohren
+	ear.height = pRule( pCalculator( textA["adv"], textA["words"] ) , 0.20, 0.35, 'asc' );
+	//width:
+	//Luftfahrt + Kunst + unknown worsds
+	ear.width = pRule( pCalculator( (textA["air"]+textA["art"]+textA["unknown_words"]), textA["words"] ), 0.20, 0.35, 'asc' );
+
+	//callback for faceCreator
+	if (typeof callbackFullData == 'function') {
+		callbackFullData(objFace);
+	}
 }
+
+exports.evaluateAnalyserOutput = ruleAutomata;

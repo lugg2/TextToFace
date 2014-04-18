@@ -4,10 +4,12 @@ var fs = require("fs");
 var util = require("util");
 var url = require("url");
 var analyser = require("./analyserHandler");
-var templateCreator = require("./templateCreator.js")
+var templateCreator = require("./templateCreator.js");
 var invoke = require('invoke');
 
-
+var ruleAutomata = require("./RulesHelper.js");
+var wantedPoster = require("./wantedPosterCreator.js");
+var faceCreator = require("./faceCreator.js");
 
 // helper functions
 function write502(response)
@@ -79,6 +81,9 @@ function finished(response, request) {
     var query   = url.parse(request.url).query;
     console.log('recieved data :'+ body);
     console.log(util.inspect(query,{showHidden: true, depth: null}));
+    
+      var queryData = url.parse(request.url, true).query;
+    ruleAutomata.evaluateAnalyserOutput(body, queryData.messageID, callbackWantedPoster, callbackFaceCreator);
 
     response.writeHead(200, {'content-type': 'text/plain'});
     response.write('Acknowledge');
@@ -92,6 +97,18 @@ function finished(response, request) {
   }
 }
 
+function callbackWantedPoster(id, mData){
+  //TODO callback
+  wantedPoster.createWantedPoster( id, mData, dummy);
+
+}
+function callbackFaceCreator(objFace){
+  //TODO callback
+  faceCreator.createFaceParts(objFace, dummy);
+}
+function dummy(){
+
+}
 
 exports.finished = finished;
 exports.getWorklist = getWorklist;
