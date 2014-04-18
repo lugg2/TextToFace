@@ -19,11 +19,6 @@ function write502(response)
     response.end();
 }
 
-function continueProcessing(postData)
-{
-
-}
-
 // exports functions
 
 function result(request, response)
@@ -58,7 +53,7 @@ function upload(response, request) {
 
 function getWorklist(response, request)
 { 
-  analyser.sendWorklist(response);    
+  analyser.sendWorklist(response, request);
     
 }
 
