@@ -88,4 +88,4 @@ function createWantedPoster( id,mData, callback )
 	
 }
 //main ();
-module.exports = createWantedPoster;
+exports.createWantedPoster = createWantedPoster;
