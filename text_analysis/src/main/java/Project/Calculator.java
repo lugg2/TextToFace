@@ -241,16 +241,16 @@ public class Calculator
 		//give stored information
 		str_start = "{";
 		str[0] = ('"' + "sentences" + '"' + ": " + numb_sentences + ", ");
-		str[1] = ('"' + "average length" + '"' + ": " + average_length_sentence + ", ");
-		str[2] = ('"' + "grammar errors" + '"' + ": " + numb_errors + ", ");
+		str[1] = ('"' + "average_length" + '"' + ": " + average_length_sentence + ", ");
+		str[2] = ('"' + "grammar_errors" + '"' + ": " + numb_errors + ", ");
 		str[3] = ('"' + "vocals" + '"' + ": " + numb_vocals + ", ");
 		str[4] = ('"' + "r-s" + '"' + ": " + numb_r + ", ");
-		str[5] = ('"' + "i-s and l-s" + '"' + ": " + numb_i_l + ", ");
+		str[5] = ('"' + "i-s_and_l-s" + '"' + ": " + numb_i_l + ", ");
 		str[6] = ('"' + "words" + '"' + ": " + numb_words + ", ");
 		str[7] = ('"' + "nouns" + '"' + ": " + numb_noun + ", ");
-		str[8] = ('"' + "fem nouns" + '"' + ": " + numb_noun_fem + ", ");
-		str[9] = ('"' + "male nouns" + '"' + ": " + numb_noun_male + ", ");
-		str[10] = ('"' + "neutr nouns" + '"' + ": " + numb_noun_neutr + ", ");
+		str[8] = ('"' + "fem_nouns" + '"' + ": " + numb_noun_fem + ", ");
+		str[9] = ('"' + "male_nouns" + '"' + ": " + numb_noun_male + ", ");
+		str[10] = ('"' + "neutr_nouns" + '"' + ": " + numb_noun_neutr + ", ");
 		str[11] = ('"' + "verbs" + '"' + ": " + numb_ver + ", ");
 		str[12] = ('"' + "adj" + '"' + ": " + numb_adj + ", ");
 		str[13] = ('"' + "adv" + '"' + ": " + numb_adv + ", ");
@@ -258,10 +258,10 @@ public class Calculator
 		str[15] = ('"' + "neg" + '"' + ": " + numb_neg + ", ");
 		str[16] = ('"' + "prep" + '"' + ": " + numb_prp + ", ");
 		str[17] = ('"' + "article" + '"' + ": " + numb_art + ", ");
-		str[18] = ('"' + "fem article" + '"' + ": " + numb_art_fem + ", ");
-		str[19] = ('"' + "male article" + '"' + ": " + numb_art_male + ", ");
-		str[20] = ('"' + "neutr article" + '"' + ": " + numb_art_neutr + ", ");
-		str[21] = ('"' + "unknown words" + '"' + ": " + numb_unknown + ", ");
+		str[18] = ('"' + "fem_article" + '"' + ": " + numb_art_fem + ", ");
+		str[19] = ('"' + "male_article" + '"' + ": " + numb_art_male + ", ");
+		str[20] = ('"' + "neutr_article" + '"' + ": " + numb_art_neutr + ", ");
+		str[21] = ('"' + "unknown_words" + '"' + ": " + numb_unknown + ", ");
 		for (int i=0; i<category_counter.length-1; i++) str_cat[i] = ('"' + category_title[i] + '"' + ": " + category_counter[i] + ", ");			
 		str_cat[category_counter.length-1] = ('"' + category_title[category_counter.length-1] + '"' + ": " + category_counter[category_counter.length-1]);			
 		str_end = "}";

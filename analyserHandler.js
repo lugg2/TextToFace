@@ -5,6 +5,7 @@ var analyserKey = '';
 var currentID = -1;
 
 var worklistItems = [];
+
 function WorklistItem(publicKey, id, status)
 {
     this.publicKey = publicKey;
@@ -16,7 +17,7 @@ function generateWorklistItem()
 {
     currentID +=1;
     // Status has to be done
-    var newItem = new WorklistItem(generateKey(),currentID,'null');
+    var newItem = new WorklistItem(generateKey() + currentID.toString(),currentID,'null');
     worklistItems.push(newItem);
     return currentID;
 }
@@ -72,8 +73,24 @@ function generateKey()
     return text;
 }
 
+function notifyStatusChange(id,newStatus)
+{
+    var foundItem = false;
+    var i = 0;
+    while ( i<worklistItems.length && !foundItem )
+    {
+        if(worklistItems[i].id == id)
+        {
+            worklistItems[i].status = newStatus;
+            foundItem = true;
+        }
+    }
+    if(!foundItem)
+        console.log("wrong status change id does not match a worklist item")
+}
 
 
 exports.startAnalyserIfNecessary = startAnalyserIfNecessary;
 exports.sendWorklist = sendWorklist;
 exports.generateWorklistItem = generateWorklistItem;
+exports.notifyStatusChange = notifyStatusChange;

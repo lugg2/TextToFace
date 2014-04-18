@@ -38,7 +38,7 @@
 
     <div id="menu">
         <div class="pure-menu pure-menu-open">
-            <a class="pure-menu-heading" href="#">Ttf GmbH</a>
+            <a class="pure-menu-heading" href="index.html">Text to Face</a>
 
             <ul>
                 <li><a href="#">Home</a></li>
@@ -58,21 +58,20 @@
     <div id="main">
         <div class="header">
             <h1>Kontakt mit uns Aufnehmen</h1>
-            <h2>Bitte die gefordereten Daten in das Eingabefeld eingeben, wir melden uns schnellst möglich</h2>
+            <h2>Bitte die gefordereten Daten in das Eingabefeld eingeben,<br> wir melden uns schnellst möglich</h2>
         </div>
 
         <div class="content">
-            <h2 class="content-subhead">Was ist Text to Face?</h2>
-            <p>
-				Text to Face ist eine Software, welche ein Phantombild für Sie erstellt.
-				Zur Erstellung des Bildes wird lediglich ein Text benötig. Das Phantombild gehört dann zu dem Verfasser des Textes.
-				Sollten Sie sich schon mit der Software auskennen, können Sie über den "Text to Face" Button direkt zur Software gelangen. Wenn Sie noch Hilfe benötigen, klicken Sie auf den "Anleitung"'s Button.
-				Viel Spaß und Erfolg bei der Verdächtigensuche. ;-)
-               
-            </p>
-			
-			<a class="pure-button"  href="ttf.html">Text to Face</a>
-			<a class="pure-button" href="anleitung.html">Anleitung</a>
+            	<form action="input_text.htm">
+					<p>Vorname:<br><input name="vorname" type="text" size="30" maxlength="30"></p>
+					<p>Nachname:<br><input name="zuname" type="text" size="30" maxlength="40"></p>
+					<p>E-Mail Adresse:<br><input name="zuname" type="email" size="30" maxlength="40"></p>
+					<p>Was möchten Sie uns mitteilen?<br>
+						<textarea name="user_eingabe" cols="50" rows="10"></textarea>
+					</p>
+					<input type="button" name="button1" value="Nachricht senden"
+					onclick="this.form.textfeld.value='Ich bin Text 2 - ganz normal'">
+				</form>
 
             
 
