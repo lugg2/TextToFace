@@ -28,7 +28,7 @@ function createWantedPoster( id,mData, callback )
 	var personalpronomen='';
 	wantedPoster +='<p>';
 	
-	if (metaData.Pirat ==1)
+	if (metaData.pirat ==1)
 		{
 		wantedPoster += 'Der Text stammt von einem sehr gefährlichen Piraten.<br> Er hat bereits alle sieben Weltmeere besegelt. Und schon sehr viele Städte ausgeplündert.<br> Es lässt sich nicht ausschließen, dass es sich um einen Kapitän eines Piratenschiffes handelt.';
 		}
