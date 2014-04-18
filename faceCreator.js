@@ -48,7 +48,7 @@ function faceCreator(objFace, callbackFinish){
 	function loadImage(name){
 		if(objFace[name] != null) {
 			try{
-				objFace[name] = images(objFace[name]);		//Load backgroundimage from file 
+				objFace[name] = images(__dirname + '/TextToFaceBilder' + objFace[name]);		//Load backgroundimage from file 
 			}catch(err){
 				//In case of not loading the image the default value null is set. This causes not drawing this part of the face but the rest will be created normally.
 				objFace[name] = null;
@@ -90,7 +90,8 @@ function faceCreator(objFace, callbackFinish){
 
 		//this end segment runns sequencial because the created Face needs to be composed in the right order.
 		try{
-			var face = images("Hintergrundweiß.png");	//load backgroundimage from file 
+			//TODO Pfad Hintergrundweiß ändern
+			var face = images( __dirname + '/TextToFaceBilder/' + "Hintergrundweiß.png");	//load backgroundimage from file 
 		}
 		catch(err){
 			//In case of not loading the background an own background is created with imageWidth and imageHeight. This new background has the color white.
