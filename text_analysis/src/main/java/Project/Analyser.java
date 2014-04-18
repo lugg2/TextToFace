@@ -1,3 +1,11 @@
+/*
+ * 
+ * Text Analyser created by TextToFace GmbH
+ * 
+ * support for this software product by Melanie Hammerschmidt
+ * 
+ */
+
 package Project;
 
 import java.io.File;
@@ -10,15 +18,15 @@ public class Analyser {
 
 	public static void main(String[] args) 
 	{
-		//get origin path
+		//get original path of JAR-File
 		String path = new File(System.getProperty("java.class.path")).getAbsoluteFile().getParentFile().toString();
 
-		//definitions
+		//first initialisations in Calculator
 		Calculator calc = new Calculator();
 		calc.doInitialisations(path);
 			
 		//start analyser which is scheduled every 5 seconds
 		Timer t = new Timer();
-		t.scheduleAtFixedRate(new AnalyserTask(args[0], calc, new Date().getTime(), t, path), TIMER_START, TIMER_RATE);
+		t.scheduleAtFixedRate(new AnalyserTask(args[0], args[1], calc, new Date().getTime(), t, path), TIMER_START, TIMER_RATE);
 	}
 }

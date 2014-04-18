@@ -11,13 +11,16 @@ public class Reader {
 	private String errorID;
 
 	@SuppressWarnings({ "restriction", "deprecation" })
-	public String readData(String name, String path) throws IOException
+	public String readData(String name, String path)
 	{	
 		errorID = "00";
 		String ausgabe = "";
 		
 		//search for message in this path
-		File file = new File(path + "/msg/" + name);		 
+			//for Server
+		File file = new File(path + "/msg/" + name);
+			//for Windows (Testing):	File file = new File("msg/" + name);
+	
 		// inputstream to read from file 
 		FileInputStream fis = null;
 		try {
@@ -27,6 +30,7 @@ public class Reader {
 
 			// get length of testfile
 			int size = (int) file.length();
+			
 			// create buffer to store testfile
 			byte[] data = new byte[size];
 			
@@ -48,9 +52,12 @@ public class Reader {
 		} catch (FileNotFoundException e) {
 			errorID = "03";
 			return "";
+		} catch (IOException e) {
+			errorID = "12";
+			return "";
 		}
 	}
-
+	
 	public boolean isError()
 	{
 		if(errorID.contains("00"))
