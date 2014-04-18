@@ -83,9 +83,14 @@
 			<form name="input_text" action="/upload" enctype="multipart/form-data" method="post">
 			
 			<div align="center"><textarea name="Text1" cols="40" rows="3"  style="float:center ;width:80%" ></textarea><br>
-			<input type="submit" value="Upload"></div>
+			<button data-bind='click: registerClick, disable: hasClickedTooManyTimes'><span data-bind='text: names()[numberOfClicks()]'></span></button></div>
+			<!-- vorher: <input type="submit" value="Upload"></div>-->
 			</form>
 		</div>
+		<p>Der Künstler ist fertig: 
+		<img src="kreuz.png" alt="nein" data-bind="visible: nichtFertig"/>
+		<img src="haekchen.png" alt="ja" data-bind="visible: fertig"/>
+		</p>
 	</div>
 		<div id="button" style ="text-align: center" >
 			<img src="submit.png" alt="submit" onclick="submit_form()" />
@@ -114,7 +119,12 @@
 
 
 
+<script>
+	ko.applyBindings(new ClickCounterViewModel(["Upload","In der Warteschlange","Wurde analysiert","Der Künstler sucht nach Inspiration","Der Künstler ist fertig","Sie werden weitergeleitet"]));
+</script>
+<script src="js/knockout-3.0.0.js"></script>
 <script src="js/ui.js"></script>
+<script src="js/ttf.js"></script>
 
 
 </body>
