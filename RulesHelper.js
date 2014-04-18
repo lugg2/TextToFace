@@ -1,6 +1,7 @@
 //Support: Patrick
 
 var util = require("util");
+var invoke = require("invoke");
 
 //Function for the easy creation of objects, which are inherited from objFace
 if (typeof Object.create !== 'function') {
@@ -38,7 +39,8 @@ var metaData = {
 //Melanie output:
 var textAnalyse = {
 	"sentences": 5, 
-	"average_length": 163, 
+	"average_word_length" : 5,
+	"average_sentence_length": 163, 
 	"grammar_errors": 2, 
 	"vocals": 242, 
 	"e-s" : 4,
@@ -136,55 +138,70 @@ function ruleAutomata (textA, id, callbackMetaData, callbackFullData){
 
 	var mData = Object.create(metaData);
 
-	//Rule 1: gender
-	//femal article > male + neutral
 
-	if(textA["fem_article"] > (textA["male_article"] + textA["neutr_article"]) ) {
-		mData.gender = 3;
-	}else {
-		mData.gender = 1;
-	}
-
-
-	//Rule 2: mentalHealth
-	//a = (Viele Negationen + Medizin + computer + psychology + math) (a min 5 p(a) > 0.02) (a min 3 p(a) > 0.01) sonst
-	var a = textA["neg"] + textA["medicin"] + textA["psychology"] + textA["computer"] + textA["math"] ;
-
-	mData.mentalHealth = pRule( pCalculator( a ,textA["words"]) , 0.02, 0.31, 'asc');
-
-	//Rule 3: iq
-	//Grammar Errors + Spell Errors / words = p	1: sonst 	2:p < 0.20	3:p < 0.05
-	mData.iq = pRule( pCalculator(textA["grammar_errors"], textA["words"]) , 0.20, 0.35, 'dsc');
-
-	//Rule 4: age
-	//(HIstory + Politik + niedriger Geistiger Zustand)/words
-	//var b = textA["history"] + textA["politic"] + a;
-	mData.age = pRule( pCalculator( (textA["history"]+textA["politic"]+a) ,textA["words"]), 0.20, 0.03, 'dsc' );
-
-
-	//Rule 5: dangerLevel
-	//Terrorismus + Militär + Biochemie + Physik + Chemie + Biologie min 3 und p(Terrorismus + Militär ) > 0.025
-	//var c = textA["terrorism"] + textA["biology"] + textA["physics"] + textA["chemistry"] + textA["biology"] + textA["technic"];
-	mData.dangerLevel = pRule( pCalculator( (textA["terrorism"]+textA["biology"]+textA["physics"]+textA["chemistry"]+textA["biology"]+textA["technic"]) ,textA["words"]) , 0.20, 0.35, 'asc' );
-
+	invoke(function (data, callback) {
+		//Rule 1: gender
+		//femal article > male + neutral
+		if(textA["fem_article"] > (textA["male_article"] + textA["neutr_article"]) ) {
+			mData.gender = 3;
+		}else {
+			mData.gender = 1;
+		}
+		callback(null, mData)
+	}).and( function (data, callback) {
+		//Rule 2: mentalHealth
+		//a = (Viele Negationen + Medizin + computer + psychology + math) (a min 5 p(a) > 0.02) (a min 3 p(a) > 0.01) sonst
+		var a = textA["neg"] + textA["medicin"] + textA["psychology"] + textA["computer"] + textA["math"] ;
+		mData.mentalHealth = pRule( pCalculator( a ,textA["words"]) , 0.02, 0.31, 'asc');		
+		callback(null, mData) 
+	}).and( function (data, callback) {
+		//Rule 3: iq
+		//Grammar Errors + Spell Errors / words = p	1: sonst 	2:p < 0.20	3:p < 0.05
+		mData.iq = pRule( pCalculator(textA["grammar_errors"], textA["words"]) , 0.20, 0.35, 'dsc');
+		callback(null, mData) 
+	}).and( function (data, callback) {
+		//Rule 4: age
+		//(HIstory + Politik + niedriger Geistiger Zustand)/words
+		//var b = textA["history"] + textA["politic"] + a;
+		var a = textA["neg"] + textA["medicin"] + textA["psychology"] + textA["computer"] + textA["math"] ;
+		mData.age = pRule( pCalculator( (textA["history"]+textA["politic"]+a) ,textA["words"]), 0.20, 0.03, 'dsc' );
+		callback(null, mData) 
+	}).and( function (data, callback) {
+		//Rule 5: dangerLevel
+		//Terrorismus + Militär + Biochemie + Physik + Chemie + Biologie min 3 und p(Terrorismus + Militär ) > 0.025
+		//var c = textA["terrorism"] + textA["biology"] + textA["physics"] + textA["chemistry"] + textA["biology"] + textA["technic"];
+		mData.dangerLevel = pRule( pCalculator( (textA["terrorism"]+textA["biology"]+textA["physics"]+textA["chemistry"]+textA["biology"]+textA["technic"]) ,textA["words"]) , 0.20, 0.35, 'asc' );
+		callback(null, mData) 
+	}).and( function (data, callback) {
 	//Rule 6: pirat
 	//10 * mehr r's als e und min 20 r's
-	if( pCalculator(textA["r-s"],textA["e-s"]) > 10) {
-		mData.pirat = 1;
-	}else {
-		mData.pirat = 3;
-	}
-
-	//callback for wantedPosterCreator
-	if (typeof callbackMetaData == 'function') {
-		callbackMetaData(id, mData);
-	}
-	
-	console.log(util.inspect(mData));
-
-
-
+		if( pCalculator(textA["r-s"],textA["e-s"]) > 10) {
+			mData.pirat = 1;
+		}else {
+			mData.pirat = 3;
+		}
+		callback(null, mData) 
+	}).end( mData, function (data, callbackMetaData) {
+		//callback for wantedPosterCreator
+		if (typeof callbackMetaData == 'function') {
+			callbackMetaData(id, mData);
+		}
+		console.log(util.inspect(mData));
+	});
+/*
 	//FeceParts
+	invoke(function (data, callback) {
+
+		callback(null, mData)
+	}).and( function (data, callback) {
+		
+		callback(null, mData)
+	}).end( oface, function(data, callbackFullData){
+
+	});
+*/
+
+
 
 	//Rules : faceForm
 	var faceForm = {};
@@ -213,6 +230,8 @@ function ruleAutomata (textA, id, callbackMetaData, callbackFullData){
 	}else {
 		hairs.lenght = pRule( pCalculator( b, textA["words"] ) , 0.20, 0.35, 'asc' );
 	}
+	//gender:
+	hairs.gender = mData.gender;
 	console.log(util.inspect(hairs));
 
 	//Rules : ear
@@ -223,6 +242,86 @@ function ruleAutomata (textA, id, callbackMetaData, callbackFullData){
 	//width:
 	//Luftfahrt + Kunst + unknown worsds
 	ear.width = pRule( pCalculator( (textA["air"]+textA["art"]+textA["unknown_words"]), textA["words"] ), 0.20, 0.35, 'asc' );
+	//jewelry
+	//(emotion > 0,001 Wörter && Person Weiblich ) || Pirat
+	if(mData.pirat === 1){
+		ear.jewelry = 3;
+	}else{
+		ear.jewelry = 1;
+	}
+	console.log(util.inspect(ear));
+
+	//Rules : eye
+	var eye = {};
+	//length:
+	//anzahl der l's und i's kleiner r's -> große augen
+	eye.length = pRule( pCalculator(textA["i-s_and_l-s"], textA["r-s"]), 0.20, 0.35, 'asc' );
+	//width:
+	//colors + avergage length is groß
+	eye.width = pRule( pCalculator(textA["average_sentence_length"], textA["words"]), 0.20, 0.35, 'asc' );
+	console.log(util.inspect(eye));
+
+	//Rules : eyebrow
+	var eyebrow = {};
+	//height:
+	//sachl nouns + literatur + unknown words
+	eyebrow.height = pRule( pCalculator( (textA["neutr_nouns"]+textA["literatur"]+textA["unknown_words"]) , textA["words"]), 0.20, 0.35, 'asc' );
+	//width:
+	//Intilligenz + geister Zustand
+	//TODO fix .toFixed(0) --> kein string als output
+	eyebrow.width = ( (mData.iq + mData.mentalHealth)/2 ).toFixed(0);
+	eyebrow.gender = mData.gender;
+	console.log(util.inspect(eyebrow));
+
+	//Rules : nose
+	var nose = {};
+	//width:
+	//viele Verben + Geologie  > 0,15 && frauenfakrtor s.o. < 0,5
+	nose.width = pRule( pCalculator( (textA["verbs"]+textA["geology"]), textA["words"] ), 0.20, 0.35, 'asc' );
+	//length:
+	//aerospace + wortlänge +  = lange nase
+	nose.lenght = pRule( pCalculator( (textA["air"]+textA["average_word_length"]), textA["words"] ), 0.20, 0.35, 'asc' );
+	//form:
+	// Intelligenz s.o. && terrotismus + militär > 0.005 = krumme nase
+	//TODO iq ergänzen
+	nose.form = pRule( pCalculator( (textA["terrorism"]+textA["military"]) , textA["words"] ) , 0.20, 0.35, 'asc' );
+	console.log(util.inspect(nose));
+
+	//TODO Regeln definieren und implementieren
+	//Rules : mouth
+	var mouth = {};
+	//width:
+	//kurze Wörter
+	mouth.width =1;
+	mouth.width =2;
+	mouth.width =3;
+
+	//Rules : beard
+	var beard;
+	if(mData.gender === 3){
+		beard = 1;
+	}else{
+		//Zoologie + Religion + Kunst <0,005
+		beard = pRule( pCalculator( (textA["zoology"]+textA["religion"]+textA["art"]), textA["words"] ) , 0.20, 0.35, 'asc');
+	}
+	console.log(beard);
+
+	var tablename = 'nose';
+	var queryArray = new Array();
+	
+	var objKeyValue = {
+		key:0,
+		value:0
+	};
+	var queryElement1 = Object.create(objKeyValue);
+	queryElement1.key = "width";
+	queryElement1.value = 3;
+	queryArray.push(queryElement1);
+
+	console.log(queryArray);
+	
+	//var name = queryDB(tablename, queryArray, bestMatchCallback);
+
 
 	//callback for faceCreator
 	if (typeof callbackFullData == 'function') {
