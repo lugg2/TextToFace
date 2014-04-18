@@ -24,7 +24,7 @@ function generateTemplate(response, request)
     idToken = queryData.id;
 
 
-	fs.readFile('website/result.html',"utf-8", function (err, data) {
+	fs.readFile(__dirname +'/website/result.html',"utf-8", function (err, data) {
 	if (err) console.log("fehler");
 	
 	data = data.replace("<BILD>","<img src=" + '"' + idToken +".png"+'"'+"width = 40% > ");

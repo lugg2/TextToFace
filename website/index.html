@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="A layout example with a side menu that hides on mobile, just like the Pure website.">
 
-    <title> Text to Face</title>
+    <title>TextToFace</title>
 
     
 
@@ -26,8 +26,23 @@
         <link rel="stylesheet" href="css/layouts/side-menu.css">
     <!--<![endif]-->
   
+
+
+
+
+    
+
+    
+
+    
+
 </head>
 <body>
+
+
+
+
+
 
 <div id="layout">
     <!-- Menu toggle -->
@@ -38,18 +53,18 @@
 
     <div id="menu">
         <div class="pure-menu pure-menu-open">
-            <a class="pure-menu-heading" href="#">Ttf GmbH</a>
+            <a class="pure-menu-heading" href="index.html">Text To Face</a>
 
             <ul>
-                <li class="menu-item-divided pure-menu-selected"><a href="#">Home</a></li>
-				<li><a href="ttf.html">TextToFace</a></li>
-                <li><a href="anleitung.html">Anleitung</a></li>
-
+                <li class="menu-item-divided pure-menu-selected"><a href="index.html">Home</a></li>
+				
+             
                 <li >
-                    <a href="kontakt.html">Kontakt</a>
+                    <a href="anleitung.html">Anleitung</a>
                 </li>
 
-                <li><a href="impressum.html">Impressum</a></li>
+                <li><a href="kontakt.html">Kontakt</a></li>
+				<li><a href ="impressum.html">Impressum</a></li>
 				
             </ul>
         </div>
@@ -57,26 +72,29 @@
 
     <div id="main">
         <div class="header">
-            <h1>Willkommen bei "Text To Face"</h1>
-            <h2>Die leichte Art der Phantombilderstellung</h2>
+            <h1>TextToFace</h1>
+            <h2>Programm zur Erstellung eines Phantombildes</h2>
         </div>
 
         <div class="content">
-            <h2 class="content-subhead">Was ist Text to Face?</h2>
-            <p>
-				Text to Face ist eine Software, welche ein Phantombild für Sie erstellt.
-				Zur Erstellung des Bildes wird lediglich ein Text benötig. Das Phantombild gehört dann zu dem Verfasser des Textes.
-				Sollten Sie sich schon mit der Software auskennen, können Sie über den "Text to Face" Button direkt zur Software gelangen. Wenn Sie noch Hilfe benötigen, klicken Sie auf den "Anleitung"'s Button.
-				Viel Spaß und Erfolg bei der Verdächtigensuche. ;-)
-               
-            </p>
-			
-			<a class="pure-button"  href="ttf.html">Text to Face</a>
-			<a class="pure-button" href="anleitung.html">Anleitung</a>
+		<div style = "border: 2px solid; margin: 2em; border-radius: 25px; padding:20px">
+            <h2 class="content-subhead" style ="text-align: center">Bitte hier den Text eingeben:</h2>
+            <div id="form" >
+			<form name="input_text" action="/upload" enctype="multipart/form-data" method="post">
+						<div align="center"><textarea name="Text1" cols="40" rows="10"  style="float:center ;width:80%; margin:20px" autofocus ></textarea><br>
+			<input class="pure-button" type="submit" value="Upload"  ></div>
 
-            
-
-            
+			</form>
+		</div>
+	</div>
+						
+		<script type="text/javascript">
+	function submit_form(){
+		document.imput_text.submit();
+	}
+	</script>            
+           
+        </div>
     </div>
 </div>
 

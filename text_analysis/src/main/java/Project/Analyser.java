@@ -1,9 +1,9 @@
 /*
+ * TextAnalyser 
+ * created by TextToFace GmbH
  * 
- * Text Analyser created by TextToFace GmbH
- * 
- * support for this software product by Melanie Hammerschmidt
- * 
+ * support for this software product 
+ * by Melanie Hammerschmidt
  */
 
 package Project;

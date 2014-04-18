@@ -1,5 +1,7 @@
 var exec = require("child_process").exec;
 var url = require("url");
+var util = require("util");
+
 var isAnalyserOnline = false;
 var analyserKey = '';
 var currentID = -1;
@@ -24,9 +26,14 @@ function generateWorklistItem()
 
 function sendWorklist(response, request)
 {
+    console.log('get Worklist');
+    var queryString = url.parse(request.url, true).query;
 
-    var query = url.parse(request.url).query;
-    if (typeof query.workerid != undefined && query.workerid === analyserKey)
+    console.log(util.inspect(queryString));
+    console.log(queryString.workerid);
+    console.log(typeof queryString.workerid);
+
+    if (typeof queryString.workerid != 'undefined' && queryString.workerid === analyserKey)
     {
         // output looks like
         // 0: message0; 1: message1; 2: message2;
@@ -41,6 +48,7 @@ function sendWorklist(response, request)
     }
     else
     {
+        console.log('send kill');
         // kill old workers
         response.writeHead(200, {'content-type': 'text/plain'});
         response.write('kill');
@@ -49,13 +57,12 @@ function sendWorklist(response, request)
 }
 
 function startAnalyserIfNecessary()
-{
-	
+{	
 	if(isAnalyserOnline == false)
 	{
         analyserKey = generateKey();
-        // var command = ("java -jar " + __dirname + '\\text_analysis\\Code\\Source.jar' + ' ' + analyserKey); // windows
-        var command = ("java -jar " + __dirname + '/text_analysis/Code/Source.jar' + ' ' + analyserKey); // unix
+        // var command = ("java -jar " + __dirname + '\\text_analysis\\Code\\Source.jar' + ' ' + analyserKey + ' -'); // windows
+        var command = ("java -jar " + __dirname + '/text_analysis/Code/Source.jar' + ' ' + analyserKey + ' -localhost'); // unix
         console.log("try to start analyser with command :" + command);
 
         exec(command,onCloseAnalyser);
