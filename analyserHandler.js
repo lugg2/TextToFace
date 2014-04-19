@@ -21,7 +21,7 @@ function WorklistItem(publicKey, id, status)
     this.publicKey = publicKey;
     this.id = id;
     this.status = [];
-    status.push(status);
+    this.status.push(status);
 }
 
 function generateWorklistItem()

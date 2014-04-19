@@ -201,6 +201,7 @@ function ruleAutomata (textA, id, callbackMetaData, callbackFullData){
 
 	function addToQueryArray(key, value, QuerryArray)
 	{
+        console.log(typeof QuerryArray);
 		if(typeof QuerryArray == 'undefined')
 		{
 			QuerryArray = [];
@@ -210,12 +211,12 @@ function ruleAutomata (textA, id, callbackMetaData, callbackFullData){
 
 
 
-	//FeceParts
+	//FaceParts
 	invoke(function (data, callback) {
 		var FacePartsDB0 = require("./FacePartsDBInterface.js");
 		//faceForm
-		//width: 
-		var queryArray = addToQueryArray("with", mData.iq, queryArray);
+		//width:
+        var queryArray = addToQueryArray("with", mData.iq, queryArray);
 		//age:
 		queryArray = addToQueryArray("age", mData.age, queryArray);
 		//form:
@@ -228,7 +229,7 @@ function ruleAutomata (textA, id, callbackMetaData, callbackFullData){
             oface.faceForm = name;
             callback(null, oface); // ich glaube das muss auch hier rein und soll anzeigen, dass der and teil jetzt abgeschlossen ist
 		});
-		queryArray.length = 0;
+		queryArray.clean();
 
 	}).and( function (data, callback) {
 		var FacePartsDB1 = require("./FacePartsDBInterface.js");
@@ -254,7 +255,6 @@ function ruleAutomata (textA, id, callbackMetaData, callbackFullData){
             oface.hair2 = name;
             callback(null, oface); 
 		});
-		queryArray.length = 0;
 	}).and( function (data, callback) {
 		var FacePartsDB2 = require("./FacePartsDBInterface.js");
 		//Rules: ear
@@ -278,7 +278,6 @@ function ruleAutomata (textA, id, callbackMetaData, callbackFullData){
             oface.ear = name;
             callback(null, oface); 
 		});
-		queryArray.length = 0;
 	}).and( function (data, callback) {
 		var FacePartsDB3 = require("./FacePartsDBInterface.js");
 		//Rules: eye
@@ -294,7 +293,7 @@ function ruleAutomata (textA, id, callbackMetaData, callbackFullData){
             oface.eye = name;
             callback(null, oface); 
 		});
-		queryArray.length = 0;
+
 	}).and( function (data, callback) {
 		var FacePartsDB4 = require("./FacePartsDBInterface.js");
 		//Rules : eyebrow
@@ -313,7 +312,7 @@ function ruleAutomata (textA, id, callbackMetaData, callbackFullData){
             oface.eyebrow = name;
             callback(null, oface); 
 		});
-		queryArray.length = 0;
+
 	}).and( function (data, callback) {
 		var FacePartsDB5 = require("./FacePartsDBInterface.js");
 		//Rules : nose
@@ -332,7 +331,7 @@ function ruleAutomata (textA, id, callbackMetaData, callbackFullData){
             oface.nose = name;
             callback(null, oface); 
 		});
-		queryArray.length = 0;
+
 	}).and( function (data, callback) {
 		var FacePartsDB6 = require("./FacePartsDBInterface.js");
 		//TODO Regeln definieren und implementieren
@@ -351,7 +350,6 @@ function ruleAutomata (textA, id, callbackMetaData, callbackFullData){
             oface.mouth = name;
             callback(null, oface); 
 		});
-		queryArray.length = 0;
 	}).and( function (data, callback) {
 		var FacePartsDB7 = require("./FacePartsDBInterface.js");
 
@@ -370,7 +368,6 @@ function ruleAutomata (textA, id, callbackMetaData, callbackFullData){
             oface.beard = name;
             callback(null, oface); 
 		});
-		queryArray.length = 0;	
 	}).end( oface, function(data, callbackFullData){
 		console.log(util.inspect(oface));
 		if (typeof callbackFullData == 'function') {
