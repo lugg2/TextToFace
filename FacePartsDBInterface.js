@@ -23,8 +23,6 @@ var OFaceValue;
 function queryDB(tablename, qArray, callback){
   funcCallback=callback;
   queryArray = qArray;
-  OFace = ObjectFace;
-  OFaceValue = valueChange;
 
     db.each(squel.select().from(tablename).toString(), dbEachCallback, complete);
 } 

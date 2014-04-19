@@ -210,7 +210,6 @@ function ruleAutomata (textA, id, callbackMetaData, callbackFullData){
 
 
 
-/*
 	//FeceParts
 	invoke(function (data, callback) {
 		var FacePartsDB0 = require("./FacePartsDBInterface.js");
@@ -223,7 +222,7 @@ function ruleAutomata (textA, id, callbackMetaData, callbackFullData){
 		var form = pRule( pCalculator(textA["kon"], textA["vocals"]) , 0.20, 0.35, 'asc' );
 		queryArray = addToQueryArray("from", form, queryArray);
 
-
+		//facePartDB gives fitting image (filename) for the queryArray
 		FacePartsDB0.queryDB("head", queryArray, function(name)
 		{
             oface.faceForm = name;
@@ -250,9 +249,12 @@ function ruleAutomata (textA, id, callbackMetaData, callbackFullData){
 		//gender:
 		queryArray = addToQueryArray("gender", mData.gender, queryArray);
 
-		FacePartsDB1.queryDB("hair", queryArray, oface, "hair2", ??callback??);
+		FacePartsDB1.queryDB("hair", queryArray, function(name)
+		{
+            oface.hair2 = name;
+            callback(null, oface); 
+		});
 		queryArray.length = 0;
-		callback(null, oface)
 	}).and( function (data, callback) {
 		var FacePartsDB2 = require("./FacePartsDBInterface.js");
 		//Rules: ear
@@ -271,9 +273,12 @@ function ruleAutomata (textA, id, callbackMetaData, callbackFullData){
 		}
 		queryArray = addToQueryArray("jewelry", earJewelry, queryArray);
 
-		FacePartsDB2.queryDB("ear", queryArray, oface, "ear", ??callback??);
+		FacePartsDB2.queryDB("ear", queryArray, function(name)
+		{
+            oface.ear = name;
+            callback(null, oface); 
+		});
 		queryArray.length = 0;
-		callback(null, oface)
 	}).and( function (data, callback) {
 		var FacePartsDB3 = require("./FacePartsDBInterface.js");
 		//Rules: eye
@@ -284,9 +289,12 @@ function ruleAutomata (textA, id, callbackMetaData, callbackFullData){
 		var eyeWidth = pRule( pCalculator(textA["average_sentence_length"], textA["words"]), 0.20, 0.35, 'asc' );
 		queryArray = addToQueryArray("width", eyeWidth, queryArray);
 
-		FacePartsDB3.queryDB("eye", queryArray, oface, "eye", ??callback??);
+		FacePartsDB3.queryDB("eye", queryArray, function(name)
+		{
+            oface.eye = name;
+            callback(null, oface); 
+		});
 		queryArray.length = 0;
-		callback(null, oface)
 	}).and( function (data, callback) {
 		var FacePartsDB4 = require("./FacePartsDBInterface.js");
 		//Rules : eyebrow
@@ -300,9 +308,12 @@ function ruleAutomata (textA, id, callbackMetaData, callbackFullData){
 		//gender:
 		queryArray = addToQueryArray("gender", mData.gender, queryArray);
 
-		FacePartsDB4.queryDB("brow", queryArray, oface, "eyebrow", ??callback??);
+		FacePartsDB4.queryDB("brow", queryArray, function(name)
+		{
+            oface.eyebrow = name;
+            callback(null, oface); 
+		});
 		queryArray.length = 0;
-		callback(null, oface)
 	}).and( function (data, callback) {
 		var FacePartsDB5 = require("./FacePartsDBInterface.js");
 		//Rules : nose
@@ -316,9 +327,12 @@ function ruleAutomata (textA, id, callbackMetaData, callbackFullData){
 		var noseForm = pRule( pCalculator( (textA["terrorism"]+textA["military"]) , textA["words"] ) , 0.20, 0.35, 'asc' );
 		queryArray = addToQueryArray("form", noseForm, queryArray);
 
-		FacePartsDB5.queryDB("nose", queryArray, oface, "nose", ??callback??);
+		FacePartsDB5.queryDB("nose", queryArray, function(name)
+		{
+            oface.nose = name;
+            callback(null, oface); 
+		});
 		queryArray.length = 0;
-		callback(null, oface)
 	}).and( function (data, callback) {
 		var FacePartsDB6 = require("./FacePartsDBInterface.js");
 		//TODO Regeln definieren und implementieren
@@ -332,9 +346,12 @@ function ruleAutomata (textA, id, callbackMetaData, callbackFullData){
 		//gender:
 		queryArray = addToQueryArray("gender", mData.gender, queryArray);
 
-		FacePartsDB6.queryDB("mouth", queryArray, oface, "mouth", ??callback??);
+		FacePartsDB6.queryDB("mouth", queryArray, function(name)
+		{
+            oface.mouth = name;
+            callback(null, oface); 
+		});
 		queryArray.length = 0;
-		callback(null, oface)
 	}).and( function (data, callback) {
 		var FacePartsDB7 = require("./FacePartsDBInterface.js");
 
@@ -348,9 +365,12 @@ function ruleAutomata (textA, id, callbackMetaData, callbackFullData){
 		}
 		var queryArray = addToQueryArray("beard", beard, queryArray);
 
-		FacePartsDB5.queryDB("beard", queryArray, oface, "beard",??callback??);
+		FacePartsDB7.queryDB("beard", queryArray, function(name)
+		{
+            oface.beard = name;
+            callback(null, oface); 
+		});
 		queryArray.length = 0;	
-		callback(null, oface)
 	}).end( oface, function(data, callbackFullData){
 		console.log(util.inspect(oface));
 		if (typeof callbackFullData == 'function') {
@@ -359,9 +379,9 @@ function ruleAutomata (textA, id, callbackMetaData, callbackFullData){
 
 	});
 
-*/
 
 
+/*
 	//Rules : faceForm
 	var faceForm = {};
 	//Breite:
@@ -472,7 +492,7 @@ function ruleAutomata (textA, id, callbackMetaData, callbackFullData){
 	if (typeof callbackFullData == 'function') {
 		callbackFullData(objFace);
 	}
-
+*/
 }
 
 exports.evaluateAnalyserOutput = ruleAutomata;
