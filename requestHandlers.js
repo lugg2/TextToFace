@@ -48,7 +48,6 @@ function upload(response, request) {
       {
           write502(response);
       }
-  
 }
 
 function getWorklist(response, request)
@@ -76,7 +75,9 @@ function finished(response, request) {
     console.log('recieved data :'+ body);
     console.log(util.inspect(query,{showHidden: true, depth: null}));
     
-      var queryData = url.parse(request.url, true).query;
+    var queryData = url.parse(request.url, true).query;
+    analyser.notifyStatusChange(queryData.messageID,"evaluated");
+
     ruleAutomata.evaluateAnalyserOutput(body, queryData.messageID, callbackWantedPoster, callbackFaceCreator);
 
     response.writeHead(200, {'content-type': 'text/plain'});

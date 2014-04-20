@@ -1,6 +1,8 @@
 var exec = require("child_process").exec;
 var url = require("url");
 var util = require("util");
+var socketHelper = require('./socketHelper.js');
+
 
 var isAnalyserOnline = false;
 var analyserKey = '';
@@ -9,28 +11,38 @@ var currentID = -1;
 var worklistItems = [];
 
 // used to check wheather staus is legit in notify Status change
-var availableStatus = [];
-availableStatus.push("waiting");
-availableStatus.push("analysed");
-availableStatus.push("evaluated");
-availableStatus.push("drawn");
-availableStatus.push("wantedposter");
 
-function WorklistItem(publicKey, id, status)
+function WorklistItem(publicKey, id, socketID)
 {
     this.publicKey = publicKey;
     this.id = id;
-    this.status = [];
-    this.status.push(status);
+    this.socketID = socketID;
+
+    this.waiting = true;
+    this.analysing = false;
+    this.evaluated = false;
+    this.createdWantedPoster = false;
+    this.createdPictue = false;
 }
 
-function generateWorklistItem()
+function generateWorklistItem(socketID)
 {
     currentID +=1;
     // Status has to be done
-    var newItem = new WorklistItem(generateKey() + currentID.toString(),currentID,'waiting');
+    var newItem = new WorklistItem(generateKey() + currentID.toString(),currentID,'waiting',socketID);
     worklistItems.push(newItem);
+    socketHelper.emitProgress(newItem.status,socketID);
     return currentID;
+}
+
+function getWorklistItemByID(id)
+{
+    for(var i = 0; i< worklistItems.length; i++)
+    {
+        if(worklistItems[i].id == id)
+        return worklistItems[i];
+    }
+    return 'undefined';
 }
 
 function sendWorklist(response, request)
@@ -49,11 +61,13 @@ function sendWorklist(response, request)
         response.writeHead(200, {'content-type': 'text/plain'});
         for(var i = 0; i<worklistItems.length;i++)
         {
-            response.write(i+': '+'message'+worklistItems[i].id +'; ');
+            if(worklistItems[i].analysing == false) {
+                response.write(i + ': ' + 'message' + worklistItems[i].id + '; ');
+                notifyStatusChange(i,'analysing');
+            }
         }
 
         response.end();
-        worklistItems.length = 0;
     }
     else
     {
@@ -105,24 +119,38 @@ function notifyStatusChange(id,newStatus)
 {
     var foundItem = false;
     var i = 0;
-    if (!availableStatus.contains(newStatus));
-    {
 
-    }
     while ( i<worklistItems.length && !foundItem )
     {
         if(worklistItems[i].id == id)
         {
-            worklistItems[i].status = newStatus;
+            worklistItems[i][newStatus] = true;
             foundItem = true;
+            if(worklistItems[i].socketID != 'undefined')
+            {
+               socketHelper.emitProgress(generateProgressArray(i),worklistItems[i].socketID)
+            }
         }
     }
     if(!foundItem)
         console.log("wrong status change id does not match a worklist item")
 }
 
+function generateProgressArray(worklistItemID)
+{
+    var progress  = [
+    worklistItems[worklistItemID].waiting,
+    worklistItems[worklistItemID].analysing,
+    worklistItems[worklistItemID].evaluated,
+    worklistItems[worklistItemID].createdWantedPoster,
+    worklistItems[worklistItemID].createdPictue];
+    return progress;
+}
+
+
 
 exports.startAnalyserIfNecessary = startAnalyserIfNecessary;
 exports.sendWorklist = sendWorklist;
 exports.generateWorklistItem = generateWorklistItem;
 exports.notifyStatusChange = notifyStatusChange;
+exports.getWorklistItemByID = getWorklistItemByID;
