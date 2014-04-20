@@ -202,7 +202,6 @@ function ruleAutomata (textA, id, callbackMetaData, callbackFullData){
 
 	function addToQueryArray(key, value, QuerryArray)
 	{
-        console.log(typeof QuerryArray);
 		if(typeof QuerryArray == 'undefined')
 		{
 			QuerryArray = [];
@@ -219,7 +218,6 @@ function ruleAutomata (textA, id, callbackMetaData, callbackFullData){
 		//faceForm
 		//width:
         var queryArray = addToQueryArray("with", mData.iq);
-        console.log('querryArray typeof'+ typeof queryArray);
 		//age:
 		queryArray = addToQueryArray("age", mData.age, queryArray);
 		//form:
@@ -227,10 +225,11 @@ function ruleAutomata (textA, id, callbackMetaData, callbackFullData){
 		queryArray = addToQueryArray("from", form, queryArray);
 
 		//facePartDB gives fitting image (filename) for the queryArray
-        facePartsDB.queryDB("head", queryArray, function(name)
+        facePartsDB.queryDB("faceform", queryArray, function(name)
 		{
             oface.faceForm = name;
             callback(null, oface); // ich glaube das muss auch hier rein und soll anzeigen, dass der and teil jetzt abgeschlossen ist
+            console.log('faceForm :'+ oface.faceForm);
 		});
 
 	}).and( function (data, callback) {
@@ -326,6 +325,7 @@ function ruleAutomata (textA, id, callbackMetaData, callbackFullData){
         facePartsDB.queryDB("nose", queryArray, function(name)
 		{
             oface.nose = name;
+            console.log('nose' + name);
             callback(null, oface); 
 		});
 

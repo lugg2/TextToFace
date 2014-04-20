@@ -93,17 +93,17 @@ function finished(response, request) {
 }
 
 function callbackWantedPoster(id, mData){
-  //TODO callback
-  wantedPoster.createWantedPoster( id, mData, dummy);
+  wantedPoster.createWantedPoster( id, mData, function() {
+      analyser.notifyStatusChange(id,'createdWantedPoster');
+  });
 
 }
-function callbackFaceCreator(objFace){
-  //TODO callback
-  faceCreator.createFaceParts(objFace, dummy);
+function callbackFaceCreator(id, objFace){
+  faceCreator.createFaceParts(objFace,function() {
+      analyser.notifyStatusChange(id,'createdPictue')
+  });
 }
-function dummy(){
 
-}
 
 exports.finished = finished;
 exports.getWorklist = getWorklist;

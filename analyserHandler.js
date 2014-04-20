@@ -29,7 +29,7 @@ function generateWorklistItem(socketID)
 {
     currentID +=1;
     // Status has to be done
-    var newItem = new WorklistItem(generateKey() + currentID.toString(),currentID,'waiting',socketID);
+    var newItem = new WorklistItem(generateKey() + currentID.toString(),currentID,socketID);
     worklistItems.push(newItem);
     socketHelper.emitProgress(newItem.status,socketID);
     return currentID;
@@ -47,12 +47,9 @@ function getWorklistItemByID(id)
 
 function sendWorklist(response, request)
 {
-    console.log('get Worklist');
     var queryString = url.parse(request.url, true).query;
 
-    console.log(util.inspect(queryString));
-    console.log(queryString.workerid);
-    console.log(typeof queryString.workerid);
+    console.log('send Worklist to : '+util.inspect(queryString));
 
     if (typeof queryString.workerid != 'undefined' && queryString.workerid === analyserKey)
     {
