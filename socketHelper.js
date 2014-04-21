@@ -20,7 +20,7 @@ function handleUploadText(socket){
         var worklistItem = analyserHandler.getWorklistItemByID(requestID);
         var pkeyAndID = {};
         pkeyAndID.id = worklistItem.id;
-        pkeyAndID.pkey = worklistItem.pkey;
+        pkeyAndID.pkey = worklistItem.publickey;
         cb(pkeyAndID);
         fs.writeFile(__dirname + '/text_analysis/Code/msg/message' + requestID , text, function (err) {
             if (err) {

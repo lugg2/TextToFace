@@ -2,8 +2,10 @@ node_modules/**/*
 #delete backups
 *~
 message*
-
+wantedPoster/wantedPoster*
 #delete visual studio stuff	
 *.njsproj
 *.suo
+*.sln
 obj*
+wantedPoster/wantedPoster2
