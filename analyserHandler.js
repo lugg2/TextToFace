@@ -129,6 +129,7 @@ function notifyStatusChange(id,newStatus)
                socketHelper.emitProgress(generateProgressArray(i),worklistItems[i].socketID)
             }
         }
+        i++;
     }
     if(!foundItem)
         console.log("wrong status change id does not match a worklist item")
