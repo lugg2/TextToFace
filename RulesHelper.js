@@ -182,12 +182,11 @@ function ruleAutomata (textA, id, callbackMetaData, callbackFullData){
 			mData.pirat = 3;
 		}
 		callback(null, mData) 
-	}).end( mData, function (data, callbackMetaData) {
-		//callback for wantedPosterCreator
+	}).end( mData, function (mData) {
+		//callback for wantedPosterCreato
 		if (typeof callbackMetaData == 'function') {
-			callbackMetaData(id, mData);
-		}
-		console.log(util.inspect(mData));
+            callbackMetaData(id, mData);
+        }
 	});
 
 

@@ -94,6 +94,7 @@ function finished(response, request) {
 
 function callbackWantedPoster(id, mData){
   wantedPoster.createWantedPoster( id, mData, function() {
+      console.log('abc');
       analyser.notifyStatusChange(id,'createdWantedPoster');
   });
 

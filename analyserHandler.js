@@ -18,7 +18,7 @@ function WorklistItem(publicKey, id, socketID)
     this.id = id;
     this.socketID = socketID;
 
-    this.waiting = true;
+    this.waiting = false;
     this.analysing = false;
     this.evaluated = false;
     this.createdWantedPoster = false;
@@ -31,7 +31,7 @@ function generateWorklistItem(socketID)
     // Status has to be done
     var newItem = new WorklistItem(generateKey() + currentID.toString(),currentID,socketID);
     worklistItems.push(newItem);
-    socketHelper.emitProgress(newItem.status,socketID);
+    socketHelper.emitProgress(generateProgressArray(newItem.id),socketID);
     return currentID;
 }
 
@@ -58,7 +58,8 @@ function sendWorklist(response, request)
         response.writeHead(200, {'content-type': 'text/plain'});
         for(var i = 0; i<worklistItems.length;i++)
         {
-            if(worklistItems[i].analysing == false) {
+            if(worklistItems[i].analysing == false && worklistItems[i].waiting == true) {
+
                 response.write(i + ': ' + 'message' + worklistItems[i].id + '; ');
                 notifyStatusChange(i,'analysing');
             }
