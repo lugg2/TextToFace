@@ -136,19 +136,31 @@ function notifyStatusChange(id,newStatus)
 
 function generateProgressArray(worklistItemID)
 {
-    var progress  = [
+    return [
     worklistItems[worklistItemID].waiting,
     worklistItems[worklistItemID].analysing,
     worklistItems[worklistItemID].evaluated,
     worklistItems[worklistItemID].createdWantedPoster,
     worklistItems[worklistItemID].createdPictue];
-    return progress;
+
 }
 
-
+function isPublicKeyValid(id, publicKey)
+{
+    var here = getWorklistItemByID(id);
+    if (here != 'undefined')
+    {
+        if(here.publicKey === publicKey)
+        {
+            return true;
+        }
+    }
+    return false;
+}
 
 exports.startAnalyserIfNecessary = startAnalyserIfNecessary;
 exports.sendWorklist = sendWorklist;
 exports.generateWorklistItem = generateWorklistItem;
 exports.notifyStatusChange = notifyStatusChange;
 exports.getWorklistItemByID = getWorklistItemByID;
+exports.isPublicKeyValid = isPublicKeyValid;
