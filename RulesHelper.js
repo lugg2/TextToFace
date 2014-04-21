@@ -182,8 +182,9 @@ function ruleAutomata (textA, id, callbackMetaData, callbackFullData){
 			mData.pirat = 3;
 		}
 		callback(null, mData) 
-	}).end( mData, function (mData) {
-		//callback for wantedPosterCreato
+	}).end( mData, function (mData, callback) {
+		//callback for wantedPosterCreator
+		console.log(util.inspect(mData));
 		if (typeof callbackMetaData == 'function') {
             callbackMetaData(id, mData);
         }
@@ -363,6 +364,7 @@ function ruleAutomata (textA, id, callbackMetaData, callbackFullData){
             callback(null, oface); 
 		});
 	}).end( oface, function(data, callbackFullData){
+		oface.id = id;
 		console.log(util.inspect(oface));
 		if (typeof callbackFullData == 'function') {
 			callbackFullData(oface);
