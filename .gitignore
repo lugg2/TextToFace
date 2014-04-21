@@ -6,4 +6,5 @@ message*
 #delete visual studio stuff	
 *.njsproj
 *.suo
+*.sln
 obj*
