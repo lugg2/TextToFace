@@ -29,7 +29,7 @@ function generateTemplate(response, request)
 	
 	data = data.replace("<BILD>","<img src=" + 'pictures/face'+ idToken +".png"+' '+"width = 40% > ");
 	
-	fs.readFile('wantedPoster/wantedPoster'+idToken,"utf-8", function (err, wantedPoster) {
+	fs.readFile(__dirname +'/wantedPoster/wantedPoster'+idToken,"utf-8", function (err, wantedPoster) {
 	if (err) console.log("could not find wanted Poster");
 	
 	data = data.replace("<WANTEDPOSTER>",wantedPoster);
