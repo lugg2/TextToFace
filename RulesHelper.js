@@ -277,7 +277,8 @@ function ruleAutomata (textA, id, callbackMetaData, callbackFullData){
 		eyebrowWidth = ( (mData.iq + mData.mentalHealth)/2 ).toFixed(0);
 		queryArray = addToQueryArray("width", eyebrowWidth, queryArray);
 		//gender:
-		queryArray = addToQueryArray("gender", mData.gender, queryArray);
+		//queryArray = addToQueryArray("gender", mData.gender, queryArray);
+        // TODO gender is wrong
 
         facePartsDB.queryDB("brow", queryArray, function(name)
 		{
@@ -292,11 +293,11 @@ function ruleAutomata (textA, id, callbackMetaData, callbackFullData){
 		var queryArray = addToQueryArray("width", noseWidth);
 		//length:
 		var noseLength = pRule( pCalculator( (textA["air"]+textA["average_word_length"]), textA["words"] ), 0.20, 0.35, 'asc' );
-		queryArray = addToQueryArray("length", noseLength, queryArray);
+		queryArray = addToQueryArray("height", noseLength, queryArray);
 		//form:
 		var noseForm = pRule( pCalculator( (textA["terrorism"]+textA["military"]) , textA["words"] ) , 0.20, 0.35, 'asc' );
-		queryArray = addToQueryArray("form", noseForm, queryArray);
-
+	//	queryArray = addToQueryArray("form", noseForm, queryArray);
+    // TODO Form in 1-3 abaendern
         facePartsDB.queryDB("nose", queryArray, function(name)
 		{
             oface.nose = name;
@@ -312,17 +313,17 @@ function ruleAutomata (textA, id, callbackMetaData, callbackFullData){
 		var queryArray = addToQueryArray("width", mouthWidth);
 		//height:
 		var mouthHight =2;
-		queryArray = addToQueryArray("width", mouthHight, queryArray);
+		queryArray = addToQueryArray("height", mouthHight, queryArray);
 		//gender:
-		queryArray = addToQueryArray("gender", mData.gender, queryArray);
-
+		//queryArray = addToQueryArray("gender", mData.gender, queryArray);
+        // TODO implement gender
         facePartsDB.queryDB("mouth", queryArray, function(name)
 		{
             oface.mouth = name;
             callback(); 
 		});
 	}).and( function (data, callback) {
-
+    //TODO Beard
 		//Rules : beard
 		var beard;
 		if(mData.gender === 3){

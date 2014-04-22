@@ -11,10 +11,10 @@ function KeyValueConstr(key,value)
 
 function main()
 {
-    var querryArray = [];
+    var queryArray = [];
     //function queryDB(tablename, queryArray, callback){
-    querryArray.push(new KeyValueConstr('width',1));
-    FPI.queryDB('nose',querryArray,function (name) {console.log('name:' + name)});
+    queryArray.push(new KeyValueConstr('width',1));
+    FPI.queryDB('nose',queryArray,function (name) {console.log('name:' + name)});
 }
 
 main();

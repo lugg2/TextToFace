@@ -1,6 +1,6 @@
 var sqlite3 = require('sqlite3').verbose();
 var util = require('util');
-var db = new sqlite3.Database(__dirname+'/FacePartsDB.db');
+var db = new sqlite3.Database(__dirname+'/FaceParts.db');
 
 console.log (util.inspect(db));
 /* queryArray consits of these
