@@ -101,39 +101,52 @@ var textAnalyse = {
 
 //ruleAutomata(textAnalyse, 1);
 
-function ruleAutomata (textA, id, callbackMetaData, callbackFullData){
-	
-	//Helper Function
-	function pCalculator(z, n) {
-		if(n != 0){
-			return z/n;
-		}
-		else
-			return 0;
+//Helper Function
+function pCalculator(z, n) {
+	if(n != 0){
+		return z/n;
 	}
+	else
+		return 0;
+}
 
-	//min = Grenze für 1
-	//med = Grenze für 2
-	//sortDirection = Grenze für 3
-	function pRule(p, min, med, sortDirection) {	
-		if(sortDirection === 'asc') {
-			if(p <= min)
-				return 1;
-			if(p <= med)
-				return 2;
-			return 3;
-		}
-		else{
-			if(p >= min)
-				return 1;
-			if(p >= med)
-				return 2;
-			return 3;
-		}
-	}	
+//min = Grenze für 1
+//med = Grenze für 2
+//sortDirection = Grenze für 3
+function pRule(p, min, med, sortDirection) {	
+	if(sortDirection === 'asc') {
+		if(p <= min)
+			return 1;
+		if(p <= med)
+			return 2;
+		return 3;
+	}
+	else{
+		if(p >= min)
+			return 1;
+		if(p >= med)
+			return 2;
+		return 3;
+	}
+}	
 
+function QueryParameter(key, value){
+		this.key = key;
+		this.value = value;
+}
+
+function addToQueryArray(key, value, QuerryArray)
+{
+	if(typeof QuerryArray == 'undefined')
+	{
+		QuerryArray = [];
+	}
+	QuerryArray.push(new QueryParameter(key,value));
+	return QuerryArray;
+}
+
+function ruleAutomata (textA, id, callbackMetaData, callbackFullData){
 	//Aufbau der Regeln --> Ergebnis ist der Wert, mit dem in der Datenbank gesucht werden soll
-	//pRule( pCalculator(adj/words); , 0.05, 0.15, 1);
 
 	var oface = Object.create(objFace); //hier wird ein Object erzeugt, welches alle Attribute von objFace geerbt hat. Silke muss nun nur noch die Gesichtsteile zuweisen, die sie braucht. Der Rest bleibt null
 
@@ -173,30 +186,10 @@ function ruleAutomata (textA, id, callbackMetaData, callbackFullData){
 	if (typeof callbackMetaData == 'function') {
 		callbackMetaData(id, mData);
 	}
-	
-	
-	//var name = queryDB(tablename, queryArray, bestMatchCallback);
-
-	function QueryParameter(key, value){
-			this.key = key;
-			this.value = value;
-	}
-
-	function addToQueryArray(key, value, QuerryArray)
-	{
-		if(typeof QuerryArray == 'undefined')
-		{
-			QuerryArray = [];
-		}
-		QuerryArray.push(new QueryParameter(key,value));
-        return QuerryArray;
-	}
-
 
 
 	//FaceParts
 	invoke(function (data, callback) {
-
 		//faceForm
 		//width:
         var queryArray = addToQueryArray("with", mData.iq);
@@ -210,7 +203,7 @@ function ruleAutomata (textA, id, callbackMetaData, callbackFullData){
         facePartsDB.queryDB("faceform", queryArray, function(name)
 		{
             oface.faceForm = name;
-            callback(null, oface); // ich glaube das muss auch hier rein und soll anzeigen, dass der and teil jetzt abgeschlossen ist
+            callback(); // ich glaube das muss auch hier rein und soll anzeigen, dass der and teil jetzt abgeschlossen ist
             console.log('faceForm :'+ oface.faceForm);
 		});
 
@@ -235,7 +228,7 @@ function ruleAutomata (textA, id, callbackMetaData, callbackFullData){
         facePartsDB.queryDB("hair", queryArray, function(name)
 		{
             oface.hair2 = name;
-            callback(null, oface); 
+            callback(); 
 		});
 	}).and( function (data, callback) {
 		//Rules: ear
@@ -257,7 +250,7 @@ function ruleAutomata (textA, id, callbackMetaData, callbackFullData){
         facePartsDB.queryDB("ear", queryArray, function(name)
 		{
             oface.ear = name;
-            callback(null, oface); 
+            callback(); 
 		});
 	}).and( function (data, callback) {
 		//Rules: eye
@@ -271,7 +264,7 @@ function ruleAutomata (textA, id, callbackMetaData, callbackFullData){
         facePartsDB.queryDB("eye", queryArray, function(name)
 		{
             oface.eye = name;
-            callback(null, oface); 
+            callback(); 
 		});
 
 	}).and( function (data, callback) {
@@ -289,7 +282,7 @@ function ruleAutomata (textA, id, callbackMetaData, callbackFullData){
         facePartsDB.queryDB("brow", queryArray, function(name)
 		{
             oface.eyebrow = name;
-            callback(null, oface); 
+            callback(); 
 		});
 
 	}).and( function (data, callback) {
@@ -308,7 +301,7 @@ function ruleAutomata (textA, id, callbackMetaData, callbackFullData){
 		{
             oface.nose = name;
             console.log('nose' + name);
-            callback(null, oface); 
+            callback(); 
 		});
 
 	}).and( function (data, callback) {
@@ -326,7 +319,7 @@ function ruleAutomata (textA, id, callbackMetaData, callbackFullData){
         facePartsDB.queryDB("mouth", queryArray, function(name)
 		{
             oface.mouth = name;
-            callback(null, oface); 
+            callback(); 
 		});
 	}).and( function (data, callback) {
 
@@ -343,7 +336,7 @@ function ruleAutomata (textA, id, callbackMetaData, callbackFullData){
         facePartsDB.queryDB("beard", queryArray, function(name)
 		{
             oface.beard = name;
-            callback(null, oface); 
+            callback(); 
 		});
 	}).end( oface, function(data, callbackFullData){
 		oface.id = id;
@@ -354,120 +347,6 @@ function ruleAutomata (textA, id, callbackMetaData, callbackFullData){
 
 	});
 
-
-
-/*
-	//Rules : faceForm
-	var faceForm = {};
-	//Breite:
-	faceForm.width = mData.iq;
-	//Alter:
-	faceForm.age = mData.age;
-	//Form:
-	//Konsonaten / vocals
-	faceForm.form = pRule( pCalculator(textA["kon"], textA["vocals"]) , 0.20, 0.35, 'asc' );
-
-	//TODO 
-	console.log(util.inspect(faceForm));
-
-	//Rules : hairs
-	var hairs = {};
-	//volume:
-	//Zoologie + Wortlänge + Elektrizität  - Sport - TEchnik
-	hairs.volume = pRule( pCalculator( (textA["zoology"]+textA["electricity"]-textA["sport"]-textA["technic"]), textA["words"] ) ,0.20, 0.35, 'asc' );
-	//lenght:
-	//adj/word +womenfactor
-	var b = pCalculator(textA["adj"], textA["words"]);
-	if (mData.gender === 3){
-		//0.2 is womenfactor
-		hairs.lenght = pRule( pCalculator( (b + 0.2), textA["words"] ) , 0.20, 0.35, 'asc' );
-	}else {
-		hairs.lenght = pRule( pCalculator( b, textA["words"] ) , 0.20, 0.35, 'asc' );
-	}
-	//gender:
-	hairs.gender = mData.gender;
-	console.log(util.inspect(hairs));
-
-	//Rules : ear
-	var ear = {};
-	//height:
-	//viele adverben + adjektive = große Ohren
-	ear.height = pRule( pCalculator( textA["adv"], textA["words"] ) , 0.20, 0.35, 'asc' );
-	//width:
-	//Luftfahrt + Kunst + unknown worsds
-	ear.width = pRule( pCalculator( (textA["air"]+textA["art"]+textA["unknown_words"]), textA["words"] ), 0.20, 0.35, 'asc' );
-	//jewelry
-	//(emotion > 0,001 Wörter && Person Weiblich ) || Pirat
-	if(mData.pirat === 1){
-		ear.jewelry = 3;
-	}else{
-		ear.jewelry = 1;
-	}
-	console.log(util.inspect(ear));
-
-	//Rules : eye
-	var eye = {};
-	//length:
-	//anzahl der l's und i's kleiner r's -> große augen
-	eye.length = pRule( pCalculator(textA["i-s_and_l-s"], textA["r-s"]), 0.20, 0.35, 'asc' );
-	//width:
-	//colors + avergage length is groß
-	eye.width = pRule( pCalculator(textA["average_sentence_length"], textA["words"]), 0.20, 0.35, 'asc' );
-	console.log(util.inspect(eye));
-
-	//Rules : eyebrow
-	var eyebrow = {};
-	//height:
-	//sachl nouns + literatur + unknown words
-	eyebrow.height = pRule( pCalculator( (textA["neutr_nouns"]+textA["literatur"]+textA["unknown_words"]) , textA["words"]), 0.20, 0.35, 'asc' );
-	//width:
-	//Intilligenz + geister Zustand
-	//TODO fix .toFixed(0) --> kein string als output
-	eyebrow.width = ( (mData.iq + mData.mentalHealth)/2 ).toFixed(0);
-	eyebrow.gender = mData.gender;
-	console.log(util.inspect(eyebrow));
-
-	//Rules : nose
-	var nose = {};
-	//width:
-	//viele Verben + Geologie  > 0,15 && frauenfakrtor s.o. < 0,5
-	nose.width = pRule( pCalculator( (textA["verbs"]+textA["geology"]), textA["words"] ), 0.20, 0.35, 'asc' );
-	//lenght:
-	//aerospace + wortlänge +  = lange nase
-	nose.length = pRule( pCalculator( (textA["air"]+textA["average_word_length"]), textA["words"] ), 0.20, 0.35, 'asc' );
-	//form:
-	// Intelligenz s.o. && terrotismus + militär > 0.005 = krumme nase
-	//TODO iq ergänzen
-	nose.form = pRule( pCalculator( (textA["terrorism"]+textA["military"]) , textA["words"] ) , 0.20, 0.35, 'asc' );
-	console.log(util.inspect(nose));
-
-	//TODO Regeln definieren und implementieren
-	//Rules : mouth
-	var mouth = {};
-	//width:
-	//kurze Wörter
-	mouth.width =1;
-	mouth.width =2;
-	mouth.width =3;
-
-	//Rules : beard
-	var beard;
-	if(mData.gender === 3){
-		beard = 1;
-	}else{
-		//Zoologie + Religion + Kunst <0,005
-		beard = pRule( pCalculator( (textA["zoology"]+textA["religion"]+textA["art"]), textA["words"] ) , 0.20, 0.35, 'asc');
-	}
-	console.log(beard);
-
-	
-
-
-	//callback for faceCreator
-	if (typeof callbackFullData == 'function') {
-		callbackFullData(objFace);
-	}
-*/
 }
 
 exports.evaluateAnalyserOutput = ruleAutomata;
