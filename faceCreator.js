@@ -11,81 +11,52 @@ var images = require("node-images");
 var imageWidth = 1754;
 var imageHeight = 2480;
 
-//object for testing the faceCreator
-var obj={
-	hair1: null,
-	faceForm: "Frau1Kopfform.png",
-	eye: "Frau2Augen.png",
-	eyebrow: "Mann2Augenbrauen.png",
-	mouth: "Mann3Mund.png",
-	nose: "Mann1Nase.png",
-	ear: "Frau1Ohren.png",
-	hair2: "Mann2Haare.png",
-	horizontal: 1.2,
-	vertical: 1.2,
-	id: 1	
-};
 
-var obj1={
-	hair1: null,
-	faceForm: "Mann1Kopfform.png",
-	eye: "Frau1Augen.png",
-	eyebrow: "Mann3Augenbrauen.png",
-	mouth: "Mann4Mund.png",
-	nose: "Mann1Nase.png",
-	ear: "Frau2Ohren.png",
-	hair2: "Mann1Haare.png",
-	horizontal: null,
-	vertical: null,
-	id: 2	
-};
 
-//faceCreator(obj);
-//faceCreator(obj1);
 
 function faceCreator(objFace, callbackFinish){
 
-	function loadImage(name){
-		if(objFace[name] != null) {
-			try{
-				objFace[name] = images(__dirname + '/TextToFaceBilder' + objFace[name] + '.png');		//Load backgroundimage from file
-			}catch(err){
-				//In case of not loading the image the default value null is set. This causes not drawing this part of the face but the rest will be created normally.
-				objFace[name] = null;
-			}
-		}
-	}
+    function loadImage(name){
+        if(objFace[name] != null) {
+            try{
+                objFace[name] = images(__dirname + '/TextToFaceBilder' + objFace[name] + '.png');		//Load backgroundimage from file
+            }catch(err){
+                //In case of not loading the image the default value null is set. This causes not drawing this part of the face but the rest will be created normally.
+                objFace[name] = null;
+            }
+        }
+    }
 
-
-	//invoke.and starts a asynchron function 
+	//invoke.and starts a asynchron function
 	//invoke.end is called if all asynchron functions are terminated
 	//the images are load from the filesystem asychron. The order of the loadImage() calls is not important
 	invoke(function (data, callback) {
+		//TODO communicate postfix 
+		//load image of hair2 with another postfix  
+		objFace.hair1 = objFace.hair2 + 'back';
 		loadImage("hair1");
-		//TODO
-		//load image of hair2 with another postfix Dazu letzten 4 zeichenabtrennen (.png) Codewort dranhängen + wieder 
-		callback(null, objFace)
+		callback();
 	}).and( function (data, callback) {
 		loadImage("faceForm");
-		callback(null, objFace) 
+		callback();
 	}).and( function (data, callback) {
 		loadImage("eye");
-		callback(null, objFace) 
+		callback();
 	}).and( function (data, callback) {
 		loadImage("eyebrow");
-		callback(null, objFace) 
+		callback();
 	}).and( function (data, callback) {
 		loadImage("mouth");
-		callback(null, objFace) 
+		callback();
 	}).and( function (data, callback) {
 		loadImage("nose");
-		callback(null, objFace) 
+		callback();
 	}).and( function (data, callback) {
 		loadImage("ear");
-		callback(null, objFace) 
+		callback();
 	}).and( function (data, callback) {
 		loadImage("hair2");
-		callback(null, objFace) 
+		callback();
 	}).end( objFace, function (data, callback) {
 
 		//this end segment runns sequencial because the created Face needs to be composed in the right order.
@@ -117,7 +88,7 @@ function faceCreator(objFace, callbackFinish){
 		}
 		//the resulting image is saved and named after the id.
 		//existing files will be overwritten but the id should be unique so that a new file is created
-		face.save('website/pictures/face' + objFace.id+".png", {
+		face.save(__dirname+'/website/pictures/face' + objFace.id+".png", {
 			quality : 50
 		});
 		callbackFinish(objFace.id);
