@@ -18,6 +18,7 @@ $(function() {
         for (var i = 0; i < data.length; i++) {
             text += '<span class="user">' + data[i].toString() + '</span>';
         }
+
         $('#progress').html(text);
     });
 });

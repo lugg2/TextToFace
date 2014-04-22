@@ -41,6 +41,8 @@ function upload(response, request) {
           response.write('upload successfull');
           response.end();
           analyser.startAnalyserIfNecessary();
+            // TODO FIX THIS analyser needs a status update when writeFile is ready
+
         });
       });
       }
