@@ -327,7 +327,7 @@ function ruleAutomata (textA, id, callbackMetaData, callbackFullData){
             callback(); 
 		});
 	}).and( function (data, callback) {
-    //TODO Beard
+    //TODO Beard null bug + rule
 		//Rules : beard
 		var beard;
 		if(mData.gender === 3){
@@ -343,7 +343,7 @@ function ruleAutomata (textA, id, callbackMetaData, callbackFullData){
             oface.beard = name;
             callback(); 
 		});
-	}).end( oface, function(data, callbackFullData){
+	}).end( oface, function(data, callback){
 		oface.id = id;
 		console.log(util.inspect(oface));
 		if (typeof callbackFullData == 'function') {

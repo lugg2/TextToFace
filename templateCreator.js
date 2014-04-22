@@ -1,6 +1,7 @@
 var fs = require('fs');
 var url = require('url');
 var util = require('util');
+var analyser = require('./analyserHandler.js')
 // helper functions
 function write404(response)
 {
@@ -14,7 +15,7 @@ function generateTemplate(response, request)
     var queryData = url.parse(request.url, true).query;
     console.log(util.inspect(queryData));
 
-    if ( typeof queryData.id == "undefined" || typeof  queryData.pkey == "undefined" )
+    if ( typeof queryData.id == "undefined" || typeof  queryData.pkey == "undefined" || analyser.isPublicKeyValid(queryData.id,queryData.pkey) == false )
     {
         write404(response);
         return
@@ -26,7 +27,7 @@ function generateTemplate(response, request)
 	fs.readFile(__dirname +'/website/result.html',"utf-8", function (err, data) {
 	if (err) console.log("could not find result.html");
 	
-	data = data.replace("<BILD>","<img src=" + 'pictures/face0' /*+ idToken */+".png"+' '+"width = 40% > ");
+	data = data.replace("<BILD>","<img src=" + 'pictures/face'+ idToken +".png"+' '+"width = 40% > ");
 	
 	fs.readFile('wantedPoster/wantedPoster'+idToken,"utf-8", function (err, wantedPoster) {
 	if (err) console.log("could not find wanted Poster");
