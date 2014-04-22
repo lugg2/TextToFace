@@ -192,15 +192,15 @@ function ruleAutomata (textA, id, callbackMetaData, callbackFullData){
 	invoke(function (data, callback) {
 		//faceForm
 		//width:
-        var queryArray = addToQueryArray("with", mData.iq);
+        var queryArray = addToQueryArray("width", mData.iq);
 		//age:
 		queryArray = addToQueryArray("age", mData.age, queryArray);
 		//form:
 		var form = pRule( pCalculator(textA["kon"], textA["vocals"]) , 0.20, 0.35, 'asc' );
-		queryArray = addToQueryArray("from", form, queryArray);
+		queryArray = addToQueryArray("form", form, queryArray);
 
 		//facePartDB gives fitting image (filename) for the queryArray
-        facePartsDB.queryDB("faceform", queryArray, function(name)
+        facePartsDB.queryDB("head", queryArray, function(name)
 		{
             oface.faceForm = name;
             callback(); // ich glaube das muss auch hier rein und soll anzeigen, dass der and teil jetzt abgeschlossen ist
@@ -211,8 +211,10 @@ function ruleAutomata (textA, id, callbackMetaData, callbackFullData){
 		//Rules : hair
 		//volume:
 		var hairVolume = pRule( pCalculator( (textA["zoology"]+textA["electricity"]-textA["sport"]-textA["technic"]), textA["words"] ) ,0.20, 0.35, 'asc' );
-		var queryArray = addToQueryArray("volume", hairVolume);
+		var queryArray = addToQueryArray("volumen", hairVolume);
 		//length:
+		//TODO add length to hair in DB
+		/*
 		var hairlength;
 		var b = pCalculator(textA["adj"], textA["words"]);
 		if (mData.gender === 3){
@@ -222,8 +224,10 @@ function ruleAutomata (textA, id, callbackMetaData, callbackFullData){
 			hairlength = pRule( pCalculator( b, textA["words"] ) , 0.20, 0.35, 'asc' );
 		}
 		queryArray = addToQueryArray("length", hairlength, queryArray);
+		*/
 		//gender:
-		queryArray = addToQueryArray("gender", mData.gender, queryArray);
+		//TODO change DB gender
+		//queryArray = addToQueryArray("gender", mData.gender, queryArray);
 
         facePartsDB.queryDB("hair", queryArray, function(name)
 		{
@@ -245,7 +249,7 @@ function ruleAutomata (textA, id, callbackMetaData, callbackFullData){
 		}else{
 			earJewelry = 1;
 		}
-		queryArray = addToQueryArray("jewelry", earJewelry, queryArray);
+		queryArray = addToQueryArray("decoration", earJewelry, queryArray);
 
         facePartsDB.queryDB("ear", queryArray, function(name)
 		{
@@ -259,7 +263,7 @@ function ruleAutomata (textA, id, callbackMetaData, callbackFullData){
 		var queryArray = addToQueryArray("length", eyeLength);
 		//width:
 		var eyeWidth = pRule( pCalculator(textA["average_sentence_length"], textA["words"]), 0.20, 0.35, 'asc' );
-		queryArray = addToQueryArray("width", eyeWidth, queryArray);
+		queryArray = addToQueryArray("height", eyeWidth, queryArray);
 
         facePartsDB.queryDB("eye", queryArray, function(name)
 		{
