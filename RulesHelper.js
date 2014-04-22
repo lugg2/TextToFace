@@ -139,58 +139,40 @@ function ruleAutomata (textA, id, callbackMetaData, callbackFullData){
 
 	var mData = Object.create(metaData);
 
-
-	invoke(function (data, callback) {
-		//Rule 1: gender
-		//femal article > male + neutral
-		if(textA["fem_article"] > (textA["male_article"] + textA["neutr_article"]) ) {
-			mData.gender = 3;
-		}else {
-			mData.gender = 1;
-		}
-		callback(null, mData)
-	}).and( function (data, callback) {
-		//Rule 2: mentalHealth
-		//a = (Viele Negationen + Medizin + computer + psychology + math) (a min 5 p(a) > 0.02) (a min 3 p(a) > 0.01) sonst
-		var a = textA["neg"] + textA["medicin"] + textA["psychology"] + textA["computer"] + textA["math"] ;
-		mData.mentalHealth = pRule( pCalculator( a ,textA["words"]) , 0.02, 0.31, 'asc');		
-		callback(null, mData) 
-	}).and( function (data, callback) {
-		//Rule 3: iq
-		//Grammar Errors + Spell Errors / words = p	1: sonst 	2:p < 0.20	3:p < 0.05
-		mData.iq = pRule( pCalculator(textA["grammar_errors"], textA["words"]) , 0.20, 0.35, 'dsc');
-		callback(null, mData) 
-	}).and( function (data, callback) {
-		//Rule 4: age
-		//(HIstory + Politik + niedriger Geistiger Zustand)/words
-		//var b = textA["history"] + textA["politic"] + a;
-		var a = textA["neg"] + textA["medicin"] + textA["psychology"] + textA["computer"] + textA["math"] ;
-		mData.age = pRule( pCalculator( (textA["history"]+textA["politic"]+a) ,textA["words"]), 0.20, 0.03, 'dsc' );
-		callback(null, mData) 
-	}).and( function (data, callback) {
-		//Rule 5: dangerLevel
-		//Terrorismus + Militär + Biochemie + Physik + Chemie + Biologie min 3 und p(Terrorismus + Militär ) > 0.025
-		//var c = textA["terrorism"] + textA["biology"] + textA["physics"] + textA["chemistry"] + textA["biology"] + textA["technic"];
-		mData.dangerLevel = pRule( pCalculator( (textA["terrorism"]+textA["biology"]+textA["physics"]+textA["chemistry"]+textA["biology"]+textA["technic"]) ,textA["words"]) , 0.20, 0.35, 'asc' );
-		callback(null, mData) 
-	}).and( function (data, callback) {
+	//Rule 1: gender
+	//femal article > male + neutral
+	if(textA["fem_article"] > (textA["male_article"] + textA["neutr_article"]) ) {
+		mData.gender = 3;
+	}else {
+		mData.gender = 1;
+	}
+	//Rule 2: mentalHealth
+	//a = (Viele Negationen + Medizin + computer + psychology + math) (a min 5 p(a) > 0.02) (a min 3 p(a) > 0.01) sonst
+	var a = textA["neg"] + textA["medicin"] + textA["psychology"] + textA["computer"] + textA["math"] ;
+	mData.mentalHealth = pRule( pCalculator( a ,textA["words"]) , 0.02, 0.31, 'asc');		
+	//Rule 3: iq
+	//Grammar Errors + Spell Errors / words = p	1: sonst 	2:p < 0.20	3:p < 0.05
+	mData.iq = pRule( pCalculator(textA["grammar_errors"], textA["words"]) , 0.20, 0.35, 'dsc');
+	//Rule 4: age
+	//(HIstory + Politik + niedriger Geistiger Zustand)/words
+	//var b = textA["history"] + textA["politic"] + a;
+	var a = textA["neg"] + textA["medicin"] + textA["psychology"] + textA["computer"] + textA["math"] ;
+	mData.age = pRule( pCalculator( (textA["history"]+textA["politic"]+a) ,textA["words"]), 0.20, 0.03, 'dsc' );
+	//Rule 5: dangerLevel
+	//Terrorismus + Militär + Biochemie + Physik + Chemie + Biologie min 3 und p(Terrorismus + Militär ) > 0.025
+	//var c = textA["terrorism"] + textA["biology"] + textA["physics"] + textA["chemistry"] + textA["biology"] + textA["technic"];
+	mData.dangerLevel = pRule( pCalculator( (textA["terrorism"]+textA["biology"]+textA["physics"]+textA["chemistry"]+textA["biology"]+textA["technic"]) ,textA["words"]) , 0.20, 0.35, 'asc' );
 	//Rule 6: pirat
 	//10 * mehr r's als e und min 20 r's
-		if( pCalculator(textA["r-s"],textA["e-s"]) > 10) {
-			mData.pirat = 1;
-		}else {
-			mData.pirat = 3;
-		}
-		callback(null, mData) 
-	}).end( mData, function (mData, callback) {
-		//callback for wantedPosterCreator
-		console.log(util.inspect(mData));
-		if (typeof callbackMetaData == 'function') {
-            callbackMetaData(id, mData);
-        }
-	});
-
-
+	if( pCalculator(textA["r-s"],textA["e-s"]) > 10) {
+		mData.pirat = 1;
+	}else {
+		mData.pirat = 3;
+	}
+	//callback for wantedPosterCreator
+	if (typeof callbackMetaData == 'function') {
+		callbackMetaData(id, mData);
+	}
 	
 	
 	//var name = queryDB(tablename, queryArray, bestMatchCallback);
