@@ -26,13 +26,13 @@ function generateTemplate(response, request)
 	fs.readFile(__dirname +'/website/result.html',"utf-8", function (err, data) {
 	if (err) console.log("could not find result.html");
 	
-	data = data.replace("<BILD>","<img src=" + '"' + idToken +".png"+'"'+"width = 40% > ");
+	data = data.replace("<BILD>","<img src=" + 'pictures/face0' /*+ idToken */+".png"+' '+"width = 40% > ");
 	
-	fs.readFile('wantedPoster/wantedPoster'+id,"utf-8", function (err, wantedPoster) {
+	fs.readFile('wantedPoster/wantedPoster'+idToken,"utf-8", function (err, wantedPoster) {
 	if (err) console.log("could not find wanted Poster");
 	
 	data = data.replace("<WANTEDPOSTER>",wantedPoster);
-        response.writeHead(200, {'content-type': 'text/plain'});
+        response.writeHead(200, {'content-type': 'text/html'});
         response.write(data);
         response.end();
 	});
