@@ -31,7 +31,7 @@ $(function() {
         if (redirect == true)
         {
             //var url = "www.localhost.de/result?id=" + id + '&&pkey='+pkey ;
-            var url = "www.texttoface.de/result?id=" + id + '&&pkey='+pkey ;
+            var url = "/result?id=" + id + '&&pkey='+pkey ;
 
             $(location).attr('href',url);
         }
