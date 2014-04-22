@@ -56,10 +56,6 @@ function generateErrorTemplate(response, errorid, text)
         response.end();
 		}
 	});
-	
-	
-	
-
 }
 
 
