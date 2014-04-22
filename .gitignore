@@ -1,9 +1,15 @@
+#ignore node moudles
 node_modules/**/*
-#delete backups
+
+#ignore backups
 *~
+
+#ignore generated stuff
 message*
+website/pictures/face*
+
 wantedPoster/wantedPoster*
-#delete visual studio stuff	
+#ignore visual studio stuff
 *.njsproj
 *.suo
 *.sln
