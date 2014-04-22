@@ -6,7 +6,7 @@ $(function() {
         socket.emit('newText', nText, function (data) {
             if (data) {
                 console.log(data.id);
-                console.log(data.pKey);
+                console.log(data.pkey);
             }
         });
 

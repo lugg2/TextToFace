@@ -33,7 +33,7 @@ function upload(response, request) {
 
         form.parse(request, function(err, fields, files) {
             
-        requestID = analyser.generateWorklistItem();
+        var requestID = analyser.generateWorklistItem();
         fs.writeFile(__dirname + '/text_analysis/Code/msg/message' + requestID , fields.Text1, function (err) {
           if (err) 
             {throw err;}
@@ -96,14 +96,13 @@ function finished(response, request) {
 
 function callbackWantedPoster(id, mData){
   wantedPoster.createWantedPoster( id, mData, function() {
-      console.log('abc');
       analyser.notifyStatusChange(id,'createdWantedPoster');
   });
 
 }
-function callbackFaceCreator(id, objFace){
+function callbackFaceCreator(objFace){
   faceCreator.createFaceParts(objFace,function() {
-      analyser.notifyStatusChange(id,'createdPictue')
+      analyser.notifyStatusChange(objFace.id,'createdPictue')
   });
 }
 
