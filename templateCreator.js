@@ -13,7 +13,6 @@ function write404(response)
 function generateTemplate(response, request)
 {
     var queryData = url.parse(request.url, true).query;
-    console.log(util.inspect(queryData));
 
     if ( typeof queryData.id == "undefined" || typeof  queryData.pkey == "undefined" || analyser.isPublicKeyValid(queryData.id,queryData.pkey) == false )
     {

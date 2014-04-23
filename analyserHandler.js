@@ -146,6 +146,25 @@ function generateProgressArray(worklistItemID)
 
 }
 
+function extendWorklistItemWithMData(id, mData)
+{
+    var worklistItem = getWorklistItemByID(id);
+    worklistItem.mData = mData;
+}
+
+function extendWorklistItemWithObjFace(id, objFace)
+{
+    var worklistItem = getWorklistItemByID(id);
+    worklistItem.objFace = objFace;
+}
+
+function extendWorklistItemWithAnalyserResult(id, analyserResult)
+{
+    var worklistItem = getWorklistItemByID(id);
+    console.log('analyserResult :')
+    worklistItem.analyserResult = analyserResult;
+}
+
 function isPublicKeyValid(id, publicKey)
 {
     var here = getWorklistItemByID(id);
@@ -165,3 +184,7 @@ exports.generateWorklistItem = generateWorklistItem;
 exports.notifyStatusChange = notifyStatusChange;
 exports.getWorklistItemByID = getWorklistItemByID;
 exports.isPublicKeyValid = isPublicKeyValid;
+// debug functions
+exports.extendWithMData = extendWorklistItemWithMData;
+exports.extendWithObjFace = extendWorklistItemWithObjFace;
+exports.extendWithAnalyserResult = extendWorklistItemWithAnalyserResult;
