@@ -141,93 +141,8 @@ public class Calculator
 	}
 	
 	public String doCalculations(String enteredText)
-	{		
-		//check the entered text for errors	
-		try {
-			counter[2] = langTool.check(enteredText).size(); 				//numb_errors
-		} catch (IOException e) {
-			errorID = "06";
-			return ""; 
-		}
-		
-		//count unknown words
-		counter[21] = langTool.getUnknownWords().size();					//numb_unknown
-		
-		//list of all sentences
-		List<String> listSentences = langTool.sentenceTokenize(enteredText);		
-		for(int i=0; i<listSentences.size(); i++)
-		{
-			counter[0]++;													//numb_sentences
-			counter[1] += listSentences.get(i).length();
-		}		
-		counter[1] /= listSentences.size();									//average_sentence_length
-		
-		//count all VOCALS
-		counter[3] = regExp("(a|e|i|o|u|A|E|I|O|U)", enteredText);			//numb_vocals
-		//count all R큦
-		counter[4] = regExp("(r|R)", enteredText);							//numb_r
-		//count all i큦 and l큦 
-		counter[5] = regExp("(i|I|l|L)", enteredText);						//numb_i_l
-		//count all e큦
-		counter[22] = regExp("e|E", enteredText);							//numb_e		
-		//count all spaces
-		counter[23] = regExp(" ", enteredText);								//numb_spaces		
-		//count all numbers
-		counter[25] = regExp("(0|1|2|3|4|5|6|7|8|9)+", enteredText);						//numb_numbers		
-								
-		try {
-			AnalyzedSentence textComplete = langTool.getRawAnalyzedSentence(enteredText);
-			AnalyzedTokenReadings[] tokens = textComplete.getTokensWithoutWhitespace();
-
-			for(int i = 0; i<tokens.length; i++) 
-			{
-				AnalyzedToken tok = tokens[i].getAnalyzedToken(0);
-				if(!tok.hasNoTag())
-				{
-					//System.out.println("TAG: " + tok.getPOSTag().toString();
-					if(tok.getPOSTag().contains("SUB"))
-					{
-						counter[7]++;									//numb_noun
-					
-						if(tok.getPOSTag().contains("FEM"))
-						{
-							counter[8]++;								//numb_fem_noun
-						}
-						else if(tok.getPOSTag().contains("MAS")) 
-							{
-								counter[9]++;							//numb_male_noun
-							}
-							else counter[10]++;							//numb_neutr_noun
-					}
-					if (tok.getPOSTag().contains("VER")) counter[11]++;		//numb_ver	
-					if (tok.getPOSTag().contains("ADJ")) counter[12]++;		//numb_adj
-					if (tok.getPOSTag().contains("ADV")) counter[13]++;		//numb_adv
-					if (tok.getPOSTag().contains("KON")) counter[14]++;		//numb_kon
-					if (tok.getPOSTag().contains("NEG")) counter[15]++;		//numb_neg
-					if (tok.getPOSTag().contains("PRP")) counter[16]++;		//numb_prp
-					
-					if (tok.getPOSTag().contains("ART") && !tok.getPOSTag().contains("START"))
-					{
-						counter[17]++;										//numb_art
-
-						if(tok.getPOSTag().contains("FEM"))
-						{
-							counter[18]++;								//numb_art_fem
-						}	
-						else 
-							if (tok.getPOSTag().contains("MAS")) 
-							{
-								counter[19]++;							//numb_art_male
-							}
-							else counter[20]++;							//numb_art_neut
-					}	
-				}
-			}
-		} catch (IOException e) {
-			errorID = "07";
-			return "";
-		}
-		
+	{	
+		//-----------------------Thesaurus-DB access---------------------------
 		if(!db.isError())
 		{
 			List<String> words = new ArrayList<String>();
@@ -245,10 +160,104 @@ public class Calculator
 				counter[6]++;												//numb_words				
 				counter[24] += words.get(l).length();
 			}
-			counter[24] /= counter[6];			
+			if(counter[6]!=0) counter[24] /= counter[6];					//average_word_length
 		}		
 		if(db.isError()) errorID = db.getErrorID();
 		
+		//check if there have been words included
+		if(counter[6]!=0)
+		{
+			//------------------------languageTool access---------------------------
+			
+			//check the entered text for errors	
+			try {
+				counter[2] = langTool.check(enteredText).size(); 				//numb_errors
+			} catch (IOException e) {
+				errorID = "06";
+				return ""; 
+			}
+		
+			//count unknown words
+			counter[21] = langTool.getUnknownWords().size();					//numb_unknown
+		
+			//list of all sentences
+			List<String> listSentences = langTool.sentenceTokenize(enteredText);		
+			for(int i=0; i<listSentences.size(); i++)
+			{
+				counter[0]++;													//numb_sentences
+				counter[1] += listSentences.get(i).length();
+			}		
+			counter[1] /= listSentences.size();									//average_sentence_length
+			
+			try {
+				AnalyzedSentence textComplete = langTool.getRawAnalyzedSentence(enteredText);
+				AnalyzedTokenReadings[] tokens = textComplete.getTokensWithoutWhitespace();
+
+				for(int i = 0; i<tokens.length; i++) 
+				{
+					AnalyzedToken tok = tokens[i].getAnalyzedToken(0);
+					if(!tok.hasNoTag())
+					{
+						//System.out.println("TAG: " + tok.getPOSTag().toString();
+						if(tok.getPOSTag().contains("SUB"))
+						{
+							counter[7]++;									//numb_noun
+						
+							if(tok.getPOSTag().contains("FEM"))
+							{
+								counter[8]++;								//numb_fem_noun
+							}
+							else if(tok.getPOSTag().contains("MAS")) 
+								{
+									counter[9]++;							//numb_male_noun
+								}
+								else counter[10]++;							//numb_neutr_noun
+						}
+						if (tok.getPOSTag().contains("VER")) counter[11]++;		//numb_ver	
+						if (tok.getPOSTag().contains("ADJ")) counter[12]++;		//numb_adj
+						if (tok.getPOSTag().contains("ADV")) counter[13]++;		//numb_adv
+						if (tok.getPOSTag().contains("KON")) counter[14]++;		//numb_kon
+						if (tok.getPOSTag().contains("NEG")) counter[15]++;		//numb_neg
+						if (tok.getPOSTag().contains("PRP")) counter[16]++;		//numb_prp
+						
+						if (tok.getPOSTag().contains("ART") && !tok.getPOSTag().contains("START"))
+						{
+							counter[17]++;										//numb_art
+
+							if(tok.getPOSTag().contains("FEM"))
+							{
+								counter[18]++;								//numb_art_fem
+							}	
+							else 
+								if (tok.getPOSTag().contains("MAS")) 
+								{
+									counter[19]++;							//numb_art_male
+								}
+								else counter[20]++;							//numb_art_neut
+						}	
+					}
+				}
+			} catch (IOException e) {
+				errorID = "07";
+				return "";
+			}
+			
+			//--------------------------------regular expressions---------------------------------
+			//count all VOCALS
+			counter[3] = regExp("(a|e|i|o|u|A|E|I|O|U)", enteredText);			//numb_vocals
+			//count all R큦
+			counter[4] = regExp("(r|R)", enteredText);							//numb_r
+			//count all i큦 and l큦 
+			counter[5] = regExp("(i|I|l|L)", enteredText);						//numb_i_l
+			//count all e큦
+			counter[22] = regExp("e|E", enteredText);							//numb_e		
+		}
+		
+		//count all spaces
+		counter[23] = regExp(" ", enteredText);									//numb_spaces		
+		//count all numbers
+		counter[25] = regExp("(0|1|2|3|4|5|6|7|8|9)+", enteredText);			//numb_numbers		
+								
 		//give stored information
 		for (int k=0; k<counter.length; k++) str[k] = ('"' + counter_title[k] + '"' + ": " + counter[k] + ", ");			
 		for (int i=0; i<category_counter.length-1; i++) str_cat[i] = ('"' + category_title[i] + '"' + ": " + category_counter[i] + ", ");			

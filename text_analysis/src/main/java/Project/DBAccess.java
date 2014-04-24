@@ -14,10 +14,10 @@ public class DBAccess {
 	{
 		try {
 			Class.forName("org.sqlite.JDBC");
-			//for Server
+			//for Server 
 			c = DriverManager.getConnection("jdbc:sqlite:/"+path+"/thesaurusDBnew.db");
 			
-			//for Windows-Testing					c = DriverManager.getConnection("jdbc:sqlite:thesaurusDBnew.db");
+			//for Windows-Testing			c = DriverManager.getConnection("jdbc:sqlite:thesaurusDBnew.db");
 		} catch ( Exception e ) {
 			errorID = "08";
 		}
