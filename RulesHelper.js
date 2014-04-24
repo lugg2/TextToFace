@@ -84,12 +84,14 @@ function addToQueryArray(key, value, QuerryArray)
 function ruleAutomata (textA, id, callbackMetaData, callbackFullData){
 	//Aufbau der Regeln --> Ergebnis ist der Wert, mit dem in der Datenbank gesucht werden soll
 	
+	/*
 	//the values of textA should only be numbers but they are transfered as strings. This is a "cast" into numbers
 	for(var key in textA) {
 		if(textA.hasOwnProperty(key)){
 			textA[key] = parseInt(textA[key]);
 		}
 	}
+	*/
 	
 	var oface = Object.create(objFace); //hier wird ein Object erzeugt, welches alle Attribute von objFace geerbt hat. Silke muss nun nur noch die Gesichtsteile zuweisen, die sie braucht. Der Rest bleibt null
 

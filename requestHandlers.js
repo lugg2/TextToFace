@@ -71,6 +71,7 @@ function finished(response, request) {
       console.log('more than 1MB post data');
       console.log(body);
   } 
+  body = ("("+body+")");
   });
   request.on('end', function () {
     var query   = url.parse(request.url).query;
