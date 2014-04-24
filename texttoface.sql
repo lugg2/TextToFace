@@ -68,10 +68,9 @@ CREATE TABLE IF NOT EXISTS head (
 INSERT INTO head VALUES 
 (1, '/noGender/head1', 2, 3, 2), 
 (2, '/noGender/head2', 1, 1, 1), 
-(3, '/noGender/head3', 1, 2, 3), 
-(4, '/noGender/head4', 3, 2, 2),
-(5, '/noGender/head5', 3, 2, 3), 
-(6, '/noGender/head6', 1, 1, 2);
+(3, '/noGender/head3', 3, 2, 3), 
+(4, '/noGender/head4', 1, 1, 2),
+(5, '/noGender/head5', 2, 2, 1);
 
 
 CREATE TABLE IF NOT EXISTS mouth (
