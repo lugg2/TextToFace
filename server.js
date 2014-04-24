@@ -5,7 +5,6 @@ var socketHelper = require('./socketHelper.js');
 
 function start(route, handle) {
 function onRequest(request, response) {
-	console.log("encountered " + request.url);
 
 	var pathname = url.parse(request.url).pathname;
 	var query = url.parse(request.url).query;

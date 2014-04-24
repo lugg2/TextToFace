@@ -71,14 +71,13 @@ function finished(response, request) {
       console.log('more than 1MB post data');
       console.log(body);
   } 
-  body = ("("+body+")");
   });
   request.on('end', function () {
     var query   = url.parse(request.url).query;
     
     var queryData = url.parse(request.url, true).query;
     analyser.notifyStatusChange(queryData.messageID,"evaluated");
-      analyser.extendWithAnalyserResult(queryData.messageID,body);
+    analyser.extendWithAnalyserResult(queryData.messageID,body);
 
     ruleAutomata.evaluateAnalyserOutput(body, queryData.messageID, callbackWantedPoster, callbackFaceCreator);
 
