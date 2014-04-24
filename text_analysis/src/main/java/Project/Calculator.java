@@ -89,7 +89,7 @@ public class Calculator
 		category_title[32] = "emotions";
 		category_title[33] = "color";
 
-		counter_title = new String[25];
+		counter_title = new String[26];
 		counter_title[0] = "sentences";
 		counter_title[1] = "average_sentence_length";
 		counter_title[2] = "grammar_errors";
@@ -115,6 +115,7 @@ public class Calculator
 		counter_title[22] = "e-s";
 		counter_title[23] = "spaces";
 		counter_title[24] = "average_word_length";
+		counter_title[25] = "numbers";
 		
 		category_counter  = new int[category_title.length];
 		counter  = new int[counter_title.length];
@@ -171,7 +172,9 @@ public class Calculator
 		counter[22] = regExp("e|E", enteredText);							//numb_e		
 		//count all spaces
 		counter[23] = regExp(" ", enteredText);								//numb_spaces		
-				
+		//count all numbers
+		counter[25] = regExp("(0|1|2|3|4|5|6|7|8|9)+", enteredText);						//numb_numbers		
+								
 		try {
 			AnalyzedSentence textComplete = langTool.getRawAnalyzedSentence(enteredText);
 			AnalyzedTokenReadings[] tokens = textComplete.getTokensWithoutWhitespace();
@@ -196,12 +199,12 @@ public class Calculator
 							}
 							else counter[10]++;							//numb_neutr_noun
 					}
-					if (tok.getPOSTag().contains("VER")) counter[11]++;	//numb_ver++;	//numb_ver	
-					if (tok.getPOSTag().contains("ADJ")) counter[12]++;	//numb_adj++;	//numb_adj
-					if (tok.getPOSTag().contains("ADV")) counter[13]++;	//numb_adv++;	//numb_adv
-					if (tok.getPOSTag().contains("KON")) counter[14]++;	//numb_kon++;	//numb_kon
-					if (tok.getPOSTag().contains("NEG")) counter[15]++;	//numb_neg++;	//numb_neg
-					if (tok.getPOSTag().contains("PRP")) counter[16]++;	//numb_prp++;	//numb_prp
+					if (tok.getPOSTag().contains("VER")) counter[11]++;		//numb_ver	
+					if (tok.getPOSTag().contains("ADJ")) counter[12]++;		//numb_adj
+					if (tok.getPOSTag().contains("ADV")) counter[13]++;		//numb_adv
+					if (tok.getPOSTag().contains("KON")) counter[14]++;		//numb_kon
+					if (tok.getPOSTag().contains("NEG")) counter[15]++;		//numb_neg
+					if (tok.getPOSTag().contains("PRP")) counter[16]++;		//numb_prp
 					
 					if (tok.getPOSTag().contains("ART") && !tok.getPOSTag().contains("START"))
 					{

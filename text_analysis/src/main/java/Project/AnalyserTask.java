@@ -65,6 +65,7 @@ public class AnalyserTask extends TimerTask{
 			
 			//GET Content from Server --> list of files to read and analyse (if server sends "kill" signal - stop AnalyserTask)
 			inputFiles = http.getContent(workerid); 		
+			
 			if(http.stopAnalyser())
 			{
 				calc.closeDB();
@@ -92,7 +93,7 @@ public class AnalyserTask extends TimerTask{
 					
 						//post Content to website/localhost
 						http.postContent(output, workerid, calc.getErrorID(), i);
-					
+						
 					//initialisations for next calculation (JSON-Output and calculator ErrorID)
 					calc.initializeJSON();
 					calc.initErrorID();
