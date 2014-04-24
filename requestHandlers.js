@@ -77,7 +77,7 @@ function finished(response, request) {
     
     var queryData = url.parse(request.url, true).query;
     analyser.notifyStatusChange(queryData.messageID,"evaluated");
-      analyser.extendWithAnalyserResult(queryData.messageID,body);
+    analyser.extendWithAnalyserResult(queryData.messageID,body);
 
     body = eval("("+body+")");
     ruleAutomata.evaluateAnalyserOutput(body, queryData.messageID, callbackWantedPoster, callbackFaceCreator);

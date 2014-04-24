@@ -49,8 +49,6 @@ function sendWorklist(response, request)
 {
     var queryString = url.parse(request.url, true).query;
 
-    console.log('send Worklist to : '+util.inspect(queryString));
-
     if (typeof queryString.workerid != 'undefined' && queryString.workerid === analyserKey)
     {
         // output looks like
@@ -84,7 +82,7 @@ function startAnalyserIfNecessary()
         analyserKey = generateKey();
         // var command = ("java -jar " + __dirname + '\\text_analysis\\Code\\Source.jar' + ' ' + analyserKey + ' -'); // windows
         var command = ("java -jar " + __dirname + '/text_analysis/Code/Source.jar' + ' ' + analyserKey + ' -localhost'); // unix
-        console.log("try to start analyser with command :" + command);
+        console.log("try to start analyser");
 
         exec(command,onCloseAnalyser);
 	    isAnalyserOnline =true;
@@ -161,7 +159,6 @@ function extendWorklistItemWithObjFace(id, objFace)
 function extendWorklistItemWithAnalyserResult(id, analyserResult)
 {
     var worklistItem = getWorklistItemByID(id);
-    console.log('analyserResult :')
     worklistItem.analyserResult = analyserResult;
 }
 

@@ -76,7 +76,7 @@ public class HttpConnection
 			errorID = "02";
 			return files;
 		}	
-		
+
 		if(input!=null)
 		{
 			if(input.equals("kill"))

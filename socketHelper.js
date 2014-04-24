@@ -21,14 +21,6 @@ function handleUploadText(socket){
         var pkeyAndID = {};
         pkeyAndID.id = worklistItem.id;
         pkeyAndID.pkey = worklistItem.publicKey;
-        console.log('<----------------------------------->')
-        console.log('hallo : '+requestID);
-        console.log(util.inspect(pkeyAndID));
-        console.log(util.inspect(worklistItem));
-        console.log('<----------------------------------->')
-        console.log('<----------------------------------->')
-        console.log('<----------------------------------->')
-
 
 
         cb(pkeyAndID);

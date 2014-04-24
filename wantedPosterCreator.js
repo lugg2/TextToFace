@@ -80,8 +80,7 @@ function createWantedPoster( id,mData, callback )
 		}
 	}
 	wantedPoster +='</p>';
-	console.log(wantedPoster);
-	
+
 	fs.writeFile(__dirname + '/wantedPoster/wantedPoster' + id, wantedPoster, function(err) {
 		callback(err);
 	}); 
