@@ -25,7 +25,9 @@ $(function()
     function submitText(e)
     {
         e.preventDefault();
-        var nText = $('#textInput').val();
+        var nText = ' ';
+        nText += $('#textInput').val();
+
         socket.emit('newText', nText, function (data) {
             if (data) {
                 console.log(data.id);
