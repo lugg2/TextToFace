@@ -1,9 +1,29 @@
-$(function() {
+
+
+$(function()
+{
+    $(document).ready(function() {
+        $("#submitButton").click(function(event){
+            submitText(event)
+        });
+    });
+
     var id;
     var pkey;
 
     var socket = io.connect();
     $('#text-form').submit(function (e) {
+        submitText(e);
+    });
+/*
+    $('#submitButton').click(function( event ) {
+        submitText(event);
+    });
+*/
+
+
+    function submitText(e)
+    {
         e.preventDefault();
         var nText = $('#textInput').val();
         socket.emit('newText', nText, function (data) {
@@ -14,9 +34,10 @@ $(function() {
                 pkey = data.pkey;
             }
         });
+    }
 
 
-    });
+
     socket.on('progress', function (data) {
         var text = '';
         var redirect = true;
