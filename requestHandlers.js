@@ -3,13 +3,13 @@ var querystring = require("querystring");
 var fs = require("fs");
 var util = require("util");
 var url = require("url");
-var analyser = require("./analyserHandler");
-var templateCreator = require("./templateCreator.js");
 var invoke = require('invoke');
 
+var analyser = require("./analyserHandler");
 var ruleAutomata = require("./RulesHelper.js");
 var wantedPoster = require("./wantedPosterCreator.js");
 var faceCreator = require("./faceCreator.js");
+var templateCreator = require("./templateCreator.js");
 
 // helper functions
 function write502(response)

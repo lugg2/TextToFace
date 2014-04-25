@@ -92,6 +92,7 @@ function faceCreator(objFace, callbackFinish){
 			quality : 100
 		});
 		callbackFinish(objFace.id);
+        objFace = null;
 	})
 }
 exports.createFaceParts = faceCreator;
