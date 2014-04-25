@@ -95,7 +95,7 @@ var body11 = eval("("+'{"sentences": 8, "average_sentence_length": 152, "grammar
 var body12 = eval("("+'{"sentences": 6, "average_sentence_length": 104, "grammar_errors": 1, "vocals": 195, "r-s": 49, "i-s_and_l-s": 57, "words": 83, "nouns": 14, "fem_nouns": 6, "male_nouns": 6, "neutr_nouns": 2, "verbs": 8, "adj": 1, "adv": 6, "kon": 3, "neg": 0, "prep": 7, "article": 16, "fem_article": 8, "male_article": 5, "neutr_article": 3, "unknown_words": 21, "e-s": 86, "spaces": 82, "average_word_length": 6, "numbers": 0, "physics": 0, "medicin": 0, "botanic": 0, "zoology": 0, "anatomy": 0, "computer": 0, "biology": 0, "music": 0, "sport": 1, "technic": 0, "chemistry": 0, "jura": 0, "astronomy": 0, "electricity": 0, "religion": 0, "math": 0, "military": 0, "economy": 0, "auto": 0, "gastronomy": 0, "shipping": 0, "biochemistry": 0, "history": 0, "politic": 0, "geology": 0, "railway": 0, "language": 0, "art": 0, "geography": 0, "air": 0, "psychology": 0, "terrorism": 0, "emotions": 0, "color": 0}'+")");
 
 
-ruleAutomata(body10, 1);
+ruleAutomata(body12, 1);
 */
 function ruleAutomata (textA, id, callbackMetaData, callbackFullData){
 	//Aufbau der Regeln --> Ergebnis ist der Wert, mit dem in der Datenbank gesucht werden soll
@@ -203,25 +203,24 @@ function ruleAutomata (textA, id, callbackMetaData, callbackFullData){
 	}).and( function (data, callback) {
 		//Rules : hair
 		//volume:
-		var hairVolume = pRule( (textA["average_word_length"]) , 4, 8, 'asc' );
+		var hairVolume = pRule( (textA["average_word_length"]) , 2, 8, 'asc' );
 		console.log("hair_volume:"+textA["average_word_length"]);
 		console.log(hairVolume);
 		
 		//length:
 		var hairlength;
-		var b = pCalculator(textA["adj"], textA["words"]);
 		if (mData.gender === 3){
 			//0.2 is womenfactor
-			hairlength = pRule( pCalculator( (b + 0.2), textA["words"] ) , 0.20, 0.35, 'asc' );
-			console.log("hairlength"+ (b + 0.2) );
+			hairlength = pRule( (pCalculator( (textA["adj"]), textA["words"] )+0.2) , 0.0010, 0.1, 'asc' );
+			console.log("hairlength"+ (pCalculator( (textA["adj"]), textA["words"] ) + 0.2) );
 			console.log(hairlength);
 		}else {
-			hairlength = pRule( pCalculator( b, textA["words"] ) , 0.20, 0.35, 'asc' );
-			console.log("hairlength"+b);
+			hairlength = pRule( pCalculator(textA["adj"] , textA["words"] ) , 0.0010, 0.1, 'asc' );
+			console.log("hairlength"+ (pCalculator( (textA["adj"]), textA["words"] )+textA["adj"]) );
 			console.log(hairlength);
 		}
 		
-		if(hairVolume===1 && hairlength===1)
+		if(hairVolume===1 && hairlength===1 && mData.gender === 1)
 		{
 			oface.hair2 = null;
 			callback();
