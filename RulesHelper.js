@@ -216,7 +216,7 @@ function ruleAutomata (textA, id, callbackMetaData, callbackFullData){
 			console.log(hairlength);
 		}else {
 			hairlength = pRule( pCalculator(textA["adj"] , textA["words"] ) , 0.0010, 0.1, 'asc' );
-			console.log("hairlength"+ (pCalculator( (textA["adj"]), textA["words"] )+textA["adj"]) );
+			console.log("hairlength"+ pCalculator( (textA["adj"]), textA["words"] ) );
 			console.log(hairlength);
 		}
 		
@@ -228,7 +228,8 @@ function ruleAutomata (textA, id, callbackMetaData, callbackFullData){
 			var queryArray = addToQueryArray("volumen", hairVolume, queryArray);
 			queryArray = addToQueryArray("length", hairlength, queryArray);
 			//gender:
-			queryArray = addToQueryArray("gender", mData.gender, queryArray);
+			//queryArray = addToQueryArray("gender", mData.gender, queryArray);
+			//TODO gender is wrong
 			facePartsDB.queryDB("hair", queryArray, function(name)
 			{
             	oface.hair2 = name;
