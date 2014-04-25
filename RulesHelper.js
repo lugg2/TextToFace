@@ -226,7 +226,7 @@ function ruleAutomata (textA, id, callbackMetaData, callbackFullData){
 			oface.hair2 = null;
 			callback();
 		}else{
-			var queryArray = addToQueryArray("volumen", hairVolume);
+			var queryArray = addToQueryArray("volumen", hairVolume, queryArray);
 			queryArray = addToQueryArray("length", hairlength, queryArray);
 			//gender:
 			queryArray = addToQueryArray("gender", mData.gender, queryArray);
