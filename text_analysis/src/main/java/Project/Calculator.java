@@ -142,30 +142,24 @@ public class Calculator
 	
 	public String doCalculations(String enteredText)
 	{	
-		//-----------------------Thesaurus-DB access---------------------------
-		if(!db.isError())
+		List<String> words = new ArrayList<String>();
+		//count all words
+		p = Pattern.compile("[a-zA-ZäüöÄÜÖß-]+");
+		m = p.matcher(enteredText);
+		while (m.find()) 
 		{
-			List<String> words = new ArrayList<String>();
-			//count all words
-			p = Pattern.compile("[a-zA-ZäüöÄÜÖß-]+");
-			m = p.matcher(enteredText);
-			while (m.find()) 
-			{
-				category_counter = db.checkToken(category_counter, m.group());			
-				words.add(m.group());
-			}
-			
-			for(int l=0; l<words.size(); l++)
-			{
-				counter[6]++;												//numb_words				
-				counter[24] += words.get(l).length();
-			}
-			if(counter[6]!=0) counter[24] /= counter[6];					//average_word_length
-		}		
-		if(db.isError()) errorID = db.getErrorID();
+			words.add(m.group());
+		}
 		
-		//check if there have been words included
-		if(counter[6]!=0)
+		for(int l=0; l<words.size(); l++)
+		{
+			counter[6]++;												//numb_words				
+			counter[24] += words.get(l).length();
+		}
+		if(counter[6]!=0) counter[24] /= counter[6];					//average_word_length
+		
+		//check if there have been words included and there was no db access error
+		if(counter[6]!=0 && !db.isError())
 		{
 			//------------------------languageTool access---------------------------
 			
@@ -197,10 +191,11 @@ public class Calculator
 				{
 					AnalyzedToken tok = tokens[i].getAnalyzedToken(0);
 					if(!tok.hasNoTag())
-					{
-						//System.out.println("TAG: " + tok.getPOSTag().toString();
-						if(tok.getPOSTag().contains("SUB"))
+					{						
+						if(tok.getPOSTag().startsWith("SUB"))
 						{
+							//-----------------------Thesaurus-DB access---------------------------
+							category_counter = db.checkToken(category_counter, tok.getTokenInflected());
 							counter[7]++;									//numb_noun
 						
 							if(tok.getPOSTag().contains("FEM"))
@@ -213,14 +208,34 @@ public class Calculator
 								}
 								else counter[10]++;							//numb_neutr_noun
 						}
-						if (tok.getPOSTag().contains("VER")) counter[11]++;		//numb_ver	
-						if (tok.getPOSTag().contains("ADJ")) counter[12]++;		//numb_adj
-						if (tok.getPOSTag().contains("ADV")) counter[13]++;		//numb_adv
-						if (tok.getPOSTag().contains("KON")) counter[14]++;		//numb_kon
-						if (tok.getPOSTag().contains("NEG")) counter[15]++;		//numb_neg
-						if (tok.getPOSTag().contains("PRP")) counter[16]++;		//numb_prp
 						
-						if (tok.getPOSTag().contains("ART") && !tok.getPOSTag().contains("START"))
+						if (tok.getPOSTag().startsWith("VER")){
+							//-----------------------Thesaurus-DB access---------------------------
+							category_counter = db.checkToken(category_counter, tok.getTokenInflected());
+							counter[11]++;									//numb_ver	
+						}
+						
+						if (tok.getPOSTag().startsWith("ADJ")){
+							//-----------------------Thesaurus-DB access---------------------------
+							category_counter = db.checkToken(category_counter, tok.getTokenInflected());
+							counter[12]++;									//numb_adj
+						}
+						
+						if (tok.getPOSTag().startsWith("ADV")){
+							//-----------------------Thesaurus-DB access---------------------------
+							category_counter = db.checkToken(category_counter, tok.getTokenInflected());
+							counter[13]++;									//numb_adv
+						}
+						
+						if (tok.getPOSTag().startsWith("NEG")){
+							//-----------------------Thesaurus-DB access---------------------------
+							category_counter = db.checkToken(category_counter, tok.getTokenInflected());
+							counter[15]++;									//numb_neg
+						}
+
+						if (tok.getPOSTag().startsWith("KON")) counter[14]++;		//numb_kon
+						if (tok.getPOSTag().startsWith("PRP")) counter[16]++;		//numb_prp
+						if (tok.getPOSTag().startsWith("ART")) // && !tok.getPOSTag().contains("START"))
 						{
 							counter[17]++;										//numb_art
 
@@ -242,6 +257,8 @@ public class Calculator
 				return "";
 			}
 			
+			if(db.isError()) errorID = db.getErrorID();
+
 			//--------------------------------regular expressions---------------------------------
 			//count all VOCALS
 			counter[3] = regExp("(a|e|i|o|u|A|E|I|O|U)", enteredText);			//numb_vocals
