@@ -102,8 +102,10 @@ function callbackWantedPoster(id, mData){
 
 }
 function callbackFaceCreator(objFace){
-  faceCreator.createFaceParts(objFace,function() {
-      analyser.extendWithObjFace(objFace.id, objFace);
+    var temp = util.inspect(objFace).toString();
+    analyser.extendWithObjFace(objFace.id, temp);
+    faceCreator.createFaceParts(objFace,function() {
+
       analyser.notifyStatusChange(objFace.id,'createdPictue')
   });
 }
@@ -120,11 +122,11 @@ function debug(response, request)
     var worklistItem = analyser.getWorklistItemByID(queryData.id);
 
     response.writeHead(200, {'content-type': 'text/plain'});
-    response.write('<---------- mData -----------> \n');
+    response.write('\n \n<---------- mData -----------> \n');
     response.write(util.inspect(worklistItem.mData));
-    response.write('<---------- objFace --------->\n');
+    response.write('\n \n<---------- objFace --------->\n');
     response.write(util.inspect(worklistItem.objFace));
-    response.write('<---------- analyserOutput -->\n');
+    response.write('\n \n <---------- analyserOutput -->\n');
     response.write(util.inspect(worklistItem.analyserResult));
     response.end();
 
