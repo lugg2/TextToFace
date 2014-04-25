@@ -4,6 +4,7 @@ $(function()
 {
     $(document).ready(function() {
         $("#submitButton").click(function(event){
+            console.log('click');
             submitText(event)
         });
     });

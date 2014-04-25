@@ -42,10 +42,6 @@ function loadAndServeFile(exists, absPath, response)
                 {
                     cache[absPath] = data;
                 }
-                else
-                {
-                    console.log(absPath + 'not added');
-                }
 				sendFile(response,absPath,data);
 			}
 		});
