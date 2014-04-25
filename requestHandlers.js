@@ -73,11 +73,8 @@ function finished(response, request) {
   } 
   });
   request.on('end', function () {
-    var query   = url.parse(request.url).query;
-    
     var queryData = url.parse(request.url, true).query;
     analyser.notifyStatusChange(queryData.messageID,"evaluated");
-    analyser.extendWithAnalyserResult(queryData.messageID,body);
 
     body = eval("("+body+")");
     ruleAutomata.evaluateAnalyserOutput(body, queryData.messageID, callbackWantedPoster, callbackFaceCreator);
@@ -96,42 +93,17 @@ function finished(response, request) {
 
 function callbackWantedPoster(id, mData){
   wantedPoster.createWantedPoster( id, mData, function() {
-      analyser.extendWithMData(id,mData);
       analyser.notifyStatusChange(id,'createdWantedPoster');
   });
 
 }
 function callbackFaceCreator(objFace){
-  faceCreator.createFaceParts(objFace,function() {
-      analyser.extendWithObjFace(objFace.id, objFace);
+    faceCreator.createFaceParts(objFace,function() {
       analyser.notifyStatusChange(objFace.id,'createdPictue')
   });
-}
-
-function debug(response, request)
-{
-    var queryData = url.parse(request.url, true).query;
-
-    if ( typeof queryData.id == "undefined" || typeof  queryData.pkey == "undefined" || analyser.isPublicKeyValid(queryData.id,queryData.pkey) == false )
-    {
-        write502(response);
-        return;
-    }
-    var worklistItem = analyser.getWorklistItemByID(queryData.id);
-
-    response.writeHead(200, {'content-type': 'text/plain'});
-    response.write('<---------- mData -----------> \n');
-    response.write(util.inspect(worklistItem.mData));
-    response.write('<---------- objFace --------->\n');
-    response.write(util.inspect(worklistItem.objFace));
-    response.write('<---------- analyserOutput -->\n');
-    response.write(util.inspect(worklistItem.analyserResult));
-    response.end();
-
 }
 
 exports.finished = finished;
 exports.getWorklist = getWorklist;
 exports.upload = upload;
 exports.result = result;
-exports.debug = debug;

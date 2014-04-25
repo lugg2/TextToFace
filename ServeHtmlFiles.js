@@ -2,7 +2,7 @@ var mime 	= require('mime');
 var fs 		= require('fs');
 var path 	= require('path');
 var templateCreator = require("./templateCreator.js")
-var cache 	= new Array	();	// used to cache html, css and js files 
+var cache 	= [];	// used to cache html, css and js files
   
   
 
@@ -37,7 +37,11 @@ function loadAndServeFile(exists, absPath, response)
 			}
 			else
 			{
-				cache[absPath] = data;
+                // don't cache pictures because they waste ram space
+                if(absPath.indexOf('pictures')==-1 )
+                {
+                    cache[absPath] = data;
+                }
 				sendFile(response,absPath,data);
 			}
 		});

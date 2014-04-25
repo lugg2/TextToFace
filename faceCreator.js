@@ -89,7 +89,7 @@ function faceCreator(objFace, callbackFinish){
 		//the resulting image is saved and named after the id.
 		//existing files will be overwritten but the id should be unique so that a new file is created
 		face.save(__dirname+'/website/pictures/face' + objFace.id+".png", {
-			quality : 50
+			quality : 100
 		});
 		callbackFinish(objFace.id);
 	})

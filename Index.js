@@ -9,6 +9,5 @@ handle["/upload"] 		= requestHandlers.upload;
 handle["/getworklist"] 	= requestHandlers.getWorklist;
 handle["/finished"] 	= requestHandlers.finished;
 handle["/result"]       = requestHandlers.result;
-handle["/debug"]        = requestHandlers.debug;
 
 server.start(router.route, handle);

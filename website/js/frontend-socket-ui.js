@@ -1,11 +1,34 @@
-$(function() {
+
+
+$(function()
+{
+    $(document).ready(function() {
+        $("#submitButton").click(function(event){
+            console.log('click');
+            submitText(event)
+        });
+    });
+
     var id;
     var pkey;
 
     var socket = io.connect();
     $('#text-form').submit(function (e) {
+        submitText(e);
+    });
+/*
+    $('#submitButton').click(function( event ) {
+        submitText(event);
+    });
+*/
+
+
+    function submitText(e)
+    {
         e.preventDefault();
-        var nText = $('#textInput').val();
+        var nText = ' ';
+        nText += $('#textInput').val();
+
         socket.emit('newText', nText, function (data) {
             if (data) {
                 console.log(data.id);
@@ -14,9 +37,10 @@ $(function() {
                 pkey = data.pkey;
             }
         });
+    }
 
 
-    });
+
     socket.on('progress', function (data) {
         var text = '';
         var redirect = true;

@@ -45,15 +45,17 @@ CREATE TABLE IF NOT EXISTS hair (
   `picname` varchar(30),
   `baldhead` int(11),
   `gender` varchar(30),
-  `volumen` int(30)
+  `volumen` int(30),
+  `length` int(30)
 );
+--length 1: kurz; 3: lang
 
 INSERT INTO hair VALUES 
-(1, '/man/hair/hair1', 2, 'man', 3), 
-(2, '/man/hair/hair2', 2, 'man', 2), 
-(3, '/man/hair/hair3', 2, 'man', 3),
-(4, '/woman/hair/hair1', 2, 'woman', 1), 
-(5, '/woman/hair/hair2', 2, 'woman', 2);
+(1, '/man/hair/hair1', 2, 'man', 3, 1), 
+(2, '/man/hair/hair2', 2, 'man', 2, 1), 
+(3, '/man/hair/hair3', 2, 'man', 3, 1),
+(4, '/woman/hair/hair1', 2, 'woman', 1, 1), 
+(5, '/woman/hair/hair2', 2, 'woman', 2, 1);
 
 CREATE TABLE IF NOT EXISTS head (
   `id` int(30),
@@ -67,8 +69,7 @@ CREATE TABLE IF NOT EXISTS head (
 
 INSERT INTO head VALUES 
 (1, '/noGender/head1', 2, 3, 2), 
-(2, '/noGender/head2', 1, 1, 1), 
-(3, '/noGender/head3', 3, 2, 3), 
+(2, '/noGender/head2', 1, 1, 1),
 (4, '/noGender/head4', 1, 1, 2),
 (5, '/noGender/head5', 2, 2, 1);
 
@@ -86,7 +87,8 @@ INSERT INTO mouth VALUES
 (2, '/man/mouth/mouth2', 1, 1, 'man'), 
 (3, '/man/mouth/mouth3', 1, 2, 'man'),
 (4, '/man/mouth/mouth4', 2, 1, 'man'), 
-(5, '/woman/mouth/mouth1', 1, 3, 'woman'), (6, '/woman/mouth/mouth2', 2, 2, 'woman');
+(5, '/woman/mouth/mouth1', 1, 3, 'woman'),
+(6, '/woman/mouth/mouth2', 2, 2, 'woman');
 
 CREATE TABLE IF NOT EXISTS nose (
   `id` int(30),
