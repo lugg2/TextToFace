@@ -103,7 +103,6 @@ function callbackWantedPoster(id, mData){
 }
 function callbackFaceCreator(objFace){
     var temp = util.inspect(objFace).toString();
-    analyser.extendWithObjFace(objFace.id, temp);
     faceCreator.createFaceParts(objFace,function() {
 
       analyser.notifyStatusChange(objFace.id,'createdPictue')
@@ -125,7 +124,7 @@ function debug(response, request)
     response.write('\n \n<---------- mData -----------> \n');
     response.write(util.inspect(worklistItem.mData));
     response.write('\n \n<---------- objFace --------->\n');
-    response.write(util.inspect(worklistItem.objFace));
+    response.write('no longer available');
     response.write('\n \n <---------- analyserOutput -->\n');
     response.write(util.inspect(worklistItem.analyserResult));
     response.end();

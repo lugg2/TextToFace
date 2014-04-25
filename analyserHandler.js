@@ -150,12 +150,6 @@ function extendWorklistItemWithMData(id, mData)
     worklistItem.mData = mData;
 }
 
-function extendWorklistItemWithObjFace(id, objFace)
-{
-    var worklistItem = getWorklistItemByID(id);
-    worklistItem.objFace = objFace;
-}
-
 function extendWorklistItemWithAnalyserResult(id, analyserResult)
 {
     var worklistItem = getWorklistItemByID(id);
@@ -183,5 +177,5 @@ exports.getWorklistItemByID = getWorklistItemByID;
 exports.isPublicKeyValid = isPublicKeyValid;
 // debug functions
 exports.extendWithMData = extendWorklistItemWithMData;
-exports.extendWithObjFace = extendWorklistItemWithObjFace;
+
 exports.extendWithAnalyserResult = extendWorklistItemWithAnalyserResult;
