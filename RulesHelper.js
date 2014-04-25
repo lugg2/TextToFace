@@ -238,28 +238,6 @@ function ruleAutomata (textA, id, callbackMetaData, callbackFullData){
 		}
 
 	}).and( function (data, callback) {
-		//Rules: ear
-		//height:
-		var earHeight = pRule( pCalculator( textA["adv"], textA["words"] ) , 0.20, 0.35, 'asc' );
-		var queryArray = addToQueryArray("height", earHeight);
-		//width:
-		var earWidth = pRule( pCalculator( (textA["air"]+textA["art"]+textA["unknown_words"]), textA["words"] ), 0.20, 0.35, 'asc' );
-		queryArray = addToQueryArray("width", earWidth, queryArray);
-		//jewelry:
-		var earJewelry;
-		if(mData.pirat === 1){
-			earJewelry = 3;
-		}else{
-			earJewelry = 1;
-		}
-		queryArray = addToQueryArray("decoration", earJewelry, queryArray);
-
-        facePartsDB.queryDB("ear", queryArray, function(name)
-		{
-            oface.ear = name;
-            callback(); 
-		});
-	}).and( function (data, callback) {
 		//Rules: eye
 		//length:
 		var eyeLength = pRule( pCalculator(textA["i-s_and_l-s"], textA["r-s"]), 2.0, 3.0, 'asc' );
