@@ -8,8 +8,8 @@ var invoke = require("invoke");
 var images = require("node-images");
 
 //constants depending on the x and y scale of the face part images
-var imageWidth = 1754;
-var imageHeight = 2480;
+var imageWidth = 439;
+var imageHeight = 620;
 
 
 
@@ -59,15 +59,9 @@ function faceCreator(objFace, callbackFinish){
 		callback();
 	}).end( objFace, function (data, callback) {
 
-		//this end segment runns sequencial because the created Face needs to be composed in the right order.
-		try{
-			//TODO Pfad Hintergrundweiß ändern
-			var face = images( __dirname + '/TextToFaceBilder/' + "Hintergrundweiß.png");	//load backgroundimage from file
-		}
-		catch(err){
-			//In case of not loading the background an own background is created with imageWidth and imageHeight. This new background has the color white.
-			var face = images(imageWidth, imageHeight).fill(0xff, 0xff, 0xff, 1.0);
-		}
+
+		var face = images(imageWidth, imageHeight).fill(0xff, 0xff, 0xff, 1.0);
+
 		//Loops through all key's of the object
 		for(var key in objFace) {
 			if(objFace.hasOwnProperty(key)){
