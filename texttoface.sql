@@ -45,15 +45,17 @@ CREATE TABLE IF NOT EXISTS hair (
   `picname` varchar(30),
   `baldhead` int(11),
   `gender` varchar(30),
-  `volumen` int(30)
+  `volumen` int(30),
+  `length` int(30)
 );
+--length 1: kurz; 3: lang
 
 INSERT INTO hair VALUES 
-(1, '/man/hair/hair1', 2, 'man', 3), 
-(2, '/man/hair/hair2', 2, 'man', 2), 
-(3, '/man/hair/hair3', 2, 'man', 3),
-(4, '/woman/hair/hair1', 2, 'woman', 1), 
-(5, '/woman/hair/hair2', 2, 'woman', 2);
+(1, '/man/hair/hair1', 2, 'man', 3, 1), 
+(2, '/man/hair/hair2', 2, 'man', 2, 1), 
+(3, '/man/hair/hair3', 2, 'man', 3, 1),
+(4, '/woman/hair/hair1', 2, 'woman', 1, 1), 
+(5, '/woman/hair/hair2', 2, 'woman', 2, 1);
 
 CREATE TABLE IF NOT EXISTS head (
   `id` int(30),
