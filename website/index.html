@@ -5,18 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="A layout example with a side menu that hides on mobile, just like the Pure website.">
 
-    <title>TextToFace</title>
-
-    
-
-
-
-
-
+    <title>TextToFace</title> 
 
 <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.4.2/pure.css">
-
-
 
   
     <!--[if lte IE 8]>
@@ -25,24 +16,10 @@
     <!--[if gt IE 8]><!-->
         <link rel="stylesheet" href="css/layouts/side-menu.css">
     <!--<![endif]-->
-  
-
-
-
-
-    
-
-    
-
     
 
 </head>
 <body>
-
-
-
-
-
 
 <div id="layout">
     <!-- Menu toggle -->
@@ -81,7 +58,7 @@
             <h2 class="content-subhead" style ="text-align: center">Bitte hier den Text eingeben:</h2>
             <div class="container" id="analysed-text-container" align="center">
                 <form id="text-form">
-                    <input type="text" id="textInput">
+                    <textarea id="textInput"></textarea>
 
                 </form>
                 <input type="submit" value="Text2Face" id="submitButton">
@@ -104,8 +81,6 @@
 <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script type="text/javascript" src="/socket.io/socket.io.js"></script>
 <script type="text/javascript" src="/js/frontend-socket-ui.js"></script>
-
-
 
 <script src="js/ui.js"></script>
 
