@@ -57,7 +57,7 @@ public class HttpConnection
 
 	//GET MessageParameter from website (LISTE)
 	public List<String> getContent(String workerid)
-	{	
+	{
 		HttpURLConnection connection = null;
 		try {
 			URL urlConnect = new URL(adress + "?workerid=" + workerid);						

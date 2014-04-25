@@ -17,7 +17,7 @@ public class Reader {
 		String ausgabe = "";
 		
 		//search for message in this path
-			//for Server 
+			//for Server  		
 		File file = new File(path + "/msg/" + name);
 			//for Windows (Testing):		File file = new File("msg/" + name);
 	

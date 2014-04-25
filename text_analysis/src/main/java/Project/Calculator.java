@@ -89,7 +89,7 @@ public class Calculator
 		category_title[32] = "emotions";
 		category_title[33] = "color";
 
-		counter_title = new String[26];
+		counter_title = new String[27];
 		counter_title[0] = "sentences";
 		counter_title[1] = "average_sentence_length";
 		counter_title[2] = "grammar_errors";
@@ -116,6 +116,7 @@ public class Calculator
 		counter_title[23] = "spaces";
 		counter_title[24] = "average_word_length";
 		counter_title[25] = "numbers";
+		counter_title[26] = "grammars";
 		
 		category_counter  = new int[category_title.length];
 		counter  = new int[counter_title.length];
@@ -274,7 +275,9 @@ public class Calculator
 		counter[23] = regExp(" ", enteredText);									//numb_spaces		
 		//count all numbers
 		counter[25] = regExp("(0|1|2|3|4|5|6|7|8|9)+", enteredText);			//numb_numbers		
-								
+		//count all grammar symbols
+		counter[26] = regExp("(,|\\.|;|\\?|!|\\/|&|%|<|>)+", enteredText);		//numb_grammars		
+																
 		//give stored information
 		for (int k=0; k<counter.length; k++) str[k] = ('"' + counter_title[k] + '"' + ": " + counter[k] + ", ");			
 		for (int i=0; i<category_counter.length-1; i++) str_cat[i] = ('"' + category_title[i] + '"' + ": " + category_counter[i] + ", ");			
