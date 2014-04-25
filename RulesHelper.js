@@ -58,11 +58,11 @@ function pRule(p, min, med, sortDirection) {
 		return 3;
 	}
 	else{
-		if(p >= min)
-			return 1;
-		if(p >= med)
+		if(p <= min)
+			return 3;
+		if(p <= med)
 			return 2;
-		return 3;
+		return 1;
 	}
 }	
 
@@ -87,7 +87,15 @@ var body3 = eval("("+'{"sentences": 7, "average_sentence_length": 80, "grammar_e
 var body4 = eval("("+'{"sentences": 13, "average_sentence_length": 87, "grammar_errors": 4, "vocals": 349, "r-s": 61, "i-s_and_l-s": 113, "words": 166, "nouns": 40, "fem_nouns": 18, "male_nouns": 19, "neutr_nouns": 3, "verbs": 33, "adj": 6, "adv": 18, "kon": 6, "neg": 0, "prep": 10, "article": 17, "fem_article": 13, "male_article": 0, "neutr_article": 4, "unknown_words": 13, "e-s": 149, "spaces": 167, "average_word_length": 5, "physics": 0, "medicin": 2, "botanic": 0, "zoology": 0, "anatomy": 0, "computer": 0, "biology": 0, "music": 2, "sport": 0, "technic": 0, "chemistry": 0, "jura": 0, "astronomy": 0, "electricity": 0, "religion": 0, "math": 0, "military": 0, "economy": 0, "auto": 0, "gastronomy": 0, "shipping": 0, "biochemistry": 0, "history": 0, "politic": 0, "geology": 0, "railway": 1, "language": 0, "art": 0, "geography": 0, "air": 0, "psychology": 0, "terrorism": 0, "emotions": 3, "color": 0}'+")");
 var body5 = eval("("+'{"sentences": 7, "average_sentence_length": 156, "grammar_errors": 12, "vocals": 310, "r-s": 49, "i-s_and_l-s": 102, "words": 164, "nouns": 22, "fem_nouns": 11, "male_nouns": 4, "neutr_nouns": 7, "verbs": 29, "adj": 17, "adv": 28, "kon": 8, "neg": 1, "prep": 12, "article": 11, "fem_article": 8, "male_article": 1, "neutr_article": 2, "unknown_words": 17, "e-s": 131, "spaces": 164, "average_word_length": 5, "physics": 0, "medicin": 1, "botanic": 0, "zoology": 0, "anatomy": 1, "computer": 2, "biology": 0, "music": 1, "sport": 0, "technic": 0, "chemistry": 0, "jura": 0, "astronomy": 0, "electricity": 0, "religion": 0, "math": 0, "military": 0, "economy": 0, "auto": 0, "gastronomy": 0, "shipping": 0, "biochemistry": 0, "history": 0, "politic": 0, "geology": 0, "railway": 0, "language": 1, "art": 0, "geography": 0, "air": 0, "psychology": 0, "terrorism": 0, "emotions": 2, "color": 0}'+")");
 var body6 = eval("("+'{"sentences": 2, "average_sentence_length": 112, "grammar_errors": 0, "vocals": 73, "r-s": 13, "i-s_and_l-s": 26, "words": 34, "nouns": 6, "fem_nouns": 1, "male_nouns": 4, "neutr_nouns": 1, "verbs": 10, "adj": 3, "adv": 6, "kon": 0, "neg": 0, "prep": 1, "article": 4, "fem_article": 3, "male_article": 1, "neutr_article": 0, "unknown_words": 1, "e-s": 35, "spaces": 33, "average_word_length": 5, "physics": 0, "medicin": 0, "botanic": 0, "zoology": 0, "anatomy": 0, "computer": 1, "biology": 0, "music": 0, "sport": 0, "technic": 0, "chemistry": 0, "jura": 0, "astronomy": 0, "electricity": 0, "religion": 0, "math": 0, "military": 0, "economy": 0, "auto": 0, "gastronomy": 0, "shipping": 0, "biochemistry": 0, "history": 0, "politic": 0, "geology": 0, "railway": 0, "language": 0, "art": 0, "geography": 0, "air": 0, "psychology": 0, "terrorism": 0, "emotions": 0, "color": 0}'+")");
-ruleAutomata(body6, 1);
+var body7 = eval("("+'{"sentences": 3, "average_sentence_length": 66, "grammar_errors": 1, "vocals": 63, "r-s": 13, "i-s_and_l-s": 25, "words": 33, "nouns": 7, "fem_nouns": 2, "male_nouns": 2, "neutr_nouns": 3, "verbs": 8, "adj": 0, "adv": 3, "kon": 0, "neg": 1, "prep": 3, "article": 1, "fem_article": 1, "male_article": 0, "neutr_article": 0, "unknown_words": 1, "e-s": 32, "spaces": 34, "average_word_length": 4, "numbers": 0, "physics": 0, "medicin": 0, "botanic": 0, "zoology": 0, "anatomy": 0, "computer": 0, "biology": 0, "music": 0, "sport": 0, "technic": 0, "chemistry": 0, "jura": 0, "astronomy": 0, "electricity": 0, "religion": 0, "math": 0, "military": 0, "economy": 0, "auto": 0, "gastronomy": 0, "shipping": 0, "biochemistry": 0, "history": 0, "politic": 0, "geology": 0, "railway": 0, "language": 0, "art": 0, "geography": 0, "air": 0, "psychology": 0, "terrorism": 0, "emotions": 0, "color": 0}'+")");
+var body8 = eval("("+'{"sentences": 5, "average_sentence_length": 67, "grammar_errors": 1, "vocals": 109, "r-s": 23, "i-s_and_l-s": 37, "words": 51, "nouns": 10, "fem_nouns": 7, "male_nouns": 3, "neutr_nouns": 0, "verbs": 9, "adj": 0, "adv": 4, "kon": 2, "neg": 1, "prep": 4, "article": 6, "fem_article": 4, "male_article": 2, "neutr_article": 0, "unknown_words": 10, "e-s": 54, "spaces": 54, "average_word_length": 5, "numbers": 3, "physics": 0, "medicin": 0, "botanic": 0, "zoology": 0, "anatomy": 0, "computer": 0, "biology": 0, "music": 0, "sport": 0, "technic": 0, "chemistry": 0, "jura": 0, "astronomy": 0, "electricity": 0, "religion": 0, "math": 0, "military": 0, "economy": 1, "auto": 0, "gastronomy": 0, "shipping": 1, "biochemistry": 0, "history": 0, "politic": 0, "geology": 0, "railway": 0, "language": 0, "art": 0, "geography": 0, "air": 0, "psychology": 0, "terrorism": 1, "emotions": 1, "color": 0}'+")");
+var body9 = eval("("+'{"sentences": 2, "average_sentence_length": 183, "grammar_errors": 1, "vocals": 120, "r-s": 28, "i-s_and_l-s": 46, "words": 58, "nouns": 0, "fem_nouns": 0, "male_nouns": 0, "neutr_nouns": 0, "verbs": 0, "adj": 0, "adv": 0, "kon": 0, "neg": 0, "prep": 0, "article": 0, "fem_article": 0, "male_article": 0, "neutr_article": 0, "unknown_words": 52, "e-s": 52, "spaces": 57, "average_word_length": 5, "numbers": 1, "physics": 0, "medicin": 0, "botanic": 0, "zoology": 0, "anatomy": 0, "computer": 0, "biology": 0, "music": 0, "sport": 0, "technic": 0, "chemistry": 0, "jura": 0, "astronomy": 0, "electricity": 0, "religion": 1, "math": 0, "military": 0, "economy": 1, "auto": 0, "gastronomy": 0, "shipping": 0, "biochemistry": 0, "history": 0, "politic": 0, "geology": 0, "railway": 0, "language": 0, "art": 0, "geography": 0, "air": 0, "psychology": 0, "terrorism": 0, "emotions": 0, "color": 0}'+")");
+var body10 = eval("("+'{"sentences": 1, "average_sentence_length": 315, "grammar_errors": 2, "vocals": 98, "r-s": 14, "i-s_and_l-s": 31, "words": 53, "nouns": 5, "fem_nouns": 4, "male_nouns": 1, "neutr_nouns": 0, "verbs": 10, "adj": 1, "adv": 7, "kon": 3, "neg": 2, "prep": 3, "article": 5, "fem_article": 4, "male_article": 0, "neutr_article": 1, "unknown_words": 10, "e-s": 44, "spaces": 54, "average_word_length": 4, "numbers": 0, "physics": 1, "medicin": 0, "botanic": 0, "zoology": 0, "anatomy": 0, "computer": 0, "biology": 0, "music": 0, "sport": 0, "technic": 0, "chemistry": 0, "jura": 0, "astronomy": 0, "electricity": 1, "religion": 0, "math": 1, "military": 0, "economy": 1, "auto": 0, "gastronomy": 0, "shipping": 0, "biochemistry": 0, "history": 0, "politic": 0, "geology": 0, "railway": 0, "language": 0, "art": 0, "geography": 0, "air": 0, "psychology": 0, "terrorism": 0, "emotions": 0, "color": 0}'+")");
+var body11 = eval("("+'{"sentences": 8, "average_sentence_length": 152, "grammar_errors": 3, "vocals": 369, "r-s": 81, "i-s_and_l-s": 104, "words": 160, "nouns": 36, "fem_nouns": 13, "male_nouns": 16, "neutr_nouns": 7, "verbs": 30, "adj": 7, "adv": 18, "kon": 2, "neg": 0, "prep": 15, "article": 26, "fem_article": 13, "male_article": 12, "neutr_article": 1, "unknown_words": 16, "e-s": 177, "spaces": 159, "average_word_length": 6, "numbers": 1, "physics": 0, "medicin": 0, "botanic": 0, "zoology": 0, "anatomy": 0, "computer": 0, "biology": 0, "music": 0, "sport": 0, "technic": 1, "chemistry": 0, "jura": 0, "astronomy": 0, "electricity": 0, "religion": 0, "math": 0, "military": 0, "economy": 0, "auto": 0, "gastronomy": 0, "shipping": 0, "biochemistry": 0, "history": 0, "politic": 0, "geology": 0, "railway": 0, "language": 0, "art": 0, "geography": 0, "air": 0, "psychology": 0, "terrorism": 0, "emotions": 0, "color": 1}'+")");
+var body12 = eval("("+'{"sentences": 6, "average_sentence_length": 104, "grammar_errors": 1, "vocals": 195, "r-s": 49, "i-s_and_l-s": 57, "words": 83, "nouns": 14, "fem_nouns": 6, "male_nouns": 6, "neutr_nouns": 2, "verbs": 8, "adj": 1, "adv": 6, "kon": 3, "neg": 0, "prep": 7, "article": 16, "fem_article": 8, "male_article": 5, "neutr_article": 3, "unknown_words": 21, "e-s": 86, "spaces": 82, "average_word_length": 6, "numbers": 0, "physics": 0, "medicin": 0, "botanic": 0, "zoology": 0, "anatomy": 0, "computer": 0, "biology": 0, "music": 0, "sport": 1, "technic": 0, "chemistry": 0, "jura": 0, "astronomy": 0, "electricity": 0, "religion": 0, "math": 0, "military": 0, "economy": 0, "auto": 0, "gastronomy": 0, "shipping": 0, "biochemistry": 0, "history": 0, "politic": 0, "geology": 0, "railway": 0, "language": 0, "art": 0, "geography": 0, "air": 0, "psychology": 0, "terrorism": 0, "emotions": 0, "color": 0}'+")");
+
+
+ruleAutomata(body10, 1);
 */
 function ruleAutomata (textA, id, callbackMetaData, callbackFullData){
 	//Aufbau der Regeln --> Ergebnis ist der Wert, mit dem in der Datenbank gesucht werden soll
@@ -107,7 +115,7 @@ function ruleAutomata (textA, id, callbackMetaData, callbackFullData){
 
 	//Rule 1: gender
 	//femal article > male + neutral
-	if(textA["fem_article"] > (1.5*textA["male_article"] + textA["neutr_article"]) ) {
+	if(textA["fem_article"]+textA["fem_nouns"]  > (1.5*textA["male_article"] + textA["neutr_article"] + textA["male_nouns"] + textA["neutr_nouns"]) ) {
 		mData.gender = 3;
 	}else {
 		mData.gender = 1;
@@ -116,36 +124,54 @@ function ruleAutomata (textA, id, callbackMetaData, callbackFullData){
 
 	//Rule 2: mentalHealth
 	//a = (Viele Negationen + Medizin + computer + psychology + math) (a min 5 p(a) > 0.02) (a min 3 p(a) > 0.01) sonst
-	var a = textA["neg"] + textA["medicin"] + textA["psychology"] + textA["computer"] + textA["math"] ;
-	mData.mentalHealth = pRule( pCalculator( a ,textA["words"]) , 0.01, 0.02, 'asc');
-	console.log("mentalHealth:"+(a/textA["words"]));
+	var a = textA["neg"] + textA["medicin"] + textA["psychology"] + textA["computer"] + textA["math"];
+	if(textA["words"]-1 < 0.8*textA["spaces"]|| pCalculator(a,textA["words"]) > 0.05) {
+		console.log(pCalculator(a,textA["words"]));
+		mData.mentalHealth = 1;
+	}else if (textA["words"]-1 < 0.8*textA["spaces"]&&pCalculator(a,textA["words"])<0.001){
+		mData.mentalHealth = 3;
+	}else mData.mentalHealth = 2;
+
+//	mData.mentalHealth = pRule( pCalculator( a ,textA["words"]) , 0.01, 0.035, 'dsc');
+//	console.log("mentalHealth:"+(a/textA["words"]));
+	console.log("mH:"+mData.mentalHealth);
 
 	//Rule 3: iq
 	//Grammar Errors + Spell Errors / words = p	1: sonst 	2:p < 0.20	3:p < 0.05
-	mData.iq = pRule( pCalculator(textA["grammar_errors"], textA["words"]) , 0.01, 0.025, 'dsc');
-	console.log("iq:"+ pCalculator(textA["grammar_errors"], textA["words"]) );
+	mData.iq = pRule( pCalculator((textA["unknown_words"]+textA["grammar_errors"]), textA["words"]) , 0.15, 0.4, 'asc');
+	console.log("iq:"+ pCalculator(textA["unknown_words"]+textA["grammar_errors"], textA["words"]) );
+	console.log(mData.iq);
 
 	//Rule 4: age
-	//(HIstory + Politik + niedriger Geistiger Zustand)/words
+	//(History + Politik + niedriger Geistiger Zustand)/words
 	//var b = textA["history"] + textA["politic"] + a;
-	var a = textA["neg"] + textA["medicin"] + textA["psychology"] + textA["computer"] + textA["math"] ;
-	mData.age = pRule( pCalculator( (textA["history"]+textA["politic"]+a) ,textA["words"]), 0.01, 0.027, 'dsc' );
-	console.log("age:"+pCalculator( (textA["history"]+textA["politic"]+a) ,textA["words"]));
+	var a = textA["neg"] + textA["medicin"] + textA["psychology"] + textA["computer"]+textA["math"];
+	if(textA["average_sentence_length"]>150&&pCalculator(a,textA["words"])>1.5){
+		mData.age = 3;
+	}else if (pCalculator(a,textA["words"])==0){
+		mData.age = 1;
+	}else mData.age = 2;
+
+//	mData.age = pRule( pCalculator( (textA["history"]+textA["politic"]+a) ,textA["words"]), 0.01, 0.04, 'dsc' );
+//	console.log("age:"+pCalculator( (textA["history"]+textA["politic"]+a) ,textA["words"]));
+	console.log("age"+mData.age);
 
 	//Rule 5: dangerLevel
 	//Terrorismus + Militär + Biochemie + Physik + Chemie + Biologie min 3 und p(Terrorismus + Militär ) > 0.025
 	//var c = textA["terrorism"] + textA["biology"] + textA["physics"] + textA["chemistry"] + textA["biology"] + textA["technic"];
-	mData.dangerLevel = pRule( pCalculator( (textA["terrorism"]+textA["biology"]+textA["physics"]+textA["chemistry"]+textA["biology"]+textA["technic"]) ,textA["words"]) , 0.20, 0.35, 'asc' );
-	console.log("dangerLevel:"+ pCalculator( (textA["terrorism"]+textA["biology"]+textA["physics"]+textA["chemistry"]+textA["biology"]+textA["technic"]),textA["words"] ) );
+	mData.dangerLevel = pRule( pCalculator( (textA["terrorism"]+textA["biology"]+textA["physics"]+textA["chemistry"]+textA["biology"]+textA["technic"]+textA["emotions"]+textA["unknown_words"]+textA["words"]+textA["grammar_errors"]),textA["words"] ) , 0.3, 1.0, 'asc' );
+	console.log("dangerLevel:"+ pCalculator( (textA["terrorism"]+textA["biology"]+textA["physics"]+textA["chemistry"]+textA["biology"]+textA["technic"]+textA["emotions"]+textA["unknown_words"]+textA["words"]+textA["grammar_errors"]),textA["words"] ));
+	console.log(mData.dangerLevel);
 
 	//Rule 6: pirat
 	//10 * mehr r's als e und min 20 r's
-	if( pCalculator(textA["r-s"],textA["e-s"]) > 10) {
+	if( textA["r-s"] > 2*textA["e-s"]) {
 		mData.pirat = 1;
 	}else {
 		mData.pirat = 3;
 	}
 	console.log("pirat:"+mData.pirat);
+
 	//callback for wantedPosterCreator
 	if (typeof callbackMetaData == 'function') {
 		callbackMetaData(id, mData);
@@ -162,6 +188,7 @@ function ruleAutomata (textA, id, callbackMetaData, callbackFullData){
 		//form:
 		var form = pRule( pCalculator(textA["kon"], textA["vocals"]) , 0.01, 0.02, 'asc' );
 		console.log("faceForm_form:"+(pCalculator(textA["kon"], textA["vocals"])));
+		console.log(form);
 
 		queryArray = addToQueryArray("form", form, queryArray);
 
@@ -176,64 +203,52 @@ function ruleAutomata (textA, id, callbackMetaData, callbackFullData){
 	}).and( function (data, callback) {
 		//Rules : hair
 		//volume:
-		var hairVolume = pRule( pCalculator( (textA["zoology"]+textA["electricity"]-textA["sport"]-textA["technic"]), textA["words"] ) ,0.20, 0.35, 'asc' );
-		console.log("hair_volume:"+pCalculator( (textA["zoology"]+textA["electricity"]-textA["sport"]-textA["technic"]), textA["words"] ));
-
-		var queryArray = addToQueryArray("volumen", hairVolume);
+		var hairVolume = pRule( (textA["average_word_length"]) , 4, 8, 'asc' );
+		console.log("hair_volume:"+textA["average_word_length"]);
+		console.log(hairVolume);
+		
 		//length:
-		//TODO add length to hair in DB
-		/*
 		var hairlength;
 		var b = pCalculator(textA["adj"], textA["words"]);
 		if (mData.gender === 3){
 			//0.2 is womenfactor
 			hairlength = pRule( pCalculator( (b + 0.2), textA["words"] ) , 0.20, 0.35, 'asc' );
+			console.log("hairlength"+ (b + 0.2) );
+			console.log(hairlength);
 		}else {
 			hairlength = pRule( pCalculator( b, textA["words"] ) , 0.20, 0.35, 'asc' );
+			console.log("hairlength"+b);
+			console.log(hairlength);
 		}
-		queryArray = addToQueryArray("length", hairlength, queryArray);
-		*/
-		//gender:
-		//TODO change DB gender
-		//queryArray = addToQueryArray("gender", mData.gender, queryArray);
-
-        facePartsDB.queryDB("hair", queryArray, function(name)
+		
+		if(hairVolume===1 && hairlength===1)
 		{
-            oface.hair2 = name;
-            callback(); 
-		});
-	}).and( function (data, callback) {
-		//Rules: ear
-		//height:
-		var earHeight = pRule( pCalculator( textA["adv"], textA["words"] ) , 0.20, 0.35, 'asc' );
-		var queryArray = addToQueryArray("height", earHeight);
-		//width:
-		var earWidth = pRule( pCalculator( (textA["air"]+textA["art"]+textA["unknown_words"]), textA["words"] ), 0.20, 0.35, 'asc' );
-		queryArray = addToQueryArray("width", earWidth, queryArray);
-		//jewelry:
-		var earJewelry;
-		if(mData.pirat === 1){
-			earJewelry = 3;
+			oface.hair2 = null;
+			callback();
 		}else{
-			earJewelry = 1;
+			var queryArray = addToQueryArray("volumen", hairVolume);
+			queryArray = addToQueryArray("length", hairlength, queryArray);
+			//gender:
+			queryArray = addToQueryArray("gender", mData.gender, queryArray);
+			facePartsDB.queryDB("hair", queryArray, function(name)
+			{
+            	oface.hair2 = name;
+            	callback(); 
+			});
 		}
-		queryArray = addToQueryArray("decoration", earJewelry, queryArray);
 
-        facePartsDB.queryDB("ear", queryArray, function(name)
-		{
-            oface.ear = name;
-            callback(); 
-		});
 	}).and( function (data, callback) {
 		//Rules: eye
 		//length:
 		var eyeLength = pRule( pCalculator(textA["i-s_and_l-s"], textA["r-s"]), 2.0, 3.0, 'asc' );
 		console.log("eye_length"+pCalculator(textA["i-s_and_l-s"], textA["r-s"]));
+		console.log(eyeLength);
 
 		var queryArray = addToQueryArray("length", eyeLength);
 		//width:
 		var eyeWidth = pRule( pCalculator(textA["average_sentence_length"], textA["words"]), 0.9, 1.5, 'asc' );
 		console.log("eye_width:"+pCalculator(textA["average_sentence_length"], textA["words"]));
+		console.log(eyeWidth);
 
 		queryArray = addToQueryArray("height", eyeWidth, queryArray);
 
@@ -249,12 +264,14 @@ function ruleAutomata (textA, id, callbackMetaData, callbackFullData){
 		//TODO add literature to taxtA 
 		var eyebrowHeight = pRule( pCalculator( (textA["neutr_nouns"]+textA["unknown_words"]) , textA["words"]), 0.1, 0.15, 'asc' );
 		console.log("eyebrow_height:"+ pCalculator( (textA["neutr_nouns"]+textA["unknown_words"]) , textA["words"]));
+		console.log(eyebrowHeight);
 
 		var queryArray = addToQueryArray("height", eyebrowHeight);
 		//width:
 		//TODO fix .toFixed(0) --> kein string als output
 		eyebrowWidth = ( (mData.iq + mData.mentalHealth)/2 ).toFixed(0);
 		console.log("eyebrow_width:"+((mData.iq + mData.mentalHealth)/2));
+		console.log(eyebrowWidth);
 
 		queryArray = addToQueryArray("width", eyebrowWidth, queryArray);
 		//gender:
@@ -272,16 +289,19 @@ function ruleAutomata (textA, id, callbackMetaData, callbackFullData){
 		//width:
 		var noseWidth = pRule( pCalculator( (textA["verbs"]+textA["geology"]), textA["words"] ), 0.17, 0.25, 'asc' );
 		console.log("nose_width:"+ pCalculator( (textA["verbs"]+textA["geology"]), textA["words"] ) );
+		console.log(noseWidth);
 
 		var queryArray = addToQueryArray("width", noseWidth);
 		//length:
 		var noseLength = pRule( pCalculator( (textA["air"]+textA["average_word_length"]), textA["words"] ), 0.03, 0.1, 'asc' );
 		console.log("nose_length"+ pCalculator( (textA["air"]+textA["average_word_length"]), textA["words"] ) );
+		console.log(noseLength);
 
 		queryArray = addToQueryArray("height", noseLength, queryArray);
 		//form:
-		var noseForm = pRule( pCalculator( (textA["terrorism"]+textA["military"]) , textA["words"] ) , 0.20, 0.35, 'asc' );
-		console.log("nose_form:"+ pCalculator( (textA["terrorism"]+textA["military"]) , textA["words"] ) );
+		var noseForm = pRule( pCalculator( (textA["numbers"]+textA["kon"]+textA["vocals"]) , textA["words"] ) , 1.8, 2.1, 'asc' );
+		console.log("nose_form:"+ pCalculator( (textA["numbers"]+textA["kon"]+textA["vocals"]) , textA["words"] ) );
+		console.log(noseForm);
 
 	//	queryArray = addToQueryArray("form", noseForm, queryArray);
     // TODO Form in 1-3 abaendern
@@ -296,11 +316,17 @@ function ruleAutomata (textA, id, callbackMetaData, callbackFullData){
 		//TODO Regeln definieren und implementieren
 		//Rules: mouth
 		//width:
-		var mouthWidth =1;
+		var mouthWidth = pRule( (textA["average_word_length"]+textA["average_sentence_length"]), 55, 75, 'asc' );
+		console.log("mouthWidth"+ (textA["average_word_length"]+textA["average_sentence_length"]) );
+		console.log(mouthWidth);
+
 		var queryArray = addToQueryArray("width", mouthWidth);
+
 		//height:
-		var mouthHight =2;
-		queryArray = addToQueryArray("height", mouthHight, queryArray);
+		var mouthHeight = pRule( pCalculator( (textA["verbs"]+textA["adv"]+textA["prep"]), textA["words"] ), 0.5, 2, 'asc' );
+		console.log("mouthHeight"+ pCalculator( (textA["verbs"]+textA["adv"]+textA["prep"]), textA["words"] ) );
+		console.log(mouthHeight);
+		queryArray = addToQueryArray("height", mouthHeight, queryArray);
 		//gender:
 		//queryArray = addToQueryArray("gender", mData.gender, queryArray);
         // TODO implement gender
