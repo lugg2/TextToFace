@@ -145,7 +145,7 @@ function ruleAutomata (textA, id, callbackMetaData, callbackFullData){
 	console.log("mH:"+mData.mentalHealth);
 
 	//mData Rule 3: iq
-	mData.iq = pRule( pCalculator((textA["unknown_words"]+textA["grammar_errors"]), textA["words"]) , 0.15, 0.4, 'asc');
+	mData.iq = pRule( pCalculator((textA["unknown_words"]+textA["grammar_errors"]), textA["words"]) , 0.1, 0.21, 'asc');
 	console.log("iq:"+ pCalculator(textA["unknown_words"]+textA["grammar_errors"], textA["words"]) );
 	console.log(mData.iq);
 
@@ -380,9 +380,9 @@ function ruleAutomata (textA, id, callbackMetaData, callbackFullData){
 		oface.id = id;
 		//add a scretching factor to image depending on the iq
 		if(mData.iq === 1){
-			oface.vertical = 1.2;
-		}else if(mData.iq ===3){
 			oface.horizontal = 1.2;
+		}else if(mData.iq ===3){
+			oface.vertical = 1.2;
 		}
 		//console.log(util.inspect(oface));
 		if (typeof callbackFullData == 'function') {
