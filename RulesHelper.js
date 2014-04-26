@@ -112,7 +112,7 @@ var body24 = eval("("+'{"sentences": 13, "average_sentence_length": 114, "gramma
 var body26 = eval("("+'{"sentences": 12, "average_sentence_length": 117, "grammar_errors": 8, "vocals": 430, "r-s": 94, "i-s_and_l-s": 141, "words": 183, "nouns": 41, "fem_nouns": 12, "male_nouns": 19, "neutr_nouns": 10, "verbs": 26, "adj": 17, "adv": 12, "kon": 7, "neg": 1, "prep": 14, "article": 18, "fem_article": 8, "male_article": 4, "neutr_article": 6, "unknown_words": 22, "e-s": 189, "spaces": 184, "average_word_length": 6, "numbers": 4, "grammars": 30, "physics": 1, "medicin": 1, "botanic": 0, "zoology": 0, "anatomy": 0, "computer": 1, "biology": 0, "music": 0, "sport": 1, "technic": 0, "chemistry": 0, "jura": 0, "astronomy": 0, "electricity": 0, "religion": 0, "math": 1, "military": 0, "economy": 1, "auto": 0, "gastronomy": 1, "shipping": 0, "biochemistry": 0, "history": 0, "politic": 3, "geology": 0, "railway": 0, "language": 0, "art": 0, "geography": 0, "air": 0, "psychology": 1, "terrorism": 0, "emotions": 1, "color": 0}'+")");
 var body28 = eval("("+'{"sentences": 13, "average_sentence_length": 90, "grammar_errors": 3, "vocals": 342, "r-s": 64, "i-s_and_l-s": 89, "words": 170, "nouns": 33, "fem_nouns": 6, "male_nouns": 17, "neutr_nouns": 10, "verbs": 26, "adj": 8, "adv": 20, "kon": 2, "neg": 0, "prep": 19, "article": 13, "fem_article": 4, "male_article": 7, "neutr_article": 2, "unknown_words": 20, "e-s": 142, "spaces": 171, "average_word_length": 5, "numbers": 5, "grammars": 19, "physics": 0, "medicin": 0, "botanic": 0, "zoology": 0, "anatomy": 0, "computer": 1, "biology": 0, "music": 1, "sport": 6, "technic": 0, "chemistry": 0, "jura": 0, "astronomy": 0, "electricity": 0, "religion": 0, "math": 0, "military": 0, "economy": 0, "auto": 0, "gastronomy": 0, "shipping": 0, "biochemistry": 0, "history": 0, "politic": 0, "geology": 0, "railway": 0, "language": 0, "art": 0, "geography": 0, "air": 0, "psychology": 0, "terrorism": 0, "emotions": 2, "color": 0}'+")");
 
-ruleAutomata(body27, 1);
+ruleAutomata(body28, 1);
 */
 function ruleAutomata (textA, id, callbackMetaData, callbackFullData){
 	//Aufbau der Regeln --> Ergebnis ist der Wert, mit dem in der Datenbank gesucht werden soll
@@ -140,17 +140,20 @@ function ruleAutomata (textA, id, callbackMetaData, callbackFullData){
 	console.log("gender:"+mData.gender);
 
 	//Rule 2: mentalHealth
-	//a = (Viele Negationen + Medizin + computer + psychology + math) (a min 5 p(a) > 0.02) (a min 3 p(a) > 0.01) sonst
+	//a = (Negationen + Medizin + computer + psychology + math) (a min 5 p(a) > 0.02) (a min 3 p(a) > 0.01) sonst
 	var a = textA["neg"] + textA["medicin"] + textA["psychology"] + textA["computer"] + textA["math"];
-	if(textA["words"]-1 < 0.8*textA["spaces"]|| pCalculator(a,textA["words"]) > 0.05) {
-		console.log(pCalculator(a,textA["words"]));
+	if((textA["words"]-1 < 0.7*textA["spaces"])
+		|| (pCalculator(a,textA["words"]) > 0.027)
+		|| (pCalculator(textA["grammars"], textA["words"]) < 0.028) 
+		|| (pCalculator(textA["unknown_words"],textA["words"]) > 0.45)) {
 		mData.mentalHealth = 1;
-	}else if (textA["words"]-1 < 0.8*textA["spaces"]&&pCalculator(a,textA["words"])<0.001){
+	}else if ((textA["words"]-1 >= textA["spaces"]) 
+			&& (pCalculator(textA["vocals"],textA["words"])>2.151)){
 		mData.mentalHealth = 3;
 	}else mData.mentalHealth = 2;
 
 //	mData.mentalHealth = pRule( pCalculator( a ,textA["words"]) , 0.01, 0.035, 'dsc');
-//	console.log("mentalHealth:"+(a/textA["words"]));
+//	console.log("MENTAL HEALTH --- words: " + textA["words"] + " 0.7*spaces: " + 0.7*textA["spaces"] + " a/w: "+pCalculator(a,textA["words"]) + " g/w: " + pCalculator(textA["grammars"], textA["words"]) + " uw/w: " + pCalculator(textA["unknown_words"],textA["words"]) + " v/w: " + pCalculator(textA["vocals"],textA["words"]) + " spaces: " + textA["spaces"]);
 	console.log("mH:"+mData.mentalHealth);
 
 	//Rule 3: iq
