@@ -52,9 +52,6 @@ function faceCreator(objFace, callbackFinish){
 		loadImage("nose");
 		callback();
 	}).and( function (data, callback) {
-		loadImage("ear");
-		callback();
-	}).and( function (data, callback) {
 		loadImage("hair2");
 		callback();
 	}).end( objFace, function (data, callback) {

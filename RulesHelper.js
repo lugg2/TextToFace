@@ -21,7 +21,6 @@ var objFace = {
 	mouth : null,
 	beard : null,
 	nose : null,
-	ear : null,
 	hair2 : null,
 	horizontal : null,
 	vertical : null,
@@ -115,23 +114,13 @@ var body28 = eval("("+'{"sentences": 13, "average_sentence_length": 90, "grammar
 ruleAutomata(body28, 1);
 */
 function ruleAutomata (textA, id, callbackMetaData, callbackFullData){
-	//Aufbau der Regeln --> Ergebnis ist der Wert, mit dem in der Datenbank gesucht werden soll
-	
-	/*
-	//the values of textA should only be numbers but they are transfered as strings. This is a "cast" into numbers
-	for(var key in textA) {
-		if(textA.hasOwnProperty(key)){
-			textA[key] = parseInt(textA[key]);
-		}
-	}
-	*/
-	
-	var oface = Object.create(objFace); //hier wird ein Object erzeugt, welches alle Attribute von objFace geerbt hat. Silke muss nun nur noch die Gesichtsteile zuweisen, die sie braucht. Der Rest bleibt null
+	//Aufbau der Regeln --> Ergebnis ist der Wert, mit dem in der Datenbank gesucht werden soll (1 oder 2 oder 3)
 
+	//Inheritance from defined prototypes
+	var oface = Object.create(objFace); 
 	var mData = Object.create(metaData);
 
-	//Rule 1: gender
-	//femal article > male + neutral
+	//mData Rule 1: gender
 	if(textA["fem_article"]+textA["fem_nouns"]  > (1.5*textA["male_article"] + textA["neutr_article"] + textA["male_nouns"] + textA["neutr_nouns"]) ) {
 		mData.gender = 3;
 	}else {
@@ -139,8 +128,7 @@ function ruleAutomata (textA, id, callbackMetaData, callbackFullData){
 	}
 	console.log("gender:"+mData.gender);
 
-	//Rule 2: mentalHealth
-	//a = (Negationen + Medizin + computer + psychology + math) (a min 5 p(a) > 0.02) (a min 3 p(a) > 0.01) sonst
+	//mData Rule 2: mentalHealth
 	var a = textA["neg"] + textA["medicin"] + textA["psychology"] + textA["computer"] + textA["math"];
 	if((textA["words"]-1 < 0.7*textA["spaces"])
 		|| (pCalculator(a,textA["words"]) > 0.027)
@@ -156,15 +144,12 @@ function ruleAutomata (textA, id, callbackMetaData, callbackFullData){
 //	console.log("MENTAL HEALTH --- words: " + textA["words"] + " 0.7*spaces: " + 0.7*textA["spaces"] + " a/w: "+pCalculator(a,textA["words"]) + " g/w: " + pCalculator(textA["grammars"], textA["words"]) + " uw/w: " + pCalculator(textA["unknown_words"],textA["words"]) + " v/w: " + pCalculator(textA["vocals"],textA["words"]) + " spaces: " + textA["spaces"]);
 	console.log("mH:"+mData.mentalHealth);
 
-	//Rule 3: iq
-	//Grammar Errors + Spell Errors / words = p	1: sonst 	2:p < 0.20	3:p < 0.05
+	//mData Rule 3: iq
 	mData.iq = pRule( pCalculator((textA["unknown_words"]+textA["grammar_errors"]), textA["words"]) , 0.15, 0.4, 'asc');
 	console.log("iq:"+ pCalculator(textA["unknown_words"]+textA["grammar_errors"], textA["words"]) );
 	console.log(mData.iq);
 
-	//Rule 4: age
-	//(History + Politik + niedriger Geistiger Zustand)/words
-	//var b = textA["history"] + textA["politic"] + a;
+	//mData Rule 4: age
 	var a = textA["neg"] + textA["medicin"] + textA["psychology"] + textA["computer"]+textA["math"];
 	if(textA["average_sentence_length"]>150&&pCalculator(a,textA["words"])>1.5){
 		mData.age = 3;
@@ -176,11 +161,9 @@ function ruleAutomata (textA, id, callbackMetaData, callbackFullData){
 //	console.log("age:"+pCalculator( (textA["history"]+textA["politic"]+a) ,textA["words"]));
 	console.log("age"+mData.age);
 
-	//Rule 5: dangerLevel
-	//Terrorismus + Militär + Biochemie + Physik + Chemie + Biologie min 3 und p(Terrorismus + Militär ) > 0.025
+	//mData Rule 5: dangerLevel
 	//var c = textA["terrorism"] + textA["biology"] + textA["physics"] + textA["chemistry"] + textA["biology"] + textA["technic"];
 //	mData.dangerLevel = pRule( pCalculator( (textA["terrorism"]+textA["biology"]+textA["physics"]+textA["chemistry"]+textA["biology"]+textA["technic"]+textA["emotions"]+textA["unknown_words"]+textA["words"]+textA["grammar_errors"]),textA["words"] ) , 0.3, 1.0, 'asc' );
-
 	var c = textA["biology"]+textA["physics"]+textA["chemistry"]+textA["technic"]+textA["emotions"];
 	if((pCalculator(textA["terrorism"],textA["words"])>0.005) 
 		|| (pCalculator(c,textA["words"])>0.01 && (pCalculator(textA["terrorism"],textA["words"])>0.001 || pCalculator(textA["grammars"],textA["words"])<0.05)) 
@@ -196,7 +179,7 @@ function ruleAutomata (textA, id, callbackMetaData, callbackFullData){
 //	console.log("dangerLevel:"+ pCalculator( (textA["terrorism"]+textA["biology"]+textA["physics"]+textA["chemistry"]+textA["technic"]+textA["emotions"]+textA["unknown_words"]+textA["grammar_errors"]),textA["words"] ));
 	console.log("DANGERLEVEL: " + mData.dangerLevel);
 
-	//Rule 6: pirat
+	//mData Rule 6: pirat
 	//2 * mehr r's als e
 	if( textA["r-s"] > 2*textA["e-s"]) {
 		mData.pirat = 1;
@@ -395,6 +378,12 @@ function ruleAutomata (textA, id, callbackMetaData, callbackFullData){
 		});
 	}).end( oface, function(data, callback){
 		oface.id = id;
+		//add a scretching factor to image depending on the iq
+		if(mData.iq === 1){
+			oface.vertical = 1.2;
+		}else if(mData.iq ===3){
+			oface.horizontal = 1.2;
+		}
 		//console.log(util.inspect(oface));
 		if (typeof callbackFullData == 'function') {
 			callbackFullData(oface);
