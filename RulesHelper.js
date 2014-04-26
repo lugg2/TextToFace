@@ -168,11 +168,11 @@ function ruleAutomata (textA, id, callbackMetaData, callbackFullData){
 	if((pCalculator(textA["terrorism"],textA["words"])>0.005) 
 		|| (pCalculator(c,textA["words"])>0.01 && (pCalculator(textA["terrorism"],textA["words"])>0.001 || pCalculator(textA["grammars"],textA["words"])<0.05)) 
 		|| (pCalculator(textA["grammars"],textA["words"])<0.019)){
-		mData.dangerLevel = 3;
+		mData.dangerLevel = 1;
 	}else if (pCalculator(textA["terrorism"],textA["words"])==0 
 		&& pCalculator(c,textA["words"])<0.05 
 		&& pCalculator(textA["grammars"],textA["words"])>0.12) {
-		mData.dangerLevel = 1;
+		mData.dangerLevel = 3;
 	}else mData.dangerLevel = 2;
 //	console.log("terror/words: "+ pCalculator(textA["terrorism"],textA["words"]) + " c/words: " + pCalculator(c,textA["words"]) + "grammars/words: " +pCalculator(textA["grammars"],textA["words"])); 
 //	mData.dangerLevel = pRule( pCalculator( (textA["terrorism"]+textA["unknown_words"]+textA["grammar_errors"]),textA["words"] ) , 0.09, 0.95, 'asc' );
