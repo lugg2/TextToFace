@@ -41,6 +41,7 @@ function loadAndServeFile(exists, absPath, response)
                 if(absPath.indexOf('pictures')==-1 )
                 {
                     cache[absPath] = data;
+                    console.log(absPath + 'cached');
                 }
 				sendFile(response,absPath,data);
 			}

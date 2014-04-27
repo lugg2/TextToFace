@@ -84,6 +84,7 @@ function faceCreator(objFace, callbackFinish){
 		});
 		callbackFinish(objFace.id);
         objFace = null;
+        face = null;
 	})
 }
 exports.createFaceParts = faceCreator;
