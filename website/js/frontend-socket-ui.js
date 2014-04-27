@@ -52,10 +52,12 @@ $(function()
         }
         if (redirect == true)
         {
-            //var url = "www.localhost.de/result?id=" + id + '&&pkey='+pkey ;
-            var url = "/result?id=" + id + '&&pkey='+pkey ;
+            setTimeout(function() {
+                var url = "/result?id=" + id + '&&pkey='+pkey ;
 
-            $(location).attr('href',url);
+                $(location).attr('href',url);
+            }, 2000);
+
         }
         $('#progress').html(text);
     });
