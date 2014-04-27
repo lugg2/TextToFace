@@ -30,7 +30,7 @@ function createWantedPoster( id,mData, callback )
 	
 	if (mData.pirat ==1)
 		{
-		wantedPoster += 'Der Text stammt von einem sehr gefährlichen Piraten.<br> Er hat bereits alle sieben Weltmeere besegelt. Und schon sehr viele Städte ausgeplündert.<br> Es lässt sich nicht ausschließen, dass es sich um einen Kapitän eines Piratenschiffes handelt.';
+		wantedPoster += 'Der Text stammt von einem sehr gefährlichen Piraten.<br> Er hat bereits alle sieben Weltmeere besegelt und schon sehr viele Städte ausgeplündert.<br> Es lässt sich nicht ausschließen, dass es sich um einen Kapitän eines Piratenschiffes handelt.';
 		}
 	else
 		{
@@ -75,7 +75,7 @@ function createWantedPoster( id,mData, callback )
 		}
 		switch (mData.mentalHealth){
 		case 1: wantedPoster += pronomen +' ist in einem sehr verwirrten Zustand, was '+personalpronomen+' unberechenbar macht.<br>';break;
-		case 2: wantedPoster += pronomen +' weiß nicht so recht, ob '+spronomen+' sich entspannen soll, oder doch lieber verirrt umherrennen muss.<br>' ;break;
+		case 2: wantedPoster += pronomen +' weiß nicht so recht, ob '+spronomen+' sich entspannen soll, oder doch lieber verwirrt umher rennen muss.<br>' ;break;
 		case 3: wantedPoster += pronomen +' ist total entspannt (fast schon tiefenentspannt) und weiß, wie '+spronomen+' mit gefährlichen Situationen (Verhaftung) entspannt umgehen kann.<br>' ;break; 
 		}
 	}
