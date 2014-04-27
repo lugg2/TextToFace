@@ -5,6 +5,7 @@ $(function()
     $(document).ready(function() {
         $("#submitButton").click(function(event){
             console.log('click');
+			document.getElementById('progressDiv').style.visibility = 'visible';
             submitText(event)
         });
     });

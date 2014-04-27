@@ -30,7 +30,7 @@ function createWantedPoster( id,mData, callback )
 	
 	if (mData.pirat ==1)
 		{
-		wantedPoster += 'Der Text stammt von einem sehr gefährlichen Piraten.<br> Er hat bereits alle sieben Weltmeere besegelt. Und schon sehr viele Städte ausgeplündert.<br> Es lässt sich nicht ausschließen, dass es sich um einen Kapitän eines Piratenschiffes handelt.';
+		wantedPoster += 'Der Text stammt von einem sehr gefährlichen Piraten.<br> Er hat bereits alle sieben Weltmeere besegelt und schon sehr viele Städte ausgeplündert.<br> Es lässt sich nicht ausschließen, dass es sich um einen Kapitän eines Piratenschiffs handelt.';
 		}
 	else
 		{
@@ -64,18 +64,18 @@ function createWantedPoster( id,mData, callback )
 		
 		switch (mData.dangerLevel){
 		case 1: wantedPoster += gender + ' ist extrem gefährlich (Osama Bin Laden ist ein Witz im Vergleich gewesen).<br>'; break;
-		case 2: wantedPoster += gender + ' ist sehr schwer einzuschätzen im Bezug auf die Gefährlichkeit, allerdings ist davon auszugehen, dass '+spronomen+' im Zweifel zu allem bereit ist.<br>' ;break;
+		case 2: wantedPoster += gender + ' ist sehr schwer einzuschätzen im Bezug auf die Gefährlichkeit. Allerdings ist davon auszugehen, dass '+spronomen+' im Zweifel zu allem bereit ist.<br>' ;break;
 		case 3: wantedPoster += 'Von '+ demgender+ ' geht keine Gefahr aus.<br>' ;break;
 		}
 		
 		switch (mData.iq){
 		case 1: wantedPoster += pronomen + ' ist sehr intelligent, der IQ liegt über 130. Deshalb sind '+possessivartikel+' Verbrechen extrem gut geplant.<br>'; break;
-		case 2: wantedPoster += pronomen + ' ist nicht sehr schlau aber auch nicht dumm. Generell sollte man sich aber vor ihr in Acht nehemen.<br>' ;break;
-		case 3: wantedPoster += pronomen + ' ist so dumm, dass '+spronomen+' zum Wasser Kochen ein Rezept benötigt.<br>' ;break; 
+		case 2: wantedPoster += pronomen + ' ist nicht sehr schlau, aber auch nicht dumm. Generell sollte man sich aber vor ihr in Acht nehmen.<br>' ;break;
+		case 3: wantedPoster += pronomen + ' ist so dumm, dass '+spronomen+' zum Wasser kochen ein Rezept benötigt.<br>' ;break; 
 		}
 		switch (mData.mentalHealth){
 		case 1: wantedPoster += pronomen +' ist in einem sehr verwirrten Zustand, was '+personalpronomen+' unberechenbar macht.<br>';break;
-		case 2: wantedPoster += pronomen +' weiß nicht so recht, ob '+spronomen+' sich entspannen soll, oder doch lieber verirrt umherrennen muss.<br>' ;break;
+		case 2: wantedPoster += pronomen +' weiß nicht so recht, ob '+spronomen+' sich entspannen soll oder doch lieber verwirrt umher rennen muss.<br>' ;break;
 		case 3: wantedPoster += pronomen +' ist total entspannt (fast schon tiefenentspannt) und weiß, wie '+spronomen+' mit gefährlichen Situationen (Verhaftung) entspannt umgehen kann.<br>' ;break; 
 		}
 	}
