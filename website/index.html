@@ -1,55 +1,71 @@
 <!doctype html>
 <html lang="en">
 <head>
-    	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta name="description" content="A layout example with a side menu that hides on mobile, just like the Pure website.">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="A layout example with a side menu that hides on mobile, just like the Pure website.">
 
-    	<title>TextToFace</title> 
+    <title>TextToFace</title>
 
-	<link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.4.2/pure.css">
 
-  
+
+
+
+
+
+
+    <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.4.2/pure.css">
+
+
+
+
     <!--[if lte IE 8]>
-        <link rel="stylesheet" href="css/layouts/side-menu-old-ie.css">
+    <link rel="stylesheet" href="css/layouts/side-menu-old-ie.css">
     <![endif]-->
     <!--[if gt IE 8]><!-->
-        <link rel="stylesheet" href="css/layouts/side-menu.css">
+    <link rel="stylesheet" href="css/layouts/side-menu.css">
     <!--<![endif]-->
-<style type="text/css">
-.textarea {resize:both}
-</style>
-    
+
+
+
+
+
+
+
+
+
+
 
 </head>
-
 <body>
 
-	<div id="layout">
-    		<!-- Menu toggle -->
-    		<a href="#menu" id="menuLink" class="menu-link">
-        		<!-- Hamburger icon -->
-        		<span></span>
-    		</a>
 
-    	<div id="menu">
+
+
+
+
+<div id="layout">
+    <!-- Menu toggle -->
+    <a href="#menu" id="menuLink" class="menu-link">
+        <!-- Hamburger icon -->
+        <span></span>
+    </a>
+
+    <div id="menu">
         <div class="pure-menu pure-menu-open">
             <a class="pure-menu-heading" href="index.html">Text To Face</a>
 
             <ul>
                 <li class="menu-item-divided pure-menu-selected"><a href="index.html">Home</a></li>
-				
-             
+
+
                 <li >
                     <a href="anleitung.html">Anleitung</a>
                 </li>
 
                 <li><a href="kontakt.html">Kontakt</a></li>
-				<li>
-                    <a href="about.html">About</a>
-                </li>
-				<li><a href ="impressum.html">Impressum</a></li>
-				
+                <li><a href ="impressum.html">Impressum</a></li>
+
             </ul>
         </div>
     </div>
@@ -61,29 +77,43 @@
         </div>
 
 
-       	<div style = "border: 2px solid; margin: 2em; border-radius: 25px; padding:20px">
-            	<h2 class="content-subhead" style ="text-align: center">Bitte hier den Text eingeben:</h2>
-            		<div class="container" id="analysed-text-container" align="center">
-                		<form id="text-form">
+        <div style = "border: 2px solid; margin: 2em; border-radius: 25px; padding:20px">
+            <h2 class="content-subhead" style ="text-align: center">Bitte hier den Text eingeben:</h2>
+            <div class="container" id="analysed-text-container" align="center">
+                <form id="text-form">
+                    <input type="text" id="textInput">
 
-					<div class="textarea" width=50%>
-                    				<textarea id="textInput" rows ='10' cols='50' ></textarea>
-					</div>
-
-                		</form>
-               		<input type="submit" value="Text2Face" id="submitButton">
-            		</div>
-      	</div>
-
-
-        <div class="col-md-4">
-            <h2>Progress</h2>
-            <div id="progress"></div>
+                </form>
+                <input type="submit" value="Text2Face" id="submitButton">
+            </div>
         </div>
-	</div>
-           
+
+
+        <div class="col-md-4" id="progressPage">
+            <h2>Progress</h2>
+            <p>Upload:
+                <img src="kreuz.png" id="p0" />
+            </p>
+            <p>In der Warteschlange:
+                <img src="kreuz.png" id="p1" />
+            </p>
+            <p>Wurde analysiert:
+                <img src="kreuz.png" id="p2" />
+            </p>
+            <p>Der Künstler sucht nach Inspiration:
+                <img src="kreuz.png" id="p3"/>
+            </p>
+            <p>Der Künstler ist fertig:
+                <img src="kreuz.png" id="p4"/>
+            </p>
+            <p>Der Künstler ist fertig","Sie werden weitergeleitet:
+                <img src="kreuz.png" id="p5"/>
+            </p>
         </div>
     </div>
+
+</div>
+</div>
 </div>
 
 
@@ -91,8 +121,6 @@
 <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script type="text/javascript" src="/socket.io/socket.io.js"></script>
 <script type="text/javascript" src="/js/frontend-socket-ui.js"></script>
-
-<script src="js/ui.js"></script>
 
 
 </body>

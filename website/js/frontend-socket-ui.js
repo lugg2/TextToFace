@@ -16,12 +16,6 @@ $(function()
     $('#text-form').submit(function (e) {
         submitText(e);
     });
-/*
-    $('#submitButton').click(function( event ) {
-        submitText(event);
-    });
-*/
-
 
     function submitText(e)
     {
@@ -50,6 +44,10 @@ $(function()
             if(data[i]==false)
             {
                 redirect = false;
+            }
+            else if(data[i]==true)
+            {
+                $('#p'+ i.toString()).attr('src','haekchen.png');
             }
         }
         if (redirect == true)
