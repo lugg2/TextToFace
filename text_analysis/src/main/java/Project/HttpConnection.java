@@ -21,6 +21,7 @@ public class HttpConnection
 	private String adressFinish = null;
 	private BufferedReader reader = null;
 	private String input = null;
+	private String answer;
 	private List<String> files;
 	private List<String> messageID;
 	private Pattern p;
@@ -29,6 +30,9 @@ public class HttpConnection
 	private URL url;
 	private URLConnection urlConnection;
 	private DataInputStream inStream;
+	private HttpURLConnection connection = null;
+	private InputStream in;
+	private OutputStreamWriter writer;
 	private boolean stopAnalyser;
 	
 	HttpConnection()
@@ -58,14 +62,13 @@ public class HttpConnection
 	//GET MessageParameter from website (LISTE)
 	public List<String> getContent(String workerid)
 	{
-		HttpURLConnection connection = null;
 		try {
 			URL urlConnect = new URL(adress + "?workerid=" + workerid);						
 			connection = (HttpURLConnection) urlConnect.openConnection();
 			connection.setRequestMethod("GET");
 			connection.setDoInput(true);
 			connection.connect();
-			InputStream in = connection.getInputStream();
+			in = connection.getInputStream();
 			reader = new BufferedReader(new InputStreamReader(in));
 			input = reader.readLine();
 			connection.disconnect();
@@ -130,14 +133,14 @@ public class HttpConnection
 		urlConnection.setUseCaches(false);
 		urlConnection.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
 		
-		OutputStreamWriter writer = new OutputStreamWriter(urlConnection.getOutputStream());
+		writer = new OutputStreamWriter(urlConnection.getOutputStream());
 	    writer.write(content);
 	    writer.flush();
 	    writer.close();
 		
 		inStream = new DataInputStream(urlConnection.getInputStream());
 		reader = new BufferedReader(new InputStreamReader(inStream));
-		String answer = reader.readLine();
+		answer = reader.readLine();
 
 		if(!answer.contains("Acknowledge"))
 		{

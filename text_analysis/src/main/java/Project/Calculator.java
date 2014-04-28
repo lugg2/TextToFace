@@ -236,7 +236,7 @@ public class Calculator
 
 						if (tok.getPOSTag().startsWith("KON")) counter[14]++;		//numb_kon
 						if (tok.getPOSTag().startsWith("PRP")) counter[16]++;		//numb_prp
-						if (tok.getPOSTag().startsWith("ART")) // && !tok.getPOSTag().contains("START"))
+						if (tok.getPOSTag().startsWith("ART"))
 						{
 							counter[17]++;										//numb_art
 

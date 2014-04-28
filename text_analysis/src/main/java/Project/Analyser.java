@@ -27,6 +27,7 @@ public class Analyser {
 			
 		//start analyser which is scheduled every 5 seconds
 		Timer t = new Timer();
-		t.scheduleAtFixedRate(new AnalyserTask(args[0], args[1], calc, new Date().getTime(), t, path), TIMER_START, TIMER_RATE);
+		AnalyserTask aT = new AnalyserTask(args[0], args[1], calc, new Date().getTime(), t, path);
+		t.scheduleAtFixedRate(aT, TIMER_START, TIMER_RATE);
 	}
 }
