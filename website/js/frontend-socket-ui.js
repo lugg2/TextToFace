@@ -8,9 +8,11 @@ $(function()
 
     $(document).ready(function() {
         $("#submitButton").click(function(event){
-            console.log('click');
-			document.getElementById('progressDiv').style.visibility = 'visible';
-            submitText(event)
+            var len = $('#textInput').val().length;
+            if(100 < len && len < 6000){
+                document.getElementById('progressDiv').style.visibility = 'visible';
+                submitText(event);
+            }
         });
     });
 
@@ -25,20 +27,14 @@ $(function()
     function checkLength(inputText){
         if(inputText.length < 100){
             //border red + text to short
-            console.log("short");
-            //$('#lengthCheck').style.border = "thick solid #CA3C3C";
             $("#lengthCheck").text("Es wurde noch nicht genug Text eingegeben, um eine aussagekräftige Analyse bereit zu stellen.");
             document.getElementById("lengthCheck").style.border="thick solid #CA3C3C";
         }else if(inputText.length < 6000){
             //border green + text has right length
-            console.log("ok");
-            //$('#lengthCheck').style.border = "thick solid #1CB841";
             $("#lengthCheck").text("Der eingegeben Text entspricht den Vorgaben.");
             document.getElementById("lengthCheck").style.border="thick solid #1CB841";
         }else {
             //border red + text to long
-            console.log("long");
-            //$('#lengthCheck').style.border = "thick solid #CA3C3C";
             $("#lengthCheck").text("Der eingegeben Text ist zu lang.");
             document.getElementById("lengthCheck").style.border="thick solid #CA3C3C";
         }
