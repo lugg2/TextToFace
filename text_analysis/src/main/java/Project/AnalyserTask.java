@@ -19,6 +19,7 @@ public class AnalyserTask extends TimerTask{
 	private String enteredText;
 	private Timer t;
 	private String path;
+	private String output;
 		
 	AnalyserTask(String workerid, String host, Calculator c, long s, Timer timer, String p)
 	{
@@ -88,7 +89,7 @@ public class AnalyserTask extends TimerTask{
 						if(enteredText.isEmpty())	throw new AnalyserException("04", i);				//check for empty files
 
 					//2nd step: doCalculations with the text and POST the results
-						String output = calc.doCalculations(enteredText);
+						output = calc.doCalculations(enteredText);
 						if(calc.isError())	throw new AnalyserException(calc.getErrorID(), i);			//check for calculator-error
 					
 						//post Content to website/localhost

@@ -9,6 +9,8 @@ import java.sql.Statement;
 public class DBAccess {
 	private Connection c = null;
 	private String errorID = "00";
+	private Statement stat = null;
+	private ResultSet rs = null;
 	
 	public void establishConnection(String path)
 	{
@@ -25,8 +27,6 @@ public class DBAccess {
 	
 	public int[] checkToken(int[] category_counter, String token)
 	{
-		Statement stat = null;
-		ResultSet rs = null;
 		try { 
 			stat = c.createStatement();
 			rs = stat.executeQuery(	"SELECT category_name " +
