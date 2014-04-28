@@ -1,71 +1,60 @@
 <!doctype html>
 <html lang="en">
 <head>
-    <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="A layout example with a side menu that hides on mobile, just like the Pure website.">
+    	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="A layout example with a side menu that hides on mobile, just like the Pure website.">
 
-    <title> Text to Face</title>
+    	<title> Text to Face</title>
 
-    
-
-
-
-
-
-
-<link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.4.2/pure.css">
-
-
-
+	<link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.4.2/pure.css">
   
-    <!--[if lte IE 8]>
-        <link rel="stylesheet" href="css/layouts/side-menu-old-ie.css">
-    <![endif]-->
-    <!--[if gt IE 8]><!-->
+    	<!--[if lte IE 8]>
+       		<link rel="stylesheet" href="css/layouts/side-menu-old-ie.css">
+    	<![endif]-->
+    	<!--[if gt IE 8]><!-->
         <link rel="stylesheet" href="css/layouts/side-menu.css">
-    <!--<![endif]-->
+    	<!--<![endif]-->
   
 </head>
+
 <body>
 
-<div id="layout">
-    <!-- Menu toggle -->
-    <a href="#menu" id="menuLink" class="menu-link">
-        <!-- Hamburger icon -->
-        <span></span>
-    </a>
+	<div id="layout">
+    		<!-- Menu toggle -->
+    		<a href="#menu" id="menuLink" class="menu-link">
+        	<!-- Hamburger icon -->
+        	<span></span>
+    		</a>
 
-    <div id="menu">
-        <div class="pure-menu pure-menu-open">
-            <a class="pure-menu-heading" href="index.html">Text to Face</a>
+    		<div id="menu">
+        		<div class="pure-menu pure-menu-open">
+            			<a class="pure-menu-heading" href="index.html">Text to Face</a>
 
-            <ul>
-                <li><a href="index.html">Home</a></li>
+            			<ul>
+                			<li><a href="index.html">Home</a>
+					</li>				
+                			<li><a href="anleitung.html">Anleitung</a>
+					</li>
+                			<li class="menu-item-divided pure-menu-selected"><a href="kontakt.html">Kontakt</a>
+                			</li>
+					<li><a href="about.html">About</a>
+                			</li>
+					<li><a href="impressum.html">Impressum</a>
+					</li>
 				
-                <li><a href="anleitung.html">Anleitung</a></li>
+            			</ul>
+        		</div>
+    		</div>
 
-                <li class="menu-item-divided pure-menu-selected">
-                    <a href="kontakt.html">Kontakt</a>
-                </li>
-				<li>
-                    <a href="about.html">About</a>
-                </li>
-				
-                <li><a href="impressum.html">Impressum</a></li>
-				
-            </ul>
-        </div>
-    </div>
+    		<div id="main">
+        		<div class="header">
+            			<h1>Kontaktformular</h1>
+            			<h2>Bitte die geforderten Daten in das Eingabefeld eingeben,<br> wir melden uns schnellstmöglich.</h2>
+        		</div>
 
-    <div id="main">
-        <div class="header">
-            <h1>Kontaktformular</h1>
-            <h2>Bitte die geforderten Daten in das Eingabefeld eingeben,<br> wir melden uns schnellstmöglich.</h2>
-        </div>
-
-        <div class="content">
-            	<form action="input_text.htm" class="pure-form" >
+        		<div class="content">
+            			<form action="input_text.htm" class="pure-form" >
 					<p>Vorname:<br><input name="vorname" type="text" size="30" maxlength="30" autofocus></p>
 					<p>Nachname:<br><input name="zuname" type="text" size="30" maxlength="40"></p>
 					<p>E-Mail Adresse:<br><input name="zuname" type="email" size="30" maxlength="40"></p>
@@ -79,8 +68,8 @@
             
 
             
-    </div>
-</div>
+    		</div>
+	</div>
 
 
 
