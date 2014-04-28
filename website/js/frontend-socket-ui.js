@@ -1,4 +1,4 @@
-
+var drawn = [false,false, false, false, false];
 
 $(function()
 {
@@ -57,12 +57,10 @@ $(function()
         });
     }
 
-
-
     socket.on('progress', function (data) {
         var text = '';
         var redirect = true;
-
+		
         for (var i = 0; i < data.length; i++) {
             text += '<span class="user">' + data[i].toString() + '</span>';
             if(data[i]==false)
@@ -71,7 +69,15 @@ $(function()
             }
             else if(data[i]==true)
             {
-                $('#p'+ i.toString()).attr('src','haekchen.png');
+				if(drawn[i]==false)
+				{
+					$('#p'+ i.toString()).attr('src','X4.gif');
+					drawn[i]=true;
+				}
+				else
+				{
+					$('#p'+ i.toString()).attr('src','haekchen.png');
+				}
             }
         }
         if (redirect == true)
