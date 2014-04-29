@@ -77,14 +77,15 @@ CREATE TABLE IF NOT EXISTS head (
 --scar 3:vorhanden, 1:nicht vorhanden
 
 INSERT INTO head VALUES 
+(7, '/noGender/head7', 2, 2, 3, 3),
+(8, '/noGender/head8', 3, 3, 1, 3),
 (1, '/noGender/head1', 2, 3, 2, 1), 
 (2, '/noGender/head2', 1, 1, 1, 1),
 (3, '/noGender/head3', 3, 2, 3, 1),
 (4, '/noGender/head4', 1, 1, 2, 1),
 (5, '/noGender/head5', 2, 1, 2, 1),
-(6, '/noGender/head6', 3, 2, 1, 1),
-(7, '/noGender/head7', 2, 2, 3, 3),
-(8, '/noGender/head8', 3, 3, 1, 3);
+(6, '/noGender/head6', 3, 2, 1, 1);
+
 
 CREATE TABLE IF NOT EXISTS mouth (
   `id` int(30),
@@ -97,14 +98,14 @@ CREATE TABLE IF NOT EXISTS mouth (
 --beard 1: kein Bart; 2:mittlerer Bart; 3: Vollbart
 
 INSERT INTO mouth VALUES 
+(5, '/man/mouth/mouth5', 3, 3, 1, 2),
+(7, '/man/mouth/mouth7', 1, 2, 1, 3),
+(8, '/man/mouth/mouth8', 1, 1, 1, 2),
 (1, '/man/mouth/mouth1', 2, 2, 1, 1), 
 (2, '/man/mouth/mouth2', 1, 1, 1, 1), 
 (3, '/man/mouth/mouth3', 1, 2, 1, 1),
-(4, '/man/mouth/mouth4', 2, 1, 1, 1), 
-(5, '/man/mouth/mouth5', 3, 3, 1, 2),
+(4, '/man/mouth/mouth4', 2, 1, 1, 1),
 (6, '/man/mouth/mouth6', 2, 3, 1, 1),
-(7, '/man/mouth/mouth7', 1, 2, 1, 3),
-(8, '/man/mouth/mouth8', 1, 1, 1, 2),
 (9, '/woman/mouth/mouth1', 1, 3, 3, 1),
 (10, '/woman/mouth/mouth2', 2, 2, 3, 1),
 (11, '/woman/mouth/mouth3', 2, 3, 3, 1),
