@@ -89,7 +89,7 @@ public class Calculator
 		category_title[32] = "emotions";
 		category_title[33] = "color";
 
-		counter_title = new String[27];
+		counter_title = new String[28];
 		counter_title[0] = "sentences";
 		counter_title[1] = "average_sentence_length";
 		counter_title[2] = "grammar_errors";
@@ -117,6 +117,7 @@ public class Calculator
 		counter_title[24] = "average_word_length";
 		counter_title[25] = "numbers";
 		counter_title[26] = "grammars";
+		counter_title[27] = "pro";
 		
 		category_counter  = new int[category_title.length];
 		counter  = new int[counter_title.length];
@@ -192,7 +193,7 @@ public class Calculator
 				{
 					AnalyzedToken tok = tokens[i].getAnalyzedToken(0);
 					if(!tok.hasNoTag())
-					{						
+					{		
 						if(tok.getPOSTag().startsWith("SUB"))
 						{
 							//-----------------------Thesaurus-DB access---------------------------
@@ -233,7 +234,7 @@ public class Calculator
 							category_counter = db.checkToken(category_counter, tok.getTokenInflected());
 							counter[15]++;									//numb_neg
 						}
-
+						if (tok.getPOSTag().startsWith("PRO")) counter[27]++;		//numb_pro
 						if (tok.getPOSTag().startsWith("KON")) counter[14]++;		//numb_kon
 						if (tok.getPOSTag().startsWith("PRP")) counter[16]++;		//numb_prp
 						if (tok.getPOSTag().startsWith("ART"))

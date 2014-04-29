@@ -101,6 +101,7 @@ var body17 = eval("("+'{"sentences": 2, "average_sentence_length": 183, "grammar
 var body20 = eval("("+'{"sentences": 5, "average_sentence_length": 101, "grammar_errors": 1, "vocals": 169, "r-s": 30, "i-s_and_l-s": 53, "words": 67, "nouns": 20, "fem_nouns": 8, "male_nouns": 8, "neutr_nouns": 4, "verbs": 7, "adj": 3, "adv": 4, "kon": 2, "neg": 1, "prep": 6, "article": 8, "fem_article": 5, "male_article": 2, "neutr_article": 1, "unknown_words": 9, "e-s": 77, "spaces": 66, "average_word_length": 6, "numbers": 0, "grammars": 8, "physics": 2, "medicin": 0, "botanic": 0, "zoology": 0, "anatomy": 0, "computer": 0, "biology": 0, "music": 0, "sport": 0, "technic": 0, "chemistry": 0, "jura": 1, "astronomy": 0, "electricity": 0, "religion": 0, "math": 0, "military": 2, "economy": 0, "auto": 0, "gastronomy": 0, "shipping": 0, "biochemistry": 0, "history": 0, "politic": 0, "geology": 0, "railway": 0, "language": 0, "art": 1, "geography": 0, "air": 0, "psychology": 0, "terrorism": 2, "emotions": 0, "color": 0}'+")");
 var body25 = eval("("+'{"sentences": 5, "average_sentence_length": 106, "grammar_errors": 3, "vocals": 155, "r-s": 33, "i-s_and_l-s": 44, "words": 74, "nouns": 21, "fem_nouns": 6, "male_nouns": 11, "neutr_nouns": 4, "verbs": 9, "adj": 3, "adv": 1, "kon": 4, "neg": 0, "prep": 7, "article": 12, "fem_article": 7, "male_article": 5, "neutr_article": 0, "unknown_words": 14, "e-s": 71, "spaces": 75, "average_word_length": 5, "numbers": 3, "grammars": 11, "physics": 0, "medicin": 0, "botanic": 0, "zoology": 0, "anatomy": 0, "computer": 0, "biology": 0, "music": 0, "sport": 1, "technic": 0, "chemistry": 0, "jura": 0, "astronomy": 0, "electricity": 0, "religion": 0, "math": 0, "military": 0, "economy": 0, "auto": 0, "gastronomy": 0, "shipping": 0, "biochemistry": 0, "history": 0, "politic": 1, "geology": 0, "railway": 0, "language": 0, "art": 0, "geography": 0, "air": 0, "psychology": 0, "terrorism": 4, "emotions": 0, "color": 0}'+")");
 var body27 = eval("("+'{"sentences": 10, "average_sentence_length": 119, "grammar_errors": 3, "vocals": 378, "r-s": 76, "i-s_and_l-s": 116, "words": 159, "nouns": 35, "fem_nouns": 16, "male_nouns": 11, "neutr_nouns": 8, "verbs": 22, "adj": 8, "adv": 4, "kon": 5, "neg": 3, "prep": 17, "article": 19, "fem_article": 11, "male_article": 5, "neutr_article": 3, "unknown_words": 20, "e-s": 187, "spaces": 159, "average_word_length": 6, "numbers": 1, "grammars": 19, "physics": 0, "medicin": 0, "botanic": 0, "zoology": 0, "anatomy": 0, "computer": 0, "biology": 0, "music": 0, "sport": 0, "technic": 0, "chemistry": 0, "jura": 0, "astronomy": 0, "electricity": 0, "religion": 0, "math": 0, "military": 0, "economy": 4, "auto": 0, "gastronomy": 0, "shipping": 0, "biochemistry": 0, "history": 0, "politic": 0, "geology": 0, "railway": 1, "language": 1, "art": 0, "geography": 0, "air": 0, "psychology": 0, "terrorism": 1, "emotions": 1, "color": 0}'+")");
+var body29 = eval("("+'{"sentences": 1, "average_sentence_length": 128, "grammar_errors": 1, "vocals": 43, "r-s": 4, "i-s_and_l-s": 17, "words": 21, "nouns": 2, "fem_nouns": 2, "male_nouns": 0, "neutr_nouns": 0, "verbs": 4, "adj": 0, "adv": 4, "kon": 1, "neg": 1, "prep": 1, "article": 1, "fem_article": 1, "male_article": 0, "neutr_article": 0, "unknown_words": 3, "e-s": 20, "spaces": 20, "average_word_length": 4, "numbers": 0, "grammars": 2, "physics": 0, "medicin": 0, "botanic": 0, "zoology": 0, "anatomy": 0, "computer": 0, "biology": 0, "music": 0, "sport": 0, "technic": 0, "chemistry": 0, "jura": 0, "astronomy": 0, "electricity": 0, "religion": 0, "math": 0, "military": 0, "economy": 0, "auto": 0, "gastronomy": 0, "shipping": 0, "biochemistry": 0, "history": 0, "politic": 0, "geology": 0, "railway": 0, "language": 0, "art": 0, "geography": 0, "air": 0, "psychology": 0, "terrorism": 1, "emotions": 1, "color": 0}'+")");
 //normal
 var body18 = eval("("+'{"sentences": 6, "average_sentence_length": 104, "grammar_errors": 1, "vocals": 195, "r-s": 49, "i-s_and_l-s": 57, "words": 83, "nouns": 14, "fem_nouns": 6, "male_nouns": 6, "neutr_nouns": 2, "verbs": 6, "adj": 1, "adv": 6, "kon": 3, "neg": 0, "prep": 7, "article": 14, "fem_article": 8, "male_article": 5, "neutr_article": 1, "unknown_words": 21, "e-s": 86, "spaces": 82, "average_word_length": 6, "numbers": 0, "grammars": 12, "physics": 0, "medicin": 0, "botanic": 0, "zoology": 0, "anatomy": 0, "computer": 0, "biology": 0, "music": 0, "sport": 2, "technic": 0, "chemistry": 0, "jura": 0, "astronomy": 0, "electricity": 0, "religion": 0, "math": 0, "military": 0, "economy": 0, "auto": 0, "gastronomy": 0, "shipping": 0, "biochemistry": 0, "history": 0, "politic": 0, "geology": 0, "railway": 0, "language": 0, "art": 0, "geography": 0, "air": 0, "psychology": 0, "terrorism": 0, "emotions": 0, "color": 0}'+")");
 var body19 = eval("("+'{"sentences": 8, "average_sentence_length": 152, "grammar_errors": 3, "vocals": 369, "r-s": 81, "i-s_and_l-s": 104, "words": 160, "nouns": 36, "fem_nouns": 13, "male_nouns": 16, "neutr_nouns": 7, "verbs": 19, "adj": 5, "adv": 18, "kon": 2, "neg": 0, "prep": 15, "article": 25, "fem_article": 13, "male_article": 11, "neutr_article": 1, "unknown_words": 16, "e-s": 177, "spaces": 159, "average_word_length": 6, "numbers": 1, "grammars": 18, "physics": 0, "medicin": 0, "botanic": 0, "zoology": 0, "anatomy": 0, "computer": 0, "biology": 0, "music": 0, "sport": 0, "technic": 0, "chemistry": 0, "jura": 0, "astronomy": 0, "electricity": 0, "religion": 0, "math": 0, "military": 0, "economy": 0, "auto": 0, "gastronomy": 0, "shipping": 0, "biochemistry": 0, "history": 0, "politic": 0, "geology": 0, "railway": 0, "language": 0, "art": 0, "geography": 0, "air": 0, "psychology": 0, "terrorism": 0, "emotions": 0, "color": 1}'+")");
@@ -110,8 +111,10 @@ var body23 = eval("("+'{"sentences": 11, "average_sentence_length": 140, "gramma
 var body24 = eval("("+'{"sentences": 13, "average_sentence_length": 114, "grammar_errors": 4, "vocals": 451, "r-s": 93, "i-s_and_l-s": 136, "words": 208, "nouns": 42, "fem_nouns": 19, "male_nouns": 15, "neutr_nouns": 8, "verbs": 25, "adj": 18, "adv": 12, "kon": 6, "neg": 2, "prep": 18, "article": 26, "fem_article": 17, "male_article": 5, "neutr_article": 4, "unknown_words": 25, "e-s": 218, "spaces": 206, "average_word_length": 5, "numbers": 1, "grammars": 23, "physics": 0, "medicin": 0, "botanic": 0, "zoology": 0, "anatomy": 0, "computer": 0, "biology": 0, "music": 0, "sport": 1, "technic": 3, "chemistry": 0, "jura": 0, "astronomy": 0, "electricity": 0, "religion": 0, "math": 1, "military": 0, "economy": 1, "auto": 0, "gastronomy": 0, "shipping": 0, "biochemistry": 0, "history": 0, "politic": 0, "geology": 0, "railway": 0, "language": 0, "art": 0, "geography": 0, "air": 0, "psychology": 0, "terrorism": 0, "emotions": 2, "color": 0}'+")");
 var body26 = eval("("+'{"sentences": 12, "average_sentence_length": 117, "grammar_errors": 8, "vocals": 430, "r-s": 94, "i-s_and_l-s": 141, "words": 183, "nouns": 41, "fem_nouns": 12, "male_nouns": 19, "neutr_nouns": 10, "verbs": 26, "adj": 17, "adv": 12, "kon": 7, "neg": 1, "prep": 14, "article": 18, "fem_article": 8, "male_article": 4, "neutr_article": 6, "unknown_words": 22, "e-s": 189, "spaces": 184, "average_word_length": 6, "numbers": 4, "grammars": 30, "physics": 1, "medicin": 1, "botanic": 0, "zoology": 0, "anatomy": 0, "computer": 1, "biology": 0, "music": 0, "sport": 1, "technic": 0, "chemistry": 0, "jura": 0, "astronomy": 0, "electricity": 0, "religion": 0, "math": 1, "military": 0, "economy": 1, "auto": 0, "gastronomy": 1, "shipping": 0, "biochemistry": 0, "history": 0, "politic": 3, "geology": 0, "railway": 0, "language": 0, "art": 0, "geography": 0, "air": 0, "psychology": 1, "terrorism": 0, "emotions": 1, "color": 0}'+")");
 var body28 = eval("("+'{"sentences": 13, "average_sentence_length": 90, "grammar_errors": 3, "vocals": 342, "r-s": 64, "i-s_and_l-s": 89, "words": 170, "nouns": 33, "fem_nouns": 6, "male_nouns": 17, "neutr_nouns": 10, "verbs": 26, "adj": 8, "adv": 20, "kon": 2, "neg": 0, "prep": 19, "article": 13, "fem_article": 4, "male_article": 7, "neutr_article": 2, "unknown_words": 20, "e-s": 142, "spaces": 171, "average_word_length": 5, "numbers": 5, "grammars": 19, "physics": 0, "medicin": 0, "botanic": 0, "zoology": 0, "anatomy": 0, "computer": 1, "biology": 0, "music": 1, "sport": 6, "technic": 0, "chemistry": 0, "jura": 0, "astronomy": 0, "electricity": 0, "religion": 0, "math": 0, "military": 0, "economy": 0, "auto": 0, "gastronomy": 0, "shipping": 0, "biochemistry": 0, "history": 0, "politic": 0, "geology": 0, "railway": 0, "language": 0, "art": 0, "geography": 0, "air": 0, "psychology": 0, "terrorism": 0, "emotions": 2, "color": 0}'+")");
+//obigen Beispielen fehlt pro-Feld!!!! 
+var body30 = eval("("+'{"sentences": 4, "average_sentence_length": 146, "grammar_errors": 1, "vocals": 51, "r-s": 5, "i-s_and_l-s": 20, "words": 24, "nouns": 2, "fem_nouns": 2, "male_nouns": 0, "neutr_nouns": 0, "verbs": 4, "adj": 0, "adv": 4, "kon": 1, "neg": 1, "prep": 1, "article": 1, "fem_article": 1, "male_article": 0, "neutr_article": 0, "unknown_words": 3, "e-s": 25, "spaces": 23, "average_word_length": 4, "numbers": 0, "grammars": 2, "pro": 6, "physics": 0, "medicin": 0, "botanic": 0, "zoology": 0, "anatomy": 0, "computer": 0, "biology": 0, "music": 0, "sport": 0, "technic": 0, "chemistry": 0, "jura": 0, "astronomy": 0, "electricity": 0, "religion": 0, "math": 0, "military": 0, "economy": 0, "auto": 0, "gastronomy": 0, "shipping": 0, "biochemistry": 0, "history": 0, "politic": 0, "geology": 0, "railway": 0, "language": 0, "art": 0, "geography": 0, "air": 0, "psychology": 0, "terrorism": 1, "emotions": 1, "color": 0}'+")");
 
-ruleAutomata(body26, 1);
+ruleAutomata(body30, 1);
 */
 function ruleAutomata (textA, id, callbackMetaData, callbackFullData){
 	//Aufbau der Regeln --> Ergebnis ist der Wert, mit dem in der Datenbank gesucht werden soll (1 oder 2 oder 3)
@@ -207,9 +210,16 @@ function ruleAutomata (textA, id, callbackMetaData, callbackFullData){
 			var form = pRule( pCalculator(textA["kon"], textA["vocals"]) , 0.01, 0.02, 'asc' );
 			console.log("faceForm_form:"+(pCalculator(textA["kon"], textA["vocals"])));
 			console.log(form);
-
 			queryArray = addToQueryArray("form", form, queryArray);
-
+			//scar:
+			var scar;
+			if(2*textA["sentences"] < textA["neg"]+textA["pro"])
+			{
+				scar = 3;
+			}else scar = 1;
+			console.log("------------------SCAR: " + scar);
+			queryArray = addToQueryArray("scar", scar, queryArray);
+			
 			//facePartDB gives fitting image (filename) for the queryArray
 	        facePartsDB.queryDB("head", queryArray, function(name)
 			{
@@ -365,24 +375,7 @@ function ruleAutomata (textA, id, callbackMetaData, callbackFullData){
 	            oface.mouth = name;
 	            callback(); 
 			});
-		})/*.and( function (data, callback) {
-	    //TODO Beard null bug + rule
-			//Rules : beard
-			var beard;
-			if(mData.gender === 3){
-				beard = 1;
-			}else{
-				beard = pRule( pCalculator( textA["prep"], textA["words"] ) , 0.05, 0.10, 'asc');
-				console.log("beard:"+pCalculator( textA["prep"], textA["words"] ) );
-			}
-			var queryArray = addToQueryArray("beard", beard);
-
-	        facePartsDB.queryDB("beard", queryArray, function(name)
-			{
-	            oface.beard = name;
-	            callback(); 
-			});
-		})*/.end( oface, function(data, callback){
+		}).end( oface, function(data, callback){
 			oface.id = id;
 			//add a scretching factor to image depending on the iq
 			if(mData.iq === 1){
