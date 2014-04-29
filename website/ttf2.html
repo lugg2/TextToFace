@@ -10,10 +10,10 @@
 		<button data-bind='click: registerClick, disable: hasClickedTooManyTimes'>
 			<span data-bind='text: names()[numberOfClicks()]'></span>
 		</button>
-		<p>Der Künstler ist fertig: 
-			<img src="kreuz.png" alt="nein" data-bind="visible: nichtFertig"/>
-			<img src="haekchen.png" alt="ja" data-bind="visible: fertig"/>
-		</p>
+//		<p>Der Künstler ist fertig: 
+//			<img src="kreuz.png" alt="nein" data-bind="visible: nichtFertig"/>
+//			<img src="haekchen.png" alt="ja" data-bind="visible: fertig"/>
+//		</p>
 		<script>
 			ko.applyBindings(new ClickCounterViewModel(["Upload","In der Warteschlange","Wurde analysiert","Der Künstler sucht nach Inspiration","Der Künstler ist fertig","Sie werden weitergeleitet"]));
 		</script>
