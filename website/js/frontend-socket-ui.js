@@ -6,6 +6,7 @@ $(function()
     });
 
     $(document).ready(function() {
+        document.getElementById("submitButton").className = "pure-button pure-button-primary";
         $("#submitButton").click(function(event){
             var len = $('#textInput').val().length;
             if(100 < len && len < 6000){
