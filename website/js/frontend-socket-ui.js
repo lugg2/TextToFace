@@ -69,7 +69,9 @@ $(function()
             } 
 	    else
  	    {
-		if(!document.getElementById('p'+i.toString()).src.contains("X4.gif")&&!document.getElementById('p'+i.toString()).src.contains("haekchen.png"))
+		console.log(document.getElementById('p'+i.toString()).src);;
+		if(!document.getElementById('p'+i.toString()).src.toString().contains("X4.gif")
+			&&!document.getElementById('p'+i.toString()).src.toString().contains("haekchen.png"))
 		{
 			$('#p'+ i.toString()).attr('src','X4.gif');
 			if(i==data.length-1)
