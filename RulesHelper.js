@@ -193,200 +193,216 @@ function ruleAutomata (textA, id, callbackMetaData, callbackFullData){
 		callbackMetaData(id, mData);
 	}
 
+	if (mData.pirat === 3){
 
-	//FaceParts
-	invoke(function (data, callback) {
-		//faceForm
-		//width:
-        var queryArray = addToQueryArray("width", mData.iq);
-		//age:
-		queryArray = addToQueryArray("age", mData.age, queryArray);
-		//form:
-		var form = pRule( pCalculator(textA["kon"], textA["vocals"]) , 0.01, 0.02, 'asc' );
-		console.log("faceForm_form:"+(pCalculator(textA["kon"], textA["vocals"])));
-		console.log(form);
+	
+		//FaceParts
+		invoke(function (data, callback) {
+			//faceForm
+			//width:
+	        var queryArray = addToQueryArray("width", mData.iq);
+			//age:
+			queryArray = addToQueryArray("age", mData.age, queryArray);
+			//form:
+			var form = pRule( pCalculator(textA["kon"], textA["vocals"]) , 0.01, 0.02, 'asc' );
+			console.log("faceForm_form:"+(pCalculator(textA["kon"], textA["vocals"])));
+			console.log(form);
 
-		queryArray = addToQueryArray("form", form, queryArray);
+			queryArray = addToQueryArray("form", form, queryArray);
 
-		//facePartDB gives fitting image (filename) for the queryArray
-        facePartsDB.queryDB("head", queryArray, function(name)
-		{
-            oface.faceForm = name;
-            callback(); // ich glaube das muss auch hier rein und soll anzeigen, dass der and teil jetzt abgeschlossen ist
-            //console.log('faceForm :'+ oface.faceForm);
-		});
-
-	}).and( function (data, callback) {
-		//Rules : hair
-		//volume:
-		var hairVolume = pRule( (textA["average_word_length"]) , 2, 8, 'asc' );
-		console.log("hair_volume:"+textA["average_word_length"]);
-		console.log(hairVolume);
-		
-		//length:
-		var hairlength;
-		if (mData.gender === 3){
-			//0.2 is womenfactor
-			//hairlength = pRule( (pCalculator( (textA["adj"]), textA["words"] )+0.2) , 0.0010, 0.1, 'asc' );
-			//console.log("hairlength"+ (pCalculator( (textA["adj"]), textA["words"] ) + 0.2) );
-			
-			//1.25 is womenfactor
-			hairlength = pRule( (textA["average_sentence_length"])*1.25 , 90, 180, 'asc' );
-			//console.log("hairlength param: "+ (textA["average_sentence_length"]*1.25));
-			console.log("HL: "+hairlength);
-		}else {
-			//hairlength = pRule( pCalculator(textA["adj"] , textA["words"] ) , 0.0010, 0.1, 'asc' );
-			//console.log("hairlength"+ pCalculator( (textA["adj"]), textA["words"] ) );
-
-			hairlength = pRule( textA["average_sentence_length"] , 90, 180, 'asc' );
-			//console.log("hairlength param: "+ (textA["average_sentence_length"]));
-			console.log("HL: "+hairlength);
-		}
-		
-		if(hairVolume===1 && hairlength===1 && mData.gender === 1)
-		{
-			oface.hair2 = null;
-			callback();
-		}else{
-			var queryArray = addToQueryArray("volumen", hairVolume, queryArray);
-			queryArray = addToQueryArray("length", hairlength, queryArray);
-			queryArray = addToQueryArray("gender", mData.gender, queryArray);
-			
-			facePartsDB.queryDB("hair", queryArray, function(name)
+			//facePartDB gives fitting image (filename) for the queryArray
+	        facePartsDB.queryDB("head", queryArray, function(name)
 			{
-            	oface.hair2 = name;
-            	callback(); 
+	            oface.faceForm = name;
+	            callback(); // ich glaube das muss auch hier rein und soll anzeigen, dass der and teil jetzt abgeschlossen ist
+	            //console.log('faceForm :'+ oface.faceForm);
 			});
-		}
 
-	}).and( function (data, callback) {
-		//Rules: eye
-		//length:
-		var eyeLength = pRule( pCalculator(textA["i-s_and_l-s"], textA["r-s"]), 2.0, 3.0, 'asc' );
-		console.log("eye_length"+pCalculator(textA["i-s_and_l-s"], textA["r-s"]));
-		console.log(eyeLength);
+		}).and( function (data, callback) {
+			//Rules : hair
+			//volume:
+			var hairVolume = pRule( (textA["average_word_length"]) , 2, 8, 'asc' );
+			console.log("hair_volume:"+textA["average_word_length"]);
+			console.log(hairVolume);
+			
+			//length:
+			var hairlength;
+			if (mData.gender === 3){
+				//0.2 is womenfactor
+				//hairlength = pRule( (pCalculator( (textA["adj"]), textA["words"] )+0.2) , 0.0010, 0.1, 'asc' );
+				//console.log("hairlength"+ (pCalculator( (textA["adj"]), textA["words"] ) + 0.2) );
+				
+				//1.25 is womenfactor
+				hairlength = pRule( (textA["average_sentence_length"])*2 , 90, 180, 'asc' );
+				//console.log("hairlength param: "+ (textA["average_sentence_length"]*1.25));
+				console.log("HL: "+hairlength);
+			}else {
+				//hairlength = pRule( pCalculator(textA["adj"] , textA["words"] ) , 0.0010, 0.1, 'asc' );
+				//console.log("hairlength"+ pCalculator( (textA["adj"]), textA["words"] ) );
 
-		var queryArray = addToQueryArray("length", eyeLength);
-		//width:
-		var eyeWidth = pRule( pCalculator(textA["average_sentence_length"], textA["words"]), 0.9, 1.5, 'asc' );
-		console.log("eye_width:"+pCalculator(textA["average_sentence_length"], textA["words"]));
-		console.log(eyeWidth);
+				hairlength = pRule( textA["average_sentence_length"] , 90, 180, 'asc' );
+				//console.log("hairlength param: "+ (textA["average_sentence_length"]));
+				console.log("HL: "+hairlength);
+			}
+			
+			if(hairVolume===1 && hairlength===1 && mData.gender === 1)
+			{
+				oface.hair2 = null;
+				callback();
+			}else{
+				var queryArray = addToQueryArray("volumen", hairVolume, queryArray);
+				queryArray = addToQueryArray("length", hairlength, queryArray);
+				queryArray = addToQueryArray("gender", mData.gender, queryArray);
+				
+				facePartsDB.queryDB("hair", queryArray, function(name)
+				{
+	            	oface.hair2 = name;
+	            	callback(); 
+				});
+			}
 
-		queryArray = addToQueryArray("height", eyeWidth, queryArray);
+		}).and( function (data, callback) {
+			//Rules: eye
+			//length:
+			var eyeLength = pRule( pCalculator(textA["i-s_and_l-s"], textA["r-s"]), 2.0, 3.0, 'asc' );
+			console.log("eye_length"+pCalculator(textA["i-s_and_l-s"], textA["r-s"]));
+			console.log(eyeLength);
 
-        facePartsDB.queryDB("eye", queryArray, function(name)
-		{
-            oface.eye = name;
-            callback(); 
-		});
+			var queryArray = addToQueryArray("length", eyeLength);
+			//width:
+			var eyeWidth = pRule( pCalculator(textA["average_sentence_length"], textA["words"]), 0.9, 1.5, 'asc' );
+			console.log("eye_width:"+pCalculator(textA["average_sentence_length"], textA["words"]));
+			console.log(eyeWidth);
 
-	}).and( function (data, callback) {
-		//Rules : eyebrow
-		//height:
-		//TODO add literature to taxtA 
-		var eyebrowHeight = pRule( pCalculator( (textA["neutr_nouns"]+textA["unknown_words"]) , textA["words"]), 0.1, 0.15, 'asc' );
-		console.log("eyebrow_height:"+ pCalculator( (textA["neutr_nouns"]+textA["unknown_words"]) , textA["words"]));
-		console.log(eyebrowHeight);
+			queryArray = addToQueryArray("height", eyeWidth, queryArray);
 
-		var queryArray = addToQueryArray("height", eyebrowHeight);
-		//width:
-		//TODO fix .toFixed(0) --> kein string als output
-		eyebrowWidth = ( (mData.iq + mData.mentalHealth)/2 ).toFixed(0);
-		console.log("eyebrow_width:"+((mData.iq + mData.mentalHealth)/2));
-		console.log(eyebrowWidth);
+	        facePartsDB.queryDB("eye", queryArray, function(name)
+			{
+	            oface.eye = name;
+	            callback(); 
+			});
 
-		queryArray = addToQueryArray("width", eyebrowWidth, queryArray);
-		queryArray = addToQueryArray("gender", mData.gender, queryArray);
-        
-        facePartsDB.queryDB("brow", queryArray, function(name)
-		{
-            oface.eyebrow = name;
-            callback(); 
-		});
+		}).and( function (data, callback) {
+			//Rules : eyebrow
+			//height:
+			//TODO add literature to taxtA 
+			var eyebrowHeight = pRule( pCalculator( (textA["neutr_nouns"]+textA["unknown_words"]) , textA["words"]), 0.1, 0.15, 'asc' );
+			console.log("eyebrow_height:"+ pCalculator( (textA["neutr_nouns"]+textA["unknown_words"]) , textA["words"]));
+			console.log(eyebrowHeight);
 
-	}).and( function (data, callback) {
-		//Rules : nose
-		//width:
-		var noseWidth = pRule( pCalculator( (textA["verbs"]+textA["geology"]), textA["words"] ), 0.17, 0.25, 'asc' );
-		console.log("nose_width:"+ pCalculator( (textA["verbs"]+textA["geology"]), textA["words"] ) );
-		console.log(noseWidth);
+			var queryArray = addToQueryArray("height", eyebrowHeight);
+			//width:
+			//TODO fix .toFixed(0) --> kein string als output
+			var eyebrowWidth = ( (mData.iq + mData.mentalHealth)/2 ).toFixed(0);
+			console.log("eyebrow_width:"+((mData.iq + mData.mentalHealth)/2));
+			console.log(eyebrowWidth);
 
-		var queryArray = addToQueryArray("width", noseWidth);
-		//length:
-		var noseLength = pRule( pCalculator( (textA["air"]+textA["average_word_length"]), textA["words"] ), 0.03, 0.1, 'asc' );
-		console.log("nose_length"+ pCalculator( (textA["air"]+textA["average_word_length"]), textA["words"] ) );
-		console.log(noseLength);
+			queryArray = addToQueryArray("width", eyebrowWidth, queryArray);
+			queryArray = addToQueryArray("gender", mData.gender, queryArray);
+	        
+	        facePartsDB.queryDB("brow", queryArray, function(name)
+			{
+	            oface.eyebrow = name;
+	            callback(); 
+			});
 
-		queryArray = addToQueryArray("height", noseLength, queryArray);
-		//form:
-		var noseForm = pRule( pCalculator( (textA["numbers"]+textA["kon"]+textA["vocals"]) , textA["words"] ) , 1.8, 2.1, 'asc' );
-		console.log("nose_form:"+ pCalculator( (textA["numbers"]+textA["kon"]+textA["vocals"]) , textA["words"] ) );
-		console.log(noseForm);
+		}).and( function (data, callback) {
+			//Rules : nose
+			//width:
+			var noseWidth = pRule( pCalculator( (textA["verbs"]+textA["geology"]), textA["words"] ), 0.17, 0.25, 'asc' );
+			console.log("nose_width:"+ pCalculator( (textA["verbs"]+textA["geology"]), textA["words"] ) );
+			console.log(noseWidth);
 
-	//	queryArray = addToQueryArray("form", noseForm, queryArray);
-    // TODO Form in 1-3 abaendern
-        facePartsDB.queryDB("nose", queryArray, function(name)
-		{
-            oface.nose = name;
-            //console.log('nose' + name);
-            callback(); 
-		});
+			var queryArray = addToQueryArray("width", noseWidth);
+			//length:
+			var noseLength = pRule( pCalculator( (textA["air"]+textA["average_word_length"]), textA["words"] ), 0.03, 0.1, 'asc' );
+			console.log("nose_length"+ pCalculator( (textA["air"]+textA["average_word_length"]), textA["words"] ) );
+			console.log(noseLength);
 
-	}).and( function (data, callback) {
-		//TODO Regeln definieren und implementieren
-		//Rules: mouth
-		//width:
-		var mouthWidth = pRule( (textA["average_word_length"]+textA["average_sentence_length"]), 55, 75, 'asc' );
-		console.log("mouthWidth"+ (textA["average_word_length"]+textA["average_sentence_length"]) );
-		console.log(mouthWidth);
+			queryArray = addToQueryArray("height", noseLength, queryArray);
+			//form:
+			var noseForm = pRule( pCalculator( (textA["numbers"]+textA["kon"]+textA["vocals"]) , textA["words"] ) , 1.8, 2.1, 'asc' );
+			console.log("nose_form:"+ pCalculator( (textA["numbers"]+textA["kon"]+textA["vocals"]) , textA["words"] ) );
+			console.log(noseForm);
 
-		var queryArray = addToQueryArray("width", mouthWidth);
+		//	queryArray = addToQueryArray("form", noseForm, queryArray);
+	    // TODO Form in 1-3 abaendern
+	        facePartsDB.queryDB("nose", queryArray, function(name)
+			{
+	            oface.nose = name;
+	            //console.log('nose' + name);
+	            callback(); 
+			});
 
-		//height:
-		var mouthHeight = pRule( pCalculator( (textA["verbs"]+textA["adv"]+textA["prep"]), textA["words"] ), 0.5, 2, 'asc' );
-		console.log("mouthHeight"+ pCalculator( (textA["verbs"]+textA["adv"]+textA["prep"]), textA["words"] ) );
-		console.log(mouthHeight);
-		queryArray = addToQueryArray("height", mouthHeight, queryArray);
-		queryArray = addToQueryArray("gender", mData.gender, queryArray);
-        
-        facePartsDB.queryDB("mouth", queryArray, function(name)
-		{
-            oface.mouth = name;
-            callback(); 
-		});
-	}).and( function (data, callback) {
-    //TODO Beard null bug + rule
-		//Rules : beard
-		var beard;
-		if(mData.gender === 3){
-			beard = 1;
-		}else{
-			//Zoologie + Religion + Kunst <0,005
-			beard = pRule( pCalculator( (textA["zoology"]+textA["religion"]+textA["art"]), textA["words"] ) , 0.20, 0.35, 'asc');
-			console.log("beard:"+pCalculator( (textA["zoology"]+textA["religion"]+textA["art"]), textA["words"] ) );
-		}
-		var queryArray = addToQueryArray("beard", beard);
+		}).and( function (data, callback) {
+			//TODO Regeln definieren und implementieren
+			//Rules: mouth
+			//width:
+			var mouthWidth = pRule( (textA["average_word_length"]+textA["average_sentence_length"]), 55, 75, 'asc' );
+			console.log("mouthWidth"+ (textA["average_word_length"]+textA["average_sentence_length"]) );
+			console.log(mouthWidth);
 
-        facePartsDB.queryDB("beard", queryArray, function(name)
-		{
-            oface.beard = name;
-            callback(); 
-		});
-	}).end( oface, function(data, callback){
+			var queryArray = addToQueryArray("width", mouthWidth);
+
+			//height:
+			var mouthHeight = pRule( pCalculator( (textA["verbs"]+textA["adv"]+textA["prep"]), textA["words"] ), 0.5, 2, 'asc' );
+			console.log("mouthHeight"+ pCalculator( (textA["verbs"]+textA["adv"]+textA["prep"]), textA["words"] ) );
+			console.log(mouthHeight);
+			queryArray = addToQueryArray("height", mouthHeight, queryArray);
+			queryArray = addToQueryArray("gender", mData.gender, queryArray);
+
+			var beard;
+			if(mData.gender === 3){
+				beard = 1;
+			}else{
+				beard = pRule( pCalculator( textA["prep"], textA["words"] ) , 0.05, 0.10, 'asc');
+				console.log("beard:"+pCalculator( textA["prep"], textA["words"] ) );
+			}
+			queryArray = addToQueryArray("beard", beard);
+	        
+	        facePartsDB.queryDB("mouth", queryArray, function(name)
+			{
+	            oface.mouth = name;
+	            callback(); 
+			});
+		})/*.and( function (data, callback) {
+	    //TODO Beard null bug + rule
+			//Rules : beard
+			var beard;
+			if(mData.gender === 3){
+				beard = 1;
+			}else{
+				beard = pRule( pCalculator( textA["prep"], textA["words"] ) , 0.05, 0.10, 'asc');
+				console.log("beard:"+pCalculator( textA["prep"], textA["words"] ) );
+			}
+			var queryArray = addToQueryArray("beard", beard);
+
+	        facePartsDB.queryDB("beard", queryArray, function(name)
+			{
+	            oface.beard = name;
+	            callback(); 
+			});
+		})*/.end( oface, function(data, callback){
+			oface.id = id;
+			//add a scretching factor to image depending on the iq
+			if(mData.iq === 1){
+				oface.horizontal = 1.2;
+			}else if(mData.iq ===3){
+				oface.vertical = 1.2;
+			}
+			//console.log(util.inspect(oface));
+			if (typeof callbackFullData == 'function') {
+				callbackFullData(oface);
+			}
+
+			});
+	}else {
 		oface.id = id;
-		//add a scretching factor to image depending on the iq
-		if(mData.iq === 1){
-			oface.horizontal = 1.2;
-		}else if(mData.iq ===3){
-			oface.vertical = 1.2;
-		}
-		//console.log(util.inspect(oface));
+		oface.faceForm = '/man/pirat';
 		if (typeof callbackFullData == 'function') {
 			callbackFullData(oface);
 		}
-
-	});
-
+	}
 }
 
 exports.evaluateAnalyserOutput = ruleAutomata;
