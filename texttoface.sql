@@ -82,7 +82,9 @@ INSERT INTO head VALUES
 (3, '/noGender/head3', 3, 2, 3, 1),
 (4, '/noGender/head4', 1, 1, 2, 1),
 (5, '/noGender/head5', 2, 1, 2, 1),
-(6, '/noGender/head6', 3, 2, 1, 1);
+(6, '/noGender/head6', 3, 2, 1, 1),
+(7, '/noGender/head7', 2, 2, 3, 3),
+(8, '/noGender/head8', 3, 2, 1, 3);
 
 CREATE TABLE IF NOT EXISTS mouth (
   `id` int(30),
