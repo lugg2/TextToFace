@@ -69,18 +69,20 @@ CREATE TABLE IF NOT EXISTS head (
   `picname` varchar(30),
   `width` int(30),
   `form` varchar(30),
-  `age` int(30)
+  `age` int(30),
+  `scar` int(30)
 );
 -- form 1 oval und 3 kantig
 -- age 1 jung und 3 alt
+--scar 3:vorhanden, 1:nicht vorhanden
 
 INSERT INTO head VALUES 
-(1, '/noGender/head1', 2, 3, 2), 
-(2, '/noGender/head2', 1, 1, 1),
-(3, '/noGender/head3', 3, 2, 3),
-(4, '/noGender/head4', 1, 1, 2),
-(5, '/noGender/head5', 2, 1, 2),
-(6, '/noGender/head6', 3, 2, 1);
+(1, '/noGender/head1', 2, 3, 2, 1), 
+(2, '/noGender/head2', 1, 1, 1, 1),
+(3, '/noGender/head3', 3, 2, 3, 1),
+(4, '/noGender/head4', 1, 1, 2, 1),
+(5, '/noGender/head5', 2, 1, 2, 1),
+(6, '/noGender/head6', 3, 2, 1, 1);
 
 CREATE TABLE IF NOT EXISTS mouth (
   `id` int(30),
