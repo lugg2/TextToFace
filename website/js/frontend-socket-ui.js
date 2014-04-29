@@ -59,29 +59,32 @@ $(function()
     socket.on('progress', function (data) {
         var text = '';
         var redirect = true;
-	var l = 0;
-
-        for (var i = 0; i < data.length; i++) {
+		
+        for (var i = 0; i < data.length; i++) 
+		{
             text += '<span class="user">' + data[i].toString() + '</span>';
             if(data[i]==false)
             {
                 redirect = false;
             } 
-	    else
- 	    {
-		console.log(document.getElementById('p'+i.toString()).src.toString);
-		if((!document.getElementById('p'+i.toString()).src.toString().contains("X4.gif"))
-			&&(!document.getElementById('p'+i.toString()).src.toString().contains("haekchen.png")))
-		{
-			$('#p'+ i.toString()).attr('src','X4.gif');
-			if(i==data.length-1)
+			else
 			{
-			    $('#p'+ (i+1).toString()).attr('src','X4.gif');
-			}
-		}else $('#p'+ i.toString()).attr('src','haekchen.png');
-	    }
-        }	
-	
+				console.log((document.getElementById('p'+i.toString()).src).toString());
+				if((!(document.getElementById('p'+i.toString()).src).toString().contains("X4.gif"))
+					&&(!(document.getElementById('p'+i.toString()).src).toString().contains("haekchen.png")))
+				{
+					$('#p'+ i.toString()).attr('src','X4.gif');
+					if(i==data.length-1)
+					{
+						$('#p'+ (i+1).toString()).attr('src','X4.gif');
+					}
+				}
+				else 
+				{
+					$('#p'+ i.toString()).attr('src','haekchen.png');
+				}
+			}	
+		}
         if (redirect == true)
         {
             setTimeout(function() {
