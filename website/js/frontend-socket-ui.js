@@ -84,7 +84,7 @@ $(function()
                             $('#p'+ (i+1).toString()).attr('src','X4.gif');
                         }
                     }else {
-                        $('#p'+ i.toString()).attr('src','haekchen.png');
+                        $('#p'+ i.toString()).attr('src','');
                     }
                     
 				}
