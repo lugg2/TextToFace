@@ -37,7 +37,7 @@ function generateTemplate(response, request)
 			data = data.replace("<WANTEDPOSTER>",wantedPoster);
 			});
 			
-			fs.readFile(__dirname +'/text_analysis/Codemsg/message'+idToken,"utf-8", function (err, message) {
+			fs.readFile(__dirname +'/text_analysis/Code/msg/message'+idToken,"utf-8", function (err, message) {
 
 			if (err) console.log("could not find wanted message");
 			
