@@ -368,7 +368,7 @@ function ruleAutomata (textA, id, callbackMetaData, callbackFullData){
 				beard = pRule( pCalculator( textA["prep"], textA["words"] ) , 0.05, 0.10, 'asc');
 				console.log("beard:"+pCalculator( textA["prep"], textA["words"] ) );
 			}
-			queryArray = addToQueryArray("beard", beard);
+			queryArray = addToQueryArray("beard", beard, queryArray);
 	        
 	        facePartsDB.queryDB("mouth", queryArray, function(name)
 			{
