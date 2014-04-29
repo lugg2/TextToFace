@@ -1,4 +1,3 @@
-var drawn = [false,false, false, false, false];
 
 $(function()
 {
@@ -60,32 +59,33 @@ $(function()
     socket.on('progress', function (data) {
         var text = '';
         var redirect = true;
-		
+	var l = 0;
+
         for (var i = 0; i < data.length; i++) {
             text += '<span class="user">' + data[i].toString() + '</span>';
             if(data[i]==false)
             {
                 redirect = false;
-            }
-            else if(data[i]==true)
-            {
-				if(drawn[i]==false)
-				{
-					$('#p'+ i.toString()).attr('src','X4.gif');
-					drawn[i]=true;
-				}
-				else
-				{
-					$('#p'+ i.toString()).attr('src','haekchen.png');
-				}
-            }
-        }
+            } 
+	    else
+ 	    {
+		if(!document.getElementById('p'+i.toString()).src.contains("X4.gif")&&!document.getElementById('p'+i.toString()).src.contains("haekchen.png"))
+		{
+			$('#p'+ i.toString()).attr('src','X4.gif');
+			if(i==data.length-1)
+			{
+			    $('#p'+ (i+1).toString()).attr('src','X4.gif');
+			}
+		}else $('#p'+ i.toString()).attr('src','haekchen.png');
+	    }
+        }	
+	
         if (redirect == true)
         {
             setTimeout(function() {
                 var url = "/result?id=" + id + '&&pkey='+pkey ;
 
-                $(location).attr('href',url);
+               	$(location).attr('href',url);
             }, 2000);
 
         }
