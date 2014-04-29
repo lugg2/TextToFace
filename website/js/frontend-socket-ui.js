@@ -70,8 +70,8 @@ $(function()
 	    else
  	    {
 		console.log(document.getElementById('p'+i.toString()).src.toString);
-		if(!document.getElementById('p'+i.toString()).src.toString().contains("X4.gif")
-			&&!document.getElementById('p'+i.toString()).src.toString().contains("haekchen.png"))
+		if((!document.getElementById('p'+i.toString()).src.toString().contains("X4.gif"))
+			&&(!document.getElementById('p'+i.toString()).src.toString().contains("haekchen.png")))
 		{
 			$('#p'+ i.toString()).attr('src','X4.gif');
 			if(i==data.length-1)
