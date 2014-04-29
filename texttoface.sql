@@ -55,16 +55,14 @@ INSERT INTO hair VALUES
 (2, '/man/hair/hair2',  1, 2, 1), 
 (3, '/man/hair/hair3',  1, 3, 1),
 (4, '/man/hair/hair4',  1, 1, 1),
-(5, '/man/hair/hair5back', 1, 1, 3),
-(6, '/man/hair/hair5',  1, 1, 3),
-(7, '/man/hair/hair6',  1, 2, 2),
-(8, '/woman/hair/hair1',  3, 1, 1), 
-(9, '/woman/hair/hair2',  3, 2, 1),
-(10, '/woman/hair/hair3',  3, 2, 1),
-(11, '/woman/hair/hair4',  3, 2, 3),
-(12, '/woman/hair/hair4back',  3, 2, 3),
-(13, '/woman/hair/hair5',  3, 2, 3),
-(14, '/woman/hair/hair6',  3, 3, 2);
+(5, '/man/hair/hair5',  1, 1, 3),
+(6, '/man/hair/hair6',  1, 2, 2),
+(7, '/woman/hair/hair1',  3, 1, 1), 
+(8, '/woman/hair/hair2',  3, 2, 1),
+(9, '/woman/hair/hair3',  3, 2, 1),
+(10, '/woman/hair/hair4',  3, 2, 3),
+(11, '/woman/hair/hair5',  3, 2, 3),
+(12, '/woman/hair/hair6',  3, 3, 2);
 
 CREATE TABLE IF NOT EXISTS head (
   `id` int(30),
