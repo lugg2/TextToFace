@@ -79,20 +79,14 @@ $(function()
 					console.log(picsrc);
                     if(picsrc.indexOf("kreuz.png") > -1){
                         $('#p'+ i.toString()).attr('src','X4.gif');
+                        if(i==data.length-1)
+                        {
+                            $('#p'+ (i+1).toString()).attr('src','X4.gif');
+                        }
+                    }else {
+                        $('#p'+ i.toString()).attr('src','haekchen.png');
                     }
-                    /*
-					if((!picsrc.contains("X4.gif")) && (!picsrc.contains("haekchen.png")))
-					{
-						$('#p'+ i.toString()).attr('src','X4.gif');
-						if(i==data.length-1)
-						{
-							$('#p'+ (i+1).toString()).attr('src','X4.gif');
-						}
-					}*/
-					else 
-					{
-						$('#p'+ i.toString()).attr('src','haekchen.png');
-					}
+                    
 				}
 			}	
 		}
