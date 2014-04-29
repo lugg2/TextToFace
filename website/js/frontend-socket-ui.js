@@ -77,15 +77,16 @@ $(function()
 				{
 					var picsrc = (document.getElementById('p'+i.toString()).src).toString();
 					console.log(picsrc);
-                    if(picsrc.indexOf("kreuz.png") > -1){
-                        $('#p'+ i.toString()).attr('src','X4.gif');
-                        if(i==data.length-1)
-                        {
-                            $('#p'+ (i+1).toString()).attr('src','X4.gif');
-                        }
-                    }else if(picsrc.indexOf("X4.gif") > -1){
+					if(picsrc.indexOf("X4.gif") > -1){
                         $('#p'+ i.toString()).attr('src','haekchen.png');
-                    }
+                    }else if(picsrc.indexOf("kreuz.png") > -1)
+						{
+							$('#p'+ i.toString()).attr('src','X4.gif');
+							if(i==data.length-1)
+							{
+								$('#p'+ (i+1).toString()).attr('src','X4.gif');
+							}
+						}
                     
 				}
 			}	
