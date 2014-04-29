@@ -14,9 +14,9 @@ INSERT INTO eye VALUES
 (2, '/noGender/eye2', 2, 3), 
 (3, '/noGender/eye3', 1, 1), 
 (4, '/noGender/eye4', 3, 2),
-(5, '/noGender/eye5', 3, 2), 
+(5, '/noGender/eye5', 3, 3), 
 (6, '/noGender/eye6', 2, 1),
-(7, '/noGender/eye7', 3, 2),
+(7, '/noGender/eye7', 2, 2),
 (8, '/noGender/eye8', 1, 2);
 
 CREATE TABLE IF NOT EXISTS brow(
@@ -35,8 +35,8 @@ INSERT INTO brow VALUES
 (4, '/man/brow/brow4', 3,2, 1), 
 (5, '/man/brow/brow5', 3,1, 1), 
 (6, '/woman/brow/brow1', 2, 3, 3), 
-(7, '/woman/brow/brow2', 1, 3, 3),
-(8, '/woman/brow/brow3', 1, 3, 3),
+(7, '/woman/brow/brow2', 1, 2, 3),
+(8, '/woman/brow/brow3', 2, 3, 3),
 (9, '/woman/brow/brow4', 2, 2, 3),
 (10, '/woman/brow/brow5', 1, 3, 3);
 
@@ -59,8 +59,8 @@ INSERT INTO hair VALUES
 (6, '/man/hair/hair6',  1, 2, 2),
 (7, '/woman/hair/hair1',  3, 1, 1), 
 (8, '/woman/hair/hair2',  3, 2, 1),
-(9, '/woman/hair/hair3',  3, 2, 1),
-(10, '/woman/hair/hair4',  3, 2, 3),
+(9, '/woman/hair/hair3',  3, 3, 1),
+(10, '/woman/hair/hair4',  3, 1, 3),
 (11, '/woman/hair/hair5',  3, 2, 3),
 (12, '/woman/hair/hair6',  3, 3, 2);
 
@@ -82,7 +82,9 @@ INSERT INTO head VALUES
 (3, '/noGender/head3', 3, 2, 3, 1),
 (4, '/noGender/head4', 1, 1, 2, 1),
 (5, '/noGender/head5', 2, 1, 2, 1),
-(6, '/noGender/head6', 3, 2, 1, 1);
+(6, '/noGender/head6', 3, 2, 1, 1),
+(7, '/noGender/head7', 2, 2, 3, 3),
+(8, '/noGender/head8', 3, 3, 1, 3);
 
 CREATE TABLE IF NOT EXISTS mouth (
   `id` int(30),
@@ -92,17 +94,17 @@ CREATE TABLE IF NOT EXISTS mouth (
   `gender` int(30),
   `beard`int(30)
 );
---beard 1: nicht vorhanden; 0:vorhanden
+--beard 1: kein Bart; 2:mittlerer Bart; 3: Vollbart
 
 INSERT INTO mouth VALUES 
 (1, '/man/mouth/mouth1', 2, 2, 1, 1), 
 (2, '/man/mouth/mouth2', 1, 1, 1, 1), 
 (3, '/man/mouth/mouth3', 1, 2, 1, 1),
 (4, '/man/mouth/mouth4', 2, 1, 1, 1), 
-(5, '/man/mouth/mouth5', 3, 3, 1, 0),
-(6, '/man/mouth/mouth6', 2, 2, 1, 1),
-(7, '/man/mouth/mouth7', 1, 2, 1, 0),
-(8, '/man/mouth/mouth8', 1, 1, 1, 0),
+(5, '/man/mouth/mouth5', 3, 3, 1, 2),
+(6, '/man/mouth/mouth6', 2, 3, 1, 1),
+(7, '/man/mouth/mouth7', 1, 2, 1, 3),
+(8, '/man/mouth/mouth8', 1, 1, 1, 2),
 (9, '/woman/mouth/mouth1', 1, 3, 3, 1),
 (10, '/woman/mouth/mouth2', 2, 2, 3, 1),
 (11, '/woman/mouth/mouth3', 2, 3, 3, 1),
@@ -123,9 +125,9 @@ INSERT INTO nose VALUES
 (3, '/noGender/nose3', 3, 1, 3),
 (4, '/noGender/nose4', 2, 2, 1), 
 (5, '/noGender/nose5', 2, 2, 3), 
-(6, '/noGender/nose6', 1, 3, 3),
+(6, '/noGender/nose6', 1, 2, 3),
 (7, '/noGender/nose7', 3, 2, 3),
-(8, '/noGender/nose8', 2, 1, 1),
+(8, '/noGender/nose8', 3, 1, 1),
 (9, '/noGender/nose9', 1, 3, 3),
 (10, '/noGender/nose10', 2, 3, 2);
 
