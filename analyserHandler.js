@@ -21,7 +21,7 @@ function WorklistItem(publicKey, id, socketID)
     this.analysing = false;
     this.evaluated = false;
     this.createdWantedPoster = false;
-    this.createdPictue = false;
+    this.createdPicture = false;
 }
 
 function generateWorklistItem(socketID)
@@ -139,7 +139,7 @@ function generateProgressArray(worklistItemID)
     worklistItems[worklistItemID].analysing,
     worklistItems[worklistItemID].evaluated,
     worklistItems[worklistItemID].createdWantedPoster,
-    worklistItems[worklistItemID].createdPictue];
+    worklistItems[worklistItemID].createdPicture];
 
 }
 

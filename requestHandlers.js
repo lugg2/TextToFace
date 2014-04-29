@@ -99,7 +99,7 @@ function callbackWantedPoster(id, mData){
 }
 function callbackFaceCreator(objFace){
     faceCreator.createFaceParts(objFace,function() {
-      analyser.notifyStatusChange(objFace.id,'createdPictue')
+        analyser.notifyStatusChange(objFace.id,'createdPicture')
   });
 }
 
