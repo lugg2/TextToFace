@@ -72,19 +72,22 @@ $(function()
             } 
 			else
 			{
-				console.log((document.getElementById('p'+i.toString()).src).toString());
-				if((!(document.getElementById('p'+i.toString()).src).toString().contains("X4.gif"))
-					&&(!(document.getElementById('p'+i.toString()).src).toString().contains("haekchen.png")))
+				if(document.getElementById('p'+i.toString()))
 				{
-					$('#p'+ i.toString()).attr('src','X4.gif');
-					if(i==data.length-1)
+					var picsrc = (document.getElementById('p'+i.toString()).src).toString();
+					console.log(picsrc);
+					if((!picsrc.contains("X4.gif")) && (!picsrc.contains("haekchen.png")))
 					{
-						$('#p'+ (i+1).toString()).attr('src','X4.gif');
+						$('#p'+ i.toString()).attr('src','X4.gif');
+						if(i==data.length-1)
+						{
+							$('#p'+ (i+1).toString()).attr('src','X4.gif');
+						}
 					}
-				}
-				else 
-				{
-					$('#p'+ i.toString()).attr('src','haekchen.png');
+					else 
+					{
+						$('#p'+ i.toString()).attr('src','haekchen.png');
+					}
 				}
 			}	
 		}
