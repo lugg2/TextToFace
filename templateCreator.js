@@ -33,19 +33,20 @@ function generateTemplate(response, request)
 
 			if (err) console.log("could not find wanted Poster");
 	
+				
+			data = data.replace("<WANTEDPOSTER>",wantedPoster);
+			});
+			
 			fs.readFile(__dirname +'/text_analysis/Codemsg/message'+idToken,"utf-8", function (err, message) {
 
 			if (err) console.log("could not find wanted message");
-	
-	
-	
-			data = data.replace("<WANTEDPOSTER>",wantedPoster);
+			
 			data = data.replace("<MESSAGE>",message);
 			
 				response.writeHead(200, {'content-type': 'text/html'});
 				response.write(data);
 				response.end();
-			});
+			
 		});
 	});
 
