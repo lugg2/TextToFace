@@ -34,12 +34,6 @@ INSERT INTO brow VALUES
 (5, '/woman/brow/brow1', 2, 3, 3), 
 (6, '/woman/brow/brow2', 1, 3, 3);
 
-CREATE TABLE IF NOT EXISTS beard (
-  `id` int(30),
-  `picname` varchar(30),
-  `beard` int(11)
-);
-
 
 CREATE TABLE IF NOT EXISTS hair (
   `id` int(30),
@@ -79,16 +73,18 @@ CREATE TABLE IF NOT EXISTS mouth (
   `picname` varchar(30),
   `width` int(11),
   `height` int(11),
-  `gender` int(30)
+  `gender` int(30),
+  `beard`int(30)
 );
+--beard 1: vorhanden; 0:nicht vorhanden
 
 INSERT INTO mouth VALUES 
-(1, '/man/mouth/mouth1', 2, 2, 1), 
-(2, '/man/mouth/mouth2', 1, 1, 1), 
-(3, '/man/mouth/mouth3', 1, 2, 1),
-(4, '/man/mouth/mouth4', 2, 1, 1), 
-(5, '/woman/mouth/mouth1', 1, 3, 3),
-(6, '/woman/mouth/mouth2', 2, 2, 3);
+(1, '/man/mouth/mouth1', 2, 2, 1, 0), 
+(2, '/man/mouth/mouth2', 1, 1, 1, 0), 
+(3, '/man/mouth/mouth3', 1, 2, 1, 0),
+(4, '/man/mouth/mouth4', 2, 1, 1, 0), 
+(5, '/woman/mouth/mouth1', 1, 3, 3, 0),
+(6, '/woman/mouth/mouth2', 2, 2, 3, 0);
 
 CREATE TABLE IF NOT EXISTS nose (
   `id` int(30),
