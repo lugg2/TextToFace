@@ -10,7 +10,7 @@ $(function()
             var len = $('#textInput').val().length;
             if(100 < len && len < 6000){
                 document.getElementById('progressDiv').style.visibility = 'visible';
-                document.getElementById('inputDiv').style.visibility = 'hidden';
+                document.getElementById('inputDiv').style.display = 'none';
                 submitText(event);
             }
         });
