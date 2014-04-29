@@ -76,6 +76,10 @@ $(function()
 				{
 					var picsrc = (document.getElementById('p'+i.toString()).src).toString();
 					console.log(picsrc);
+                    if(picsrc.indexOf("kreuz.png") > -1){
+                        $('#p'+ i.toString()).attr('src','X4.gif');
+                    }
+                    /*
 					if((!picsrc.contains("X4.gif")) && (!picsrc.contains("haekchen.png")))
 					{
 						$('#p'+ i.toString()).attr('src','X4.gif');
@@ -83,7 +87,7 @@ $(function()
 						{
 							$('#p'+ (i+1).toString()).attr('src','X4.gif');
 						}
-					}
+					}*/
 					else 
 					{
 						$('#p'+ i.toString()).attr('src','haekchen.png');
