@@ -69,7 +69,7 @@ $(function()
             } 
 	    else
  	    {
-		console.log(document.getElementById('p'+i.toString()).src);;
+		console.log(document.getElementById('p'+i.toString()).src.toString);
 		if(!document.getElementById('p'+i.toString()).src.toString().contains("X4.gif")
 			&&!document.getElementById('p'+i.toString()).src.toString().contains("haekchen.png"))
 		{
