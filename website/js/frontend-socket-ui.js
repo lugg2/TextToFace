@@ -9,7 +9,7 @@ $(function()
         $("#submitButton").click(function(event){
             var len = $('#textInput').val().length;
             if(100 < len && len < 6000){
-                document.getElementById('progressDiv').style.visibility = 'visible';
+                document.getElementById('progressDiv').style.display = 'block';
                 document.getElementById('inputDiv').style.display = 'none';
                 submitText(event);
             }
@@ -28,15 +28,18 @@ $(function()
         if(inputText.length < 100){
             //border red + text to short
             $("#lengthCheck").text("Es wurde noch nicht genug Text eingegeben, um eine aussagekräftige Analyse bereit zu stellen.");
-            document.getElementById("lengthCheck").style.border="thick solid #CA3C3C";
+            document.getElementById("lengthCheck").style.border = "thick solid #CA3C3C";
+            document.getElementById("submitButton").className = "pure-button-disabled";
         }else if(inputText.length < 6000){
             //border green + text has right length
             $("#lengthCheck").text("Der eingegeben Text entspricht den Vorgaben.");
-            document.getElementById("lengthCheck").style.border="thick solid #1CB841";
+            document.getElementById("lengthCheck").style.border = "thick solid #1CB841";
+            document.getElementById("submitButton").className = "pure-button pure-button-primary";
         }else {
             //border red + text to long
             $("#lengthCheck").text("Der eingegeben Text ist zu lang.");
-            document.getElementById("lengthCheck").style.border="thick solid #CA3C3C";
+            document.getElementById("lengthCheck").style.border = "thick solid #CA3C3C";
+            document.getElementById("submitButton").className = "pure-button-disabled";
         }
     }
 
