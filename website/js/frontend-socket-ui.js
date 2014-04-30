@@ -1,3 +1,5 @@
+//Support: submitText: Lukas, progress: Melanie, checkLength: Patrick
+
 
 $(function()
 {
