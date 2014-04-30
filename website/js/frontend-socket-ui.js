@@ -54,8 +54,6 @@ $(function()
 
         socket.emit('newText', nText, function (data) {
             if (data) {
-                console.log(data.id);
-                console.log(data.pkey);
                 id = data.id;
                 pkey = data.pkey;
             }
