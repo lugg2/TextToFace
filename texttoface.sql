@@ -61,8 +61,7 @@ INSERT INTO hair VALUES
 (8, '/woman/hair/hair2',  3, 2, 1),
 (9, '/woman/hair/hair3',  3, 3, 1),
 (10, '/woman/hair/hair4',  3, 1, 3),
-(11, '/woman/hair/hair5',  3, 2, 3),
-(12, '/woman/hair/hair6',  3, 3, 2);
+(11, '/woman/hair/hair6',  3, 3, 2);
 
 CREATE TABLE IF NOT EXISTS head (
   `id` int(30),
