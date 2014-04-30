@@ -26,6 +26,7 @@ function createWantedPoster( id,mData, callback )
 	var spronomen='';
 	var possessivartikel='';
 	var personalpronomen='';
+	var ihmihr='';
 	wantedPoster +='<p>';
 	
 	if (mData.pirat ==1)
@@ -43,6 +44,7 @@ function createWantedPoster( id,mData, callback )
 			spronomen='er';
 			possessivartikel='seine';
 			personalpronomen='ihn';
+			ihmihr='ihm';
 
 		}
 		else {
@@ -53,6 +55,7 @@ function createWantedPoster( id,mData, callback )
 		spronomen='sie';
 		possessivartikel='ihre';
 		personalpronomen='sie';
+		var ihmihr='ihr';
 		}
 		
 		switch (mData.age){
@@ -70,7 +73,7 @@ function createWantedPoster( id,mData, callback )
 		
 		switch (mData.iq){
 		case 1: wantedPoster += pronomen + ' ist sehr intelligent, der IQ liegt über 130. Deshalb sind '+possessivartikel+' Verbrechen extrem gut geplant.<br>'; break;
-		case 2: wantedPoster += pronomen + ' ist nicht sehr schlau, aber auch nicht dumm. Generell sollte man sich aber vor ihr in Acht nehmen.<br>' ;break;
+		case 2: wantedPoster += pronomen + ' ist nicht sehr schlau, aber auch nicht dumm. Generell sollte man sich aber vor '+ihmihr+' in Acht nehmen.<br>' ;break;
 		case 3: wantedPoster += pronomen + ' ist so dumm, dass '+spronomen+' zum Wasser kochen ein Rezept benötigt.<br>' ;break; 
 		}
 		switch (mData.mentalHealth){
