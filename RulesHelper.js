@@ -3,6 +3,10 @@
 
 //hint: this document is named RulesHelper but it is the real Ruleengine/Automata
 
+//The rules are used to assign values between 1 and 3. Normal texts should give a 2.
+//The values for the rules have been optimsed by using more than 40 example texts. 
+//The values were choosen so that the 2 appears often at normal texts and only extreme texts will be 1 or 3.
+
 //required libraries
 var invoke = require("invoke");
 var facePartsDB = require("./FacePartsDBInterface.js");
