@@ -1,3 +1,12 @@
+/*
+ * Autor: Melanie Hammerschmidt
+ * Reviewer: Lukas, Patrick
+ * 
+ * Description: DBAccess
+ * manages access to thesaurus database
+ * 
+ */
+
 package Project;
 
 import java.sql.Connection;

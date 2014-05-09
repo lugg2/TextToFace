@@ -1,3 +1,12 @@
+/*
+ * Autor: Melanie Hammerschmidt
+ * Reviewer: Lukas, Patrick
+ * 
+ * Description: Reader
+ * reads entered text from file
+ * 
+ */
+
 package Project;
 
 import java.io.DataInputStream;

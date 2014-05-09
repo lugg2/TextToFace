@@ -1,3 +1,13 @@
+/*
+ * Autor: Melanie Hammerschmidt
+ * Reviewer: Lukas, Patrick
+ * 
+ * Description: AnalyserTask 
+ * Task (analysis) which is performed at a certain rate
+ * analyses an entered text (given from the server) and responses the calculation result
+ * 
+ */
+
 package Project;
 
 import java.util.ArrayList;

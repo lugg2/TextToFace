@@ -1,3 +1,12 @@
+/*
+ * Autor: Melanie Hammerschmidt
+ * Reviewer: Lukas, Patrick
+ * 
+ * Description: HttpConnection
+ * manages connection to the server via http GET and POST
+ * 
+ */
+
 package Project;
 
 import java.io.BufferedReader;

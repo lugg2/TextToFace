@@ -1,9 +1,11 @@
 /*
- * TextAnalyser 
- * created by TextToFace GmbH
+ * Autor: Melanie Hammerschmidt
+ * Reviewer: Lukas, Patrick
  * 
- * support for this software product 
- * by Melanie Hammerschmidt
+ * Description: TextAnalyser 
+ * main class for text analysis
+ * initializes Calculator data and starts TimerTask every 5 seconds
+ * 
  */
 
 package Project;

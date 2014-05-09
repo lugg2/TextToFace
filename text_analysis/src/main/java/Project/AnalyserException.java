@@ -1,3 +1,12 @@
+/*
+ * Autor: Melanie Hammerschmidt
+ * Reviewer: Lukas, Patrick
+ * 
+ * Description: AnalyserException
+ * personal exception
+ * 
+ */
+
 package Project;
 
 public class AnalyserException extends Exception{

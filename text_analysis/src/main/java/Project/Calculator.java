@@ -1,3 +1,12 @@
+/*
+ * Autor: Melanie Hammerschmidt
+ * Reviewer: Lukas, Patrick
+ * 
+ * Description: Calculator
+ * calculations for a certain text
+ * 
+ */
+
 package Project;
 
 import java.io.IOException;
