@@ -1,3 +1,9 @@
+/*
+ Authors:   Lukas
+ Reviewers: Victor
+ Description: defines the metadata of the server and adds sockets
+ */
+
 var http = require("http");
 var url = require("url");
 var fs = require('fs');

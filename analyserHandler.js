@@ -1,3 +1,10 @@
+/*
+ Authors    : Lukas
+ Reviewers  : Patrick, Anna
+ Description : Handles the workflow of creating a picture
+    Updates the progress
+ */
+
 var exec = require("child_process").exec;
 var url = require("url");
 var util = require("util");

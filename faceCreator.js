@@ -1,7 +1,8 @@
-//Support: Patrick
-//Use: The image of the face is created
-//Requirements: A valid objFace has to be passed
-
+/*
+ Authors:   Patrick
+ Reviewers: Victor
+ Description: The image of the face is created
+ */
 
 //required libraries
 var invoke = require("invoke");
@@ -19,7 +20,7 @@ function faceCreator(objFace, callbackFinish){
     function loadImage(name){
         if(objFace[name] != null) {
             try{
-                objFace[name] = images(__dirname + '/TextToFaceBilder' + objFace[name] + '.png');		//Load backgroundimage from file
+                objFace[name] = images(__dirname + '/TextToFaceBilder' + objFace[name] + '.png');		
             }catch(err){
                 //In case of not loading the image the default value null is set. This causes not drawing this part of the face but the rest will be created normally.
                 objFace[name] = null;
@@ -31,7 +32,6 @@ function faceCreator(objFace, callbackFinish){
 	//invoke.end is called if all asynchron functions are terminated
 	//the images are load from the filesystem asychron. The order of the loadImage() calls is not important
 	invoke(function (data, callback) {
-		//TODO communicate postfix 
 		//load image of hair2 with another postfix  
 		objFace.hair1 = objFace.hair2 + 'back';
 		loadImage("hair1");
@@ -56,7 +56,7 @@ function faceCreator(objFace, callbackFinish){
 		callback();
 	}).end( objFace, function (data, callback) {
 
-
+		//The background image, on which all other images a drawn is created
 		var face = images(imageWidth, imageHeight).fill(0xff, 0xff, 0xff, 1.0);
 
 		//Loops through all key's of the object
@@ -83,6 +83,7 @@ function faceCreator(objFace, callbackFinish){
 			quality : 100
 		});
 		callbackFinish(objFace.id);
+		//delete reference on a image
         objFace = null;
         face = null;
 	})

@@ -1,3 +1,10 @@
+/*
+ Authors:   Victor
+ Reviewers: Lukas
+ Description: Creates the wanted poster with the metadata about the person
+ */
+
+
 var fs = require('fs');
 /*
 var metaData = {
@@ -8,6 +15,8 @@ var metaData = {
 	mentalHealth : 1
 }
 
+
+// Used for testing
 function main()
 {
 createWantedPoster(2,metaData,ready);

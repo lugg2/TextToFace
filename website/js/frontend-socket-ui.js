@@ -1,3 +1,8 @@
+/*
+ Authors submitText: Lukas, progress: Melanie, checkLength: Patrick
+ Reviewers: Victor, Patrick
+ Description: Handles Socket Communication, shows progress and checks length of input
+ */
 
 $(function()
 {
@@ -52,8 +57,6 @@ $(function()
 
         socket.emit('newText', nText, function (data) {
             if (data) {
-                console.log(data.id);
-                console.log(data.pkey);
                 id = data.id;
                 pkey = data.pkey;
             }

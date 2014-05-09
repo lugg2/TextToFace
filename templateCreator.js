@@ -1,3 +1,9 @@
+/*
+ Authors:       Victor
+ Reviewers:     Patrick
+ Description:   Creates the response dynamically
+ */
+
 var fs = require('fs');
 var url = require('url');
 var util = require('util');
