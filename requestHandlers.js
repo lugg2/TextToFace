@@ -1,3 +1,11 @@
+/*
+ Authors    : Lukas
+ Reviewers  : Melanie, Victor
+ Description: handles request that are not requests for static files.
+              handles communication with the analyser
+ */
+
+
 var formidable = require("formidable");
 var querystring = require("querystring");
 var fs = require("fs");

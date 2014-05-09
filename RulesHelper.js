@@ -1,5 +1,6 @@
-//Support: Patrick
-//Use: find image parts for the analysed text.
+//Author : Patrick & Melanie
+//Description : find image parts for the analysed text.
+//Reviewer : Victor
 
 //hint: this document is named RulesHelper but it is the real Ruleengine/Automata
 

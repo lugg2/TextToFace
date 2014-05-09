@@ -1,3 +1,10 @@
+
+/*
+ Authors    Lukas
+ Reviewers  Patrick
+ Description Serves static files (for example Index.html)
+ */
+
 var mime 	= require('mime');
 var fs 		= require('fs');
 var path 	= require('path');

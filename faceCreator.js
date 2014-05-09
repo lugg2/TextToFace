@@ -1,7 +1,8 @@
-//Support: Patrick
-//Use: The image of the face is created
-//Requirements: A valid objFace has to be passed
-
+/*
+ Authors:   Patrick
+ Reviewers: Victor
+ Description: The image of the face is created
+ */
 
 //required libraries
 var invoke = require("invoke");

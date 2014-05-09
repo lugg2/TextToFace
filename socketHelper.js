@@ -1,6 +1,9 @@
-/**
- * Created by lugg on 20.04.14.
+/*
+ Authors:       Lukas
+ Reviewers:     Melanie
+ Description:   handles realtime communication with the client
  */
+
 var socketio = require('socket.io');
 var analyserHandler = require('./analyserHandler.js');
 var fs = require('fs');

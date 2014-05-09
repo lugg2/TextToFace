@@ -1,5 +1,5 @@
 /*
- Owner :         Silke
+ Author :         Silke
  Description :   This module calculate which facePart fits best to the results of the RuleAutomata
  Reviewer :      Lukas
  */
@@ -61,9 +61,7 @@ function queryDB(tablename, queryArray, callback){
 
         db.each("SELECT * FROM " + tablename, forEachRow, onComplete);
 
-
-
-    }
+}
 
 
 exports.queryDB = queryDB;

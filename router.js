@@ -1,3 +1,9 @@
+/*
+ Authors    : taken from book Node.js for Beginners
+ Reviewers
+ Description: glues together the static file handler as well as the request handler
+*/
+
 
 var serveStaticFile = require('./ServeHtmlFiles');
 

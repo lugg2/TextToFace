@@ -1,6 +1,10 @@
-/**
- * Created by lugg on 20.04.14.
+/*
+ Authors: Lukas
+ Reviewers: -
+ Description: used as test for the FacePartsDBInterface
+              not used in productive enviroments
  */
+
 var FPI = require("./FacePartsDBInterface.js");
 
 function KeyValueConstr(key,value)
